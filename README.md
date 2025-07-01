@@ -1,0 +1,1 @@
+# ha-full-config-yaml-only
