@@ -1,0 +1,1136 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+  extra_module_url:
+    - /homeassistant/www/community/lovelace-card-mod/card-mod.js
+
+logger:
+  default: warning
+  logs:
+    homeassistant.components.homekit: debug
+
+recorder:
+  exclude:
+    domains:
+      - device_tracker
+      - icloud3
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+homekit:
+  - name: "Input Boolean Bridge" # New bridge for input_booleans
+    port: 51828 # Ensure a unique port number
+    filter:
+      include_entities:
+        - input_boolean.steve_on_wifi
+        - input_boolean.apple_home_office_fan
+
+notify:
+  - name: "stevetext"
+    platform: smtp
+    sender: "sziegler752002@yahoo.com"
+    recipient: "7038250630@mms.att.net"
+    server: smtp.mail.yahoo.com
+    encryption: tls
+    port: 465
+    username: "sziegler752002@yahoo.com"
+    password: "pxfcxlvtfehmejtz"
+
+  - name: "williamtext"
+    platform: smtp
+    sender: "sziegler752002@yahoo.com"
+    recipient: "9842926993@mms.att.net"
+    server: smtp.mail.yahoo.com
+    encryption: tls
+    port: 465
+    username: "sziegler752002@yahoo.com"
+    password: "pxfcxlvtfehmejtz"
+
+  - name: "owentext"
+    platform: smtp
+    sender: "sziegler752002@yahoo.com"
+    recipient: "9843084884@mms.att.net"
+    server: smtp.mail.yahoo.com
+    encryption: tls
+    port: 465
+    username: "sziegler752002@yahoo.com"
+    password: "pxfcxlvtfehmejtz"
+
+  - name: TvOverlayNotify
+    platform: rest
+    method: POST_JSON
+    resource: http://192.168.1.88:5001/notify
+    verify_ssl: false
+    title_param_name: title
+    data:
+      id: "{{ data.id | default(null) }}" # string | main text | default: null
+      appTitle: "{{ data.appTitle  | default('Home Assistant') }}" # string | extra info text | default: null
+      color: "{{ data.color | default('#049cdb') }}" # string | color tint for smallIcon. accepts 6 or 8 digit color hex. the '#' is optional | default: null
+      image: "{{ data.image | default(null) }}" # string | accepts mdi icons, image urls and Bitmap encoded to Base64 | default: null
+      video: "{{ data.video | default(null) }}" # string | video url. supports rtps, hls, dash, smoothstreaming | default: null
+      smallIcon: "{{ data.smallIcon | default(null) }}" # string | accepts mdi icons, image urls and Bitmap encoded to Base64 | default: null
+      largeIcon: "{{ data.largeIcon | default(null) }}" # string | accepts mdi icons, image urls and Bitmap encoded to Base64 | default: null
+      corner: "{{ data.corner  | default(null) }}" # string | position on the screen. accept values: bottom_start, bottom_end, top_start, top_end | default: null (uses hot corner)
+      seconds: "{{ data.seconds | default(null) }}" # int | duration that the notification will stay visible in seconds | default: null (uses duration setting)
+
+  - name: TvOverlayNotifyFixed
+    platform: rest
+    method: POST_JSON
+    resource: http://192.168.1.88:5001/notify_fixed
+    verify_ssl: false
+    title_param_name: title
+    data:
+      id: "{{ data.id | default(null) }}" # string | can be used to edit or remove the fixed notification | default: [random]
+      text: "{{ data.text  | default(null) }}" # string | main text | default: null
+      icon: "{{ data.icon | default(null) }}" # string | accepts mdi icons, image urls and Bitmap encoded to Base64 | default: null
+      textColor: "{{ data.textColor | default(null) }}" # string | accepts 6 or 8 digit color hex. the '#' is optional | default: #FFFFFF
+      iconColor: "{{ data.iconColor | default(null) }}" # string | accepts 6 or 8 digit color hex. the '#' is optional | default: #FFFFFF
+      borderColor: "{{ data.borderColor | default(null) }}" # string | accepts 6 or 8 digit color hex. the '#' is optional | default: #FFFFFF
+      backgroundColor: "{{ data.backgroundColor | default(null) }}" # string | accepts 6 or 8 digit color hex. the '#' is optional | default: #66000000
+      shape: "{{ data.shape | default(null) }}" # string | frame style. accept values: circle, rounded, rectangular | default: "rounded"
+      visible: "{{ data.visible | default(true) }}" # boolean || if false, removes the fixed notification with matching id || default: true
+      expiration: "{{ data.expiration | default(null) }}" # string or int | when the notification will be removed. valid formats: 1695693410 (Epoch time), 1y2w3d4h5m6s (duration format) or 123 (for seconds) | default:  null
+
+rest_command:
+  textbelt_dynamic:
+    url: "http://textbelt.com/text"
+    headers:
+      Content-Type: application/x-www-form-urlencoded
+    method: POST
+    payload: "key=64502f96ea35fe99331806308d027227a8dbd67eF8R95wTFBwFVpfslxXsIFRmez&phone={{ phone }}&message={{ message }}"
+
+  textbelt_quota:
+    url: "http://textbelt.com/quota/64502f96ea35fe99331806308d027227a8dbd67eF8R95wTFBwFVpfslxXsIFRmez"
+    headers:
+      Content-Type: application/x-www-form-urlencoded
+    method: GET
+
+  aws_text_desc:
+    url: "https://vmyfjt777k.execute-api.us-east-1.amazonaws.com/Prod/text?api_key=JDJ83IEIpzmwkgdutKjdjdjljkjksdjflskjsdlk3922323dbd0d"
+    method: GET
+
+  aws_text_send:
+    url: "https://vmyfjt777k.execute-api.us-east-1.amazonaws.com/Prod/text/send?api_key=JDJ83IEIpzmwkgdutKjdjdjljkjksdjflskjsdlk3922323dbd0d"
+    headers:
+      Content-Type: application/json
+    method: POST
+    payload: >
+      {
+        "phone": "{{ phone }}",
+        "message": "{{ message }}"
+
+      }
+  aws_text_send_testing:
+    url: "https://vmyfjt777k.execute-api.us-east-1.amazonaws.com/Prod/text/send?mode=testing&api_key=JDJ83IEIpzmwkgdutKjdjdjljkjksdjflskjsdlk3922323dbd0d"
+    headers:
+      Content-Type: application/json
+    method: POST
+    payload: >
+      {
+        "phone": "{{ phone }}",
+        "message": "{{ message }}"
+      }
+  tvoverlay:
+    url: http://192.168.1.88:5001/set/overlay
+    method: POST
+    verify_ssl: false
+    headers:
+      accept: "application/json"
+    content_type: "application/json; charset=utf-8"
+    payload: "{{ payload }}"
+
+sensor:
+  - platform: rest
+    name: text_quota
+    resource: http://textbelt.com/quota/64502f96ea35fe99331806308d027227a8dbd67eF8R95wTFBwFVpfslxXsIFRmez
+    method: GET
+    headers:
+      Content-Type: application/json
+    value_template: "{{ quotaRemaining }}"
+    scan_interval: 300
+  - platform: statistics
+    name: "Garage Motion Illuminance Moving Average"
+    entity_id: sensor.garage_motion_backdoor_illuminance_lux
+    state_characteristic: mean
+    max_age:
+      minutes: 5
+  - platform: statistics
+    name: "👚 Washer Current Ratio - 1 min"
+    entity_id: sensor.washer_current_ratio
+    state_characteristic: mean
+    max_age:
+      minutes: 1
+  - platform: statistics
+    name: "👚 Washer Current Ratio - 3 min"
+    entity_id: sensor.washer_current_ratio
+    state_characteristic: mean
+    max_age:
+      minutes: 3
+  - platform: statistics
+    name: "👚 Washer Current Ratio - 5 min"
+    entity_id: sensor.washer_current_ratio
+    state_characteristic: mean
+    max_age:
+      minutes: 5
+  - platform: statistics
+    name: "👚 Washer Current Ratio - 7 min"
+    entity_id: sensor.washer_current_ratio
+    state_characteristic: mean
+    max_age:
+      minutes: 7
+  - platform: statistics
+    name: "👚 Washer Current Ratio - 10 min"
+    entity_id: sensor.washer_current_ratio
+    state_characteristic: mean
+    max_age:
+      minutes: 10
+  - platform: history_stats
+    name: "🔥 Downstairs Minutes Heating"
+    entity_id: input_text.downstairs_ecobee_state # Adjust this to your actual entity
+    state: "heating" # Matches when heating is on
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+  - platform: history_stats
+    name: "🔥 Upstairs Minutes Heating"
+    entity_id: input_text.upstairs_ecobee_state # Adjust this to your actual entity
+    state: "heating" # Matches when heating is on
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+  - platform: history_stats
+    name: "🔥 Downstairs Minutes Heating Hourly"
+    entity_id: input_text.downstairs_ecobee_state # Adjust this to your actual entity
+    state: "heating" # Matches when heating is on
+    type: time
+    start: "{{ now().replace(minute=0, second=0) }}"
+    end: "{{ now() }}"
+  - platform: history_stats
+    name: "🔥 Upstairs Minutes Heating Hourly"
+    entity_id: input_text.upstairs_ecobee_state # Adjust this to your actual entity
+    state: "heating" # Matches when heating is on
+    type: time
+    start: "{{ now().replace(minute=0, second=0) }}"
+    end: "{{ now() }}"
+  - platform: history_stats
+    name: "❄️ Downstairs Minutes Cooling"
+    entity_id: input_text.downstairs_ecobee_state # Adjust this to your actual entity
+    state: "cooling" # Matches when cooling is on
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+  - platform: history_stats
+    name: "❄️ Upstairs Minutes Cooling"
+    entity_id: input_text.upstairs_ecobee_state # Adjust this to your actual entity
+    state: "cooling" # Matches when cooling is on
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+  - platform: history_stats
+    name: "❄️ Downstairs Minutes Cooling Hourly"
+    entity_id: input_text.downstairs_ecobee_state # Adjust this to your actual entity
+    state: "cooling" # Matches when cooling is on
+    type: time
+    start: "{{ now().replace(minute=0, second=0) }}"
+    end: "{{ now() }}"
+  - platform: history_stats
+    name: "❄️ Upstairs Minutes Cooling Hourly"
+    entity_id: input_text.upstairs_ecobee_state # Adjust this to your actual entity
+    state: "cooling" # Matches when cooling is on
+    type: time
+    start: "{{ now().replace(minute=0, second=0) }}"
+    end: "{{ now() }}"
+  - platform: history_stats
+    name: "Paused Upstairs Ecobee"
+    entity_id: input_boolean.paused_upstairs_ecobee
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+template:
+  - binary_sensor:
+      - name: "Payday Soon"
+        unique_id: payday_soon
+        state: >
+          {% set start = state_attr('calendar.icf_paydays', 'start_time') %}
+          {% if start %}
+            {% set date = as_datetime(start).date() %}
+            {% set days = (date - now().date()).days %}
+            {{ 0 <= days < 6 }}
+          {% else %}
+            false
+          {% endif %}
+        device_class: safety
+
+  - trigger:
+      - platform: time
+        minutes: "/5"
+      - platform: homeassistant
+        event: start # Also update on Home Assistant restart
+    sensor:
+      - name: "Today's Low Temperature"
+        unique_id: todays_low_temp
+        unit_of_measurement: "°F" # Change to °C if needed
+        state: >
+          {{ this.attributes.today_low if this.attributes.templow is defined else 'unknown' }}
+        attributes:
+          today_low: >
+            {% set forecasts = (trigger.response.weather.forecast_home.forecast if trigger.response is defined and 'weather.forecast_home' in trigger.response else []) %}
+            {% if forecasts and forecasts[0] %}
+              {{ forecasts[0].templow if forecasts[0].templow is defined else forecasts[0].temperature }}
+            {% else %}
+              unknown
+            {% endif %}
+        trigger_variables:
+          entity_id: weather.forecast_home
+        service: weather.get_forecasts
+        data:
+          type: daily
+
+  - sensor:
+      - name: "Odd Month Sensor"
+        state: >
+          {{ now().month % 2 == 1 }}
+        attributes:
+          friendly_name: "Is Odd Month"
+          icon: mdi:calendar
+      - name: "Active Timers"
+        state: >
+          {{ states.timer | selectattr('state', 'eq', 'active') | list | length > 0 }}
+        icon: mdi:timer
+      - name: "Active Timers List"
+        state: >
+          {% set active_timers = states.timer | selectattr('state', 'eq', 'active') | map(attribute='name') | list %}
+          {{ active_timers | join(', ') if active_timers | length > 0 else 'No active timers' }}
+        attributes:
+          active_timers: >
+            {{ states.timer | selectattr('state', 'eq', 'active') | map(attribute='entity_id') | list }}
+      - name: "🌔 Night"
+        state: >
+          {{ state_attr('sun.sun', 'elevation') <= -2 }}
+      - name: "🌒 Late Night"
+        state: >
+          {{ is_state('schedule.late_night', 'on') }}
+      - name: "☀️ Average Sunlight"
+        unit_of_measurement: "lx"
+        state: >
+          {% set lux1 = states('sensor.kitchen_motion_illuminance_lux') | float(0) %}
+          {% set lux2 = states('sensor.office_motion_sensor_illuminance_lux') | float(0) %}
+          {{ (lux1 + lux2) / 2 }}
+      - name: "🚶 Recent House Motion"
+        state: >
+          {{ is_state('timer.last_motion_timer', 'active') }}
+        icon: mdi:timer-sand
+      - name: "🔵📓 Owen Has School Today"
+        state: >
+          {{ 
+            (now().isoweekday() in range(1, 6)) and 
+            (states('input_datetime.school_year_begins') <= now().strftime('%Y-%m-%d') <= states('input_datetime.school_year_ends')) and 
+            (is_state('input_boolean.owen_off_today', 'off'))
+          }}
+      - name: "🔵📓 Owen Has School Tomorrow"
+        state: >
+          {{
+            ((now() + timedelta(days=1)).isoweekday() in range(1, 6)) and 
+            (states('input_datetime.school_year_begins') <= (now() + timedelta(days=1)).strftime('%Y-%m-%d') <= states('input_datetime.school_year_ends')) and 
+            (is_state('input_boolean.owen_off_tomorrow', 'off'))
+          }}
+      - name: "🟢📓 William Has School Today"
+        state: >
+          {{ 
+            (now().isoweekday() in range(1, 6)) and 
+            (states('input_datetime.school_year_begins') <= now().strftime('%Y-%m-%d') <= states('input_datetime.school_year_ends')) and 
+            (is_state('input_boolean.william_off_today', 'off'))
+          }}
+      - name: "🟢📓 William Has School Tomorrow"
+        state: >
+          {{
+            ((now() + timedelta(days=1)).isoweekday() in range(1, 6)) and 
+            (states('input_datetime.school_year_begins') <= (now() + timedelta(days=1)).strftime('%Y-%m-%d') <= states('input_datetime.school_year_ends')) and 
+            (is_state('input_boolean.william_off_tomorrow', 'off'))
+          }}
+      - name: "🩷📓 Charlotte Has School Today"
+        state: >
+          {{ 
+            (now().isoweekday() in range(1, 6)) and 
+            (states('input_datetime.school_year_begins') <= now().strftime('%Y-%m-%d') <= states('input_datetime.school_year_ends')) and 
+            (is_state('input_boolean.charlotte_off_today', 'off'))
+          }}
+      - name: "🩷📓 Charlotte Has School Tomorrow"
+        state: >
+          {{
+            ((now() + timedelta(days=1)).isoweekday() in range(1, 6)) and 
+            (states('input_datetime.school_year_begins') <= (now() + timedelta(days=1)).strftime('%Y-%m-%d') <= states('input_datetime.school_year_ends')) and 
+            (is_state('input_boolean.charlotte_off_tomorrow', 'off'))
+          }}
+      - name: "🚪 Any Door Open"
+        state: >
+          {{ is_state('binary_sensor.deck_door_contact', 'on') or is_state('binary_sensor.back_door_contact', 'on') or is_state('binary_sensor.front_door_contact', 'on')or is_state('binary_sensor.deck_screen_door_contact', 'on') }}
+      - name: "👚 Washer Running"
+        state: >
+          {% set avg = states('sensor.washer_current_avg') | float(0) %}
+          {{ avg is not none and avg > 0.3 }}
+
+      - name: "👚 Washer Current Avg Rounded"
+        unit_of_measurement: "A"
+        state: >
+          {% set avg = states('sensor.washer_current_avg') | float %}
+          {{ (avg * 2) | round(0) / 2 }}
+
+      - name: "👚 Washer Current Std Moving Rounded"
+        unit_of_measurement: "A"
+        state: >
+          {% set std = states('sensor.washer_current_std_moving') | float %}
+          {{ (std * 2) | round(0) / 2 }}
+          {{ 0.01 if rounded == 0 else rounded }}
+
+      - name: "👚 Washer Current Min"
+        unit_of_measurement: "A" # Assuming the unit is Amperes
+        state: >
+          {{ (states('sensor.washer_current_avg_rounded') | float) - (states('sensor.washer_current_std_moving_rounded') | float) }}
+
+      - name: "👚 Washer Current Max"
+        unit_of_measurement: "A" # Assuming the unit is Amperes
+        state: >
+          {{ (states('sensor.washer_current_avg_rounded') | float) + (states('sensor.washer_current_std_moving_rounded') | float) }}
+
+      - name: "👚 Washer Current Ratio"
+        unit_of_measurement: "A"
+        state: >
+          {{ (states('sensor.washer_current_avg') | float) / (states('sensor.washer_current_std_moving') | float) }}
+
+      - name: "👚📈 Ratio Change Over Time"
+        unit_of_measurement: "A"
+        state: >
+          {{ (states('sensor.washer_current_ratio_3_min') | float) / (states('sensor.washer_current_ratio_5_min') | float) }}
+
+      - name: "👚 Washer Current Ratio Max - Min"
+        unit_of_measurement: "A"
+        state: >
+          {{ (states('sensor.washer_current_ration_max_2_min') | float) - (states('sensor.washer_current_ration_min_2_min') | float) }}
+
+      - name: "🚶 Any Motion "
+        state: >
+          {% set motion_entities = states.binary_sensor | selectattr('state', 'eq', 'on') | selectattr('attributes.device_class', 'eq', 'occupancy') %}
+          {% set areas = motion_entities | map(attribute='entity_id') | map('area_name') | reject('equalto', none) | list %}
+          {{ areas | join(', ') if areas | length > 0 else '' }}
+
+      - name: "💡 Any Lights"
+        state: >
+          {% set light_entities = states.light | selectattr('state', 'eq', 'on') %}
+          {% set areas = light_entities | map(attribute='entity_id') | map('area_name') | reject('equalto', none) | list %}
+          {{ areas | join(', ') if areas | length > 0 else '' }}
+
+      - name: "🚪 Any Doors"
+        state: >
+          {% set doors = '' %}
+          {% if is_state('input_boolean.back_door_opened_recently', 'on') %}
+            {% set doors = doors + 'Back, ' %}
+          {% endif %}
+          {% if is_state('input_boolean.deck_door_opened_recently', 'on') %}
+            {% set doors = doors + 'Deck, ' %}
+          {% endif %}
+          {% if is_state('input_boolean.front_door_opened_recently', 'on') %}
+            {% set doors = doors + 'Front, ' %}
+          {% endif %}
+          {% if is_state('input_boolean.deck_screen_door_opened_recently', 'on') %}
+            {% set doors = doors + 'Screen, ' %}
+          {% endif %}
+          {% if is_state('input_boolean.garage_door_small_opened_recently', 'on') %}
+            {% set doors = doors + 'Garage, ' %}
+          {% endif %}
+          {{ doors.strip(', ') }}
+
+      - name: "⚡️ Downstairs Ecobee Energy Sensor"
+        state: "{{ states('input_number.downstairs_ecobee_energy') | float(0) }}"
+        unit_of_measurement: "kWh"
+        state_class: "total_increasing"
+        device_class: "energy"
+
+      - name: "⚡️ Upstairs Ecobee Energy Sensor"
+        state: "{{ states('input_number.upstairs_ecobee_energy') | float(0) }}"
+        unit_of_measurement: "kWh"
+        state_class: "total_increasing"
+        device_class: "energy"
+
+      - name: "🌡️ Average Monthly High Temperature"
+        unique_id: avg_monthly_high
+        unit_of_measurement: "°F"
+        state: >
+          {% set total = states('input_number.monthly_high_total') | float(0) %}
+          {% set count = states('input_number.monthly_day_count') | float(1) %}
+          {% if count > 0 %}
+            {{ (total / count) | round(1) }}
+          {% else %}
+            unknown
+          {% endif %}
+
+      - name: "🌡️ Average Monthly Low Temperature"
+        unique_id: avg_monthly_low
+        unit_of_measurement: "°F"
+        state: >
+          {% set total = states('input_number.monthly_low_total') | float(0) %}
+          {% set count = states('input_number.monthly_day_count') | float(1) %}
+          {% if count > 0 %}
+            {{ (total / count) | round(1) }}
+          {% else %}
+            unknown
+          {% endif %}
+      - name: "🚘 Garage Door Small Open Duration"
+        unique_id: garage_door_small_open_duration
+        state: >
+          {% set last_open = states('input_datetime.garage_door_small_last_opened') %}
+          {% if last_open not in ['unknown', 'unavailable'] %}
+            {% set dt = as_datetime(last_open).astimezone() %}
+            {% if dt.year == 1970 %}
+              0
+            {% else %}
+              {{ ((now() - dt).total_seconds() / 60) | round(1) }}
+            {% endif %}
+          {% else %}
+            unknown
+          {% endif %}
+        unit_of_measurement: "minutes"
+        icon: mdi:clock-outline
+
+      - name: "🚘 Garage Door Large Open Duration"
+        unique_id: garage_door_large_open_duration
+        state: >
+          {% set last_open = states('input_datetime.garage_door_large_last_opened') %}
+          {% if last_open not in ['unknown', 'unavailable'] %}
+            {% set dt = as_datetime(last_open).astimezone() %}
+            {% if dt.year == 1970 %}
+              0
+            {% else %}
+              {{ ((now() - dt).total_seconds() / 60) | round(1) }}
+            {% endif %}
+          {% else %}
+            unknown
+          {% endif %}
+        unit_of_measurement: "minutes"
+        icon: mdi:clock-outline
+
+      - name: "❄️ Upstairs Ecobee Target Temp High"
+        unit_of_measurement: "°F"
+        state: "{{ state_attr('climate.upstairs_ecobee', 'target_temp_high') | float }}"
+        device_class: temperature
+
+      - name: "🔥 Upstairs Ecobee Target Temp Low"
+        unit_of_measurement: "°F"
+        state: "{{ state_attr('climate.upstairs_ecobee', 'target_temp_low') | float }}"
+        device_class: temperature
+
+      - name: "🌡️ Upstairs Ecobee Target Single"
+        unit_of_measurement: "°F"
+        state: "{{ state_attr('climate.upstairs_ecobee', 'temperature') | float }}"
+        device_class: temperature
+
+      - name: "❄️ Downstairs Ecobee Target Temp High"
+        unit_of_measurement: "°F"
+        state: "{{ state_attr('climate.downstairs_ecobee', 'target_temp_high') | float }}"
+        device_class: temperature
+
+      - name: "🔥 Downstairs Ecobee Target Temp Low"
+        unit_of_measurement: "°F"
+        state: "{{ state_attr('climate.downstairs_ecobee', 'target_temp_low') | float }}"
+        device_class: temperature
+
+      - name: "🌡️ Downstairs Ecobee Target Single"
+        unit_of_measurement: "°F"
+        state: "{{ state_attr('climate.downstairs_ecobee', 'temperature') | float }}"
+        device_class: temperature
+
+      - name: "💰 Next Paycheck"
+        unique_id: next_paycheck_countdown
+        state: >
+          {% set start = state_attr('calendar.icf_paydays', 'start_time') %}
+          {% if start %}
+            {% set date = as_datetime(start).date() %}
+            {% set days = (date - now().date()).days %}
+            {% if days < 3 %}
+              {% set emoji = "💰" %}
+            {% elif days < 6 %}
+              {% set emoji = "😀" %}
+            {% else %}
+              {% set emoji = "😔" %}
+            {% endif %}
+            {{ emoji }} {{ days }} day{{ 's' if days != 1 }} until next paycheck ({{ date.strftime('%-m/%-d/%y') }})
+          {% else %}
+            😐 No upcoming paycheck event found
+          {% endif %}
+      - name: "🩷 Minutes Since Charlotte Motion"
+        unit_of_measurement: "min"
+        state: >
+          {% set last_motion = states('input_datetime.charlotte_room_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {{ ((now_naive - last_dt).total_seconds() / 60) | int }}
+          {% else %}
+            0
+          {% endif %}
+        icon: >
+          {% set last_motion = states('input_datetime.charlotte_room_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
+            {% if mins <= 10 %}
+              mdi:check-bold
+            {% else %}
+              mdi:clock-outline
+            {% endif %}
+          {% else %}
+            mdi:clock-outline
+          {% endif %}
+
+      - name: "🟩 Minutes Since William Motion"
+        unit_of_measurement: "min"
+        state: >
+          {% set last_motion = states('input_datetime.william_room_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {{ ((now_naive - last_dt).total_seconds() / 60) | int }}
+          {% else %}
+            0
+          {% endif %}
+        icon: >
+          {% set last_motion = states('input_datetime.william_room_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
+            {% if mins <= 10 %}
+              mdi:check-bold
+            {% else %}
+              mdi:clock-outline
+            {% endif %}
+          {% else %}
+            mdi:clock-outline
+          {% endif %}
+
+      - name: "🟦 Minutes Since Owen Motion"
+        unit_of_measurement: "min"
+        state: >
+          {% set last_motion = states('input_datetime.owen_room_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {{ ((now_naive - last_dt).total_seconds() / 60) | int }}
+          {% else %}
+            0
+          {% endif %}
+        icon: >
+          {% set last_motion = states('input_datetime.owen_room_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
+            {% if mins <= 10 %}
+              mdi:check-bold
+            {% else %}
+              mdi:clock-outline
+            {% endif %}
+          {% else %}
+            mdi:clock-outline
+          {% endif %}
+
+      - name: "🚽 Minutes Since Master Bathroom Motion"
+        unit_of_measurement: "min"
+        state: >
+          {% set last_motion = states('input_datetime.master_bathroom_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {{ ((now_naive - last_dt).total_seconds() / 60) | int }}
+          {% else %}
+            0
+          {% endif %}
+        icon: >
+          {% set last_motion = states('input_datetime.master_bathroom_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
+            {% if mins <= 10 %}
+              mdi:check-bold
+            {% else %}
+              mdi:clock-outline
+            {% endif %}
+          {% else %}
+            mdi:clock-outline
+          {% endif %}
+
+      - name: "🛌 Minutes Since Master Bedroom Motion"
+        unit_of_measurement: "min"
+        state: >
+          {% set last_motion = states('input_datetime.master_bedroom_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {{ ((now_naive - last_dt).total_seconds() / 60) | int }}
+          {% else %}
+            0
+          {% endif %}
+        icon: >
+          {% set last_motion = states('input_datetime.master_bedroom_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
+            {% if mins <= 10 %}
+              mdi:check-bold
+            {% else %}
+              mdi:clock-outline
+            {% endif %}
+          {% else %}
+            mdi:clock-outline
+          {% endif %}
+
+      - name: "💦🍽️ Dishwasher Minutes Remaining"
+        unit_of_measurement: "min"
+        state: >
+          {% set finishes_at = state_attr('timer.dishwasher', 'finishes_at') %}
+          {% if finishes_at %}
+            {% set finish_dt = as_datetime(finishes_at) %}
+            {% set now = now() %}
+            {% set delta = (finish_dt - now).total_seconds() %}
+            {{ (delta / 60) | round(0, 'ceil') if delta > 0 else 0 }}
+          {% else %}
+            0
+          {% endif %}
+
+      - name: "🏠 Minutes Since Office Motion"
+        unit_of_measurement: "min"
+        state: >
+          {% set last_motion = states('input_datetime.office_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {{ ((now_naive - last_dt).total_seconds() / 60) | int }}
+          {% else %}
+            0
+          {% endif %}
+        icon: >
+          {% set last_motion = states('input_datetime.office_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
+            {% if mins <= 10 %}
+              mdi:check-bold
+            {% else %}
+              mdi:clock-outline
+            {% endif %}
+          {% else %}
+            mdi:clock-outline
+          {% endif %}
+
+      - name: "🍽️ Minutes Since Kitchen Motion"
+        unit_of_measurement: "min"
+        state: >
+          {% set last_motion = states('input_datetime.kitchen_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {{ ((now_naive - last_dt).total_seconds() / 60) | int }}
+          {% else %}
+            0
+          {% endif %}
+        icon: >
+          {% set last_motion = states('input_datetime.kitchen_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
+            {% if mins <= 10 %}
+              mdi:check-bold
+            {% else %}
+              mdi:clock-outline
+            {% endif %}
+          {% else %}
+            mdi:clock-outline
+          {% endif %}
+            
+      - name: "🧺 Minutes Since Dropzone Motion"
+        unit_of_measurement: "min"
+        state: >
+          {% set last_motion = states('input_datetime.dropzone_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {{ ((now_naive - last_dt).total_seconds() / 60) | int }}
+          {% else %}
+            0
+          {% endif %}
+        icon: >
+          {% set last_motion = states('input_datetime.dropzone_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
+            {% if mins <= 10 %}
+              mdi:check-bold
+            {% else %}
+              mdi:clock-outline
+            {% endif %}
+          {% else %}
+            mdi:clock-outline
+          {% endif %}
+            
+      - name: "🚘 Minutes Since Garage Motion"
+        unit_of_measurement: "min"
+        state: >
+          {% set last_motion = states('input_datetime.garage_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {{ ((now_naive - last_dt).total_seconds() / 60) | int }}
+          {% else %}
+            0
+          {% endif %}
+        icon: >
+          {% set last_motion = states('input_datetime.garage_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
+            {% if mins <= 10 %}
+              mdi:check-bold
+            {% else %}
+              mdi:clock-outline
+            {% endif %}
+          {% else %}
+            mdi:clock-outline
+          {% endif %}
+            
+      - name: "🎮 Minutes Since Playroom Motion"
+        unit_of_measurement: "min"
+        state: >
+          {% set last_motion = states('input_datetime.playroom_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {{ ((now_naive - last_dt).total_seconds() / 60) | int }}
+          {% else %}
+            0
+          {% endif %}
+        icon: >
+          {% set last_motion = states('input_datetime.playroom_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
+            {% if mins <= 10 %}
+              mdi:check-bold
+            {% else %}
+              mdi:clock-outline
+            {% endif %}
+          {% else %}
+            mdi:clock-outline
+          {% endif %}
+            
+      - name: "🥫 Minutes Since Pantry Motion"
+        unit_of_measurement: "min"
+        state: >
+          {% set last_motion = states('input_datetime.pantry_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {{ ((now_naive - last_dt).total_seconds() / 60) | int }}
+          {% else %}
+            0
+          {% endif %}
+        icon: >
+          {% set last_motion = states('input_datetime.pantry_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
+            {% if mins <= 10 %}
+              mdi:check-bold
+            {% else %}
+              mdi:clock-outline
+            {% endif %}
+          {% else %}
+            mdi:clock-outline
+          {% endif %}
+            
+      - name: "🛋 Minutes Since Living Room Motion"
+        unit_of_measurement: "min"
+        state: >
+          {% set last_motion = states('input_datetime.living_room_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {{ ((now_naive - last_dt).total_seconds() / 60) | int }}
+          {% else %}
+            0
+          {% endif %}
+        icon: >
+          {% set last_motion = states('input_datetime.living_room_most_recent_motion') %}
+          {% if last_motion not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
+            {% set now_naive = now().replace(tzinfo=None) %}
+            {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
+            {% if mins <= 10 %}
+              mdi:check-bold
+            {% else %}
+              mdi:clock-outline
+            {% endif %}
+          {% else %}
+            mdi:clock-outline
+          {% endif %}
+
+input_select:
+  # Trash
+  trash_person:
+    name: Trash Person
+    icon: mdi:trash-can-outline
+    options:
+      - Owen
+      - William
+      - Steve
+  trash_text:
+    name: Trash Text
+    icon: mdi:trash-can-outline
+    options:
+      - notify.owentext
+      - notify.williamtext
+      - notify.stevetext
+
+  # Vacuum
+  vacuum_person:
+    name: Vacuum Person
+    icon: mdi:vacuum
+    options:
+      - Owen
+      - William
+      - Steve
+  vacuum_text:
+    name: Vacuum Text
+    icon: mdi:vacuum
+    options:
+      - notify.owentext
+      - notify.williamtext
+      - notify.stevetext
+
+  # TP
+  tp_person:
+    name: TP Person
+    icon: mdi:paper-roll
+    options:
+      - Owen
+      - William
+      - Steve
+  tp_text:
+    name: TP Text
+    icon: mdi:paper-roll
+    options:
+      - notify.owentext
+      - notify.williamtext
+      - notify.stevetext
+
+  # Table
+  table_person:
+    name: Table Person
+    icon: mdi:silverware-fork-knife
+    options:
+      - Owen
+      - William
+      - Charlotte
+      - Steve
+
+# Chore toggles
+input_boolean:
+  trash_in_progress:
+    name: Trash In Progress
+    initial: off
+    icon: mdi:trash-can-outline
+
+  vacuum_in_progress:
+    name: Vacuum In Progress
+    initial: off
+    icon: mdi:vacuum
+
+  tp_in_progress:
+    name: TP In Progress
+    initial: off
+    icon: mdi:paper-roll
+
+  grill_heating:
+    name: 🔥 Grill Heating
+    initial: off
+    icon: mdi:gas-burner
+
+  waffle_fries_cooking:
+    name: 🍟 Waffle Fries Cooking
+    initial: off
+    icon: mdi:french-fries
+
+  meat_cooking:
+    name: 🥩 Meat Cooking
+    initial: off
+    icon: mdi:food-drumstick
+
+input_number:
+  monthly_high_total:
+    name: Monthly High Total
+    min: -5000
+    max: 5000
+    step: 0.1
+    unit_of_measurement: "°F"
+    mode: box
+
+  monthly_low_total:
+    name: Monthly Low Total
+    min: -5000
+    max: 5000
+    step: 0.1
+    unit_of_measurement: "°F"
+    mode: box
+
+  monthly_day_count:
+    name: Monthly Day Count
+    min: 0
+    max: 31
+    step: 1
+    unit_of_measurement: "days"
+    mode: box
+
+  daily_high:
+    name: Daily High Temperature
+    min: -50
+    max: 150
+    step: 0.1
+    unit_of_measurement: "°F"
+    mode: box # Display as a text entry field
+
+  daily_low:
+    name: Daily Low Temperature
+    min: -50
+    max: 150
+    step: 0.1
+    unit_of_measurement: "°F"
+    mode: box # Display as a text entry field
+
+  daily_max_heat_index:
+    name: Daily Max Heat Index
+    min: 0
+    max: 200
+    step: 0.1
+    unit_of_measurement: "°F"
+    mode: box
+
+  daily_downstairs_cooling_ratio:
+    name: Daily Downstairs Cooling Ratio
+    min: 0
+    max: 100
+    step: 0.01
+    unit_of_measurement: "min/°F"
+    mode: box
+
+  daily_upstairs_cooling_ratio:
+    name: Daily Upstairs Cooling Ratio
+    min: 0
+    max: 100
+    step: 0.01
+    unit_of_measurement: "min/°F"
+    mode: box
+
+timer:
+  grill_heating:
+    name: 🔥 Grill Heaing
+    duration: "00:10:00"
+    icon: mdi:timer
+
+  waffle_fries_cooking:
+    name: 🍟 Waffle Fries Cooking - Flip
+    duration: "00:00:03"
+    icon: mdi:timer
+
+  meat_cooking:
+    name: 🍗 Meat Cooking - Flip
+    duration: "00:08:00"
+    icon: mdi:timer
+
+  deck_door:
+    name: 🏡 Deck Door Timer
+    duration: "00:30:00"
+    icon: mdi:timer
+
+  charlotte_suppress_motion_alert:
+    name: Charlotte Suppress Alert
+    duration: "00:10:00"
+    icon: mdi:timer
+
+  william_suppress_motion_alert:
+    name: William Suppress Alert
+    duration: "00:10:00"
+    icon: mdi:timer
+
+  owen_suppress_motion_alert:
+    name: Owen Suppress Alert
+    duration: "00:10:00"
+    icon: mdi:timer
+    
+  master_bedroom_suppress_motion_alert:
+    name: Master Bedroom Suppress Alert
+    duration: "00:10:00"
+    icon: mdi:timer
+
+  master_bathroom_suppress_motion_alert:
+    name: Master Bathroom Suppress Alert
+    duration: "00:10:00"
+    icon: mdi:timer
+    
+input_datetime:
+  office_most_recent_motion:
+    name: Office Most Recent Motion
+    has_date: true
+    has_time: true
+  kitchen_most_recent_motion:
+    name: Kitchen Most Recent Motion
+    has_date: true
+    has_time: true
+  dropzone_most_recent_motion:
+    name: Dropzone Most Recent Motion
+    has_date: true
+    has_time: true
+  garage_most_recent_motion:
+    name: Garage Most Recent Motion
+    has_date: true
+    has_time: true
+  playroom_most_recent_motion:
+    name: Playroom Most Recent Motion
+    has_date: true
+    has_time: true
+  pantry_most_recent_motion:
+    name: Pantry Most Recent Motion
+    has_date: true
+    has_time: true
+  living_room_most_recent_motion:
+    name: Living Room Most Recent Motion
+    has_date: true
+    has_time: true
+
+tts:
+  - platform: cloud
+    cache: true # Enable caching
+    cache_dir: /config/tts # Directory to store cached files
+    time_memory: 300 # Time in seconds to keep the files in memory (5 minutes)
+
+logbook:
+  exclude:
+    # domains:
+    #   - automation
+    entities:
+      - automation.record_recent_garage_light_level
+      - automation.kitchen_record_light_level
