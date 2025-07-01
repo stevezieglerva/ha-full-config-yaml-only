@@ -294,6 +294,26 @@ template:
           type: daily
 
   - sensor:
+      - name: "❄️ Downstairs Cooling Percentage"
+        unit_of_measurement: "%"
+        state: >
+          {% set cooling_minutes = states('sensor.downstairs_minutes_cooling') | float(0) %}
+          {% set total_minutes = now().hour * 60 + now().minute %}
+          {{ ((cooling_minutes / 1440) * 100) | round(1) }}
+        icon: mdi:thermometer-low
+        device_class: power_factor
+        state_class: measurement
+
+      - name: "❄️ Upstairs Cooling Percentage"
+        unit_of_measurement: "%"
+        state: >
+          {% set cooling_minutes = states('sensor.upstairs_minutes_cooling') | float(0) %}
+          {% set total_minutes = now().hour * 60 + now().minute %}
+          {{ ((cooling_minutes / 1440) * 100) | round(1) }}
+        icon: mdi:thermometer-low
+        device_class: power_factor
+        state_class: measurement
+
       - name: "Odd Month Sensor"
         state: >
           {{ now().month % 2 == 1 }}
