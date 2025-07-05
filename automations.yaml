@@ -5782,7 +5782,7 @@
   description: ''
   trigger:
   - platform: time
-    at: 04:55:00
+    at: 04:50:00
   condition:
   - type: is_not_occupied
     condition: device
@@ -5791,7 +5791,7 @@
     domain: binary_sensor
     for:
       hours: 0
-      minutes: 10
+      minutes: 5
       seconds: 0
   - condition: state
     entity_id: input_boolean.owen_on_wifi

@@ -299,7 +299,8 @@ template:
         state: >
           {% set cooling_minutes = states('sensor.downstairs_minutes_cooling') | float(0) %}
           {% set total_minutes_so_far = now().hour * 60 + now().minute %}
-          {{ ((cooling_minutes / total_minutes_so_far) * 100) | round(1) }}
+          {% set perc = ((cooling_minutes * 60/ total_minutes_so_far) * 100) | round(0) %}
+          {{perc}}
         icon: mdi:thermometer-low
         device_class: power_factor
         state_class: measurement
@@ -309,7 +310,8 @@ template:
         state: >
           {% set cooling_minutes = states('sensor.upstairs_minutes_cooling') | float(0) %}
           {% set total_minutes_so_far = now().hour * 60 + now().minute %}
-          {{ ((cooling_minutes / total_minutes_so_far) * 100) | round(1) }}
+          {% set perc = ((cooling_minutes * 60/ total_minutes_so_far) * 100) | round(0) %}
+          {{perc}}
         icon: mdi:thermometer-low
         device_class: power_factor
         state_class: measurement

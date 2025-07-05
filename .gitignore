@@ -1,6 +1,5 @@
 !configuration.yaml
 !automation.yaml
 !*.md
-*.code-workspace
-*.log
-*.DS_Store
+*.*
+*
