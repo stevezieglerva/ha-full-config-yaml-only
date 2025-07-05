@@ -298,8 +298,8 @@ template:
         unit_of_measurement: "%"
         state: >
           {% set cooling_minutes = states('sensor.downstairs_minutes_cooling') | float(0) %}
-          {% set total_minutes = now().hour * 60 + now().minute %}
-          {{ ((cooling_minutes / 1440) * 100) | round(1) }}
+          {% set total_minutes_so_far = now().hour * 60 + now().minute %}
+          {{ ((cooling_minutes / total_minutes_so_far) * 100) | round(1) }}
         icon: mdi:thermometer-low
         device_class: power_factor
         state_class: measurement
@@ -308,8 +308,8 @@ template:
         unit_of_measurement: "%"
         state: >
           {% set cooling_minutes = states('sensor.upstairs_minutes_cooling') | float(0) %}
-          {% set total_minutes = now().hour * 60 + now().minute %}
-          {{ ((cooling_minutes / 1440) * 100) | round(1) }}
+          {% set total_minutes_so_far = now().hour * 60 + now().minute %}
+          {{ ((cooling_minutes / total_minutes_so_far) * 100) | round(1) }}
         icon: mdi:thermometer-low
         device_class: power_factor
         state_class: measurement
@@ -778,7 +778,7 @@ template:
           {% else %}
             mdi:clock-outline
           {% endif %}
-            
+
       - name: "🧺 Minutes Since Dropzone Motion"
         unit_of_measurement: "min"
         state: >
@@ -804,7 +804,7 @@ template:
           {% else %}
             mdi:clock-outline
           {% endif %}
-            
+
       - name: "🚘 Minutes Since Garage Motion"
         unit_of_measurement: "min"
         state: >
@@ -830,7 +830,7 @@ template:
           {% else %}
             mdi:clock-outline
           {% endif %}
-            
+
       - name: "🎮 Minutes Since Playroom Motion"
         unit_of_measurement: "min"
         state: >
@@ -856,7 +856,7 @@ template:
           {% else %}
             mdi:clock-outline
           {% endif %}
-            
+
       - name: "🥫 Minutes Since Pantry Motion"
         unit_of_measurement: "min"
         state: >
@@ -882,7 +882,7 @@ template:
           {% else %}
             mdi:clock-outline
           {% endif %}
-            
+
       - name: "🛋 Minutes Since Living Room Motion"
         unit_of_measurement: "min"
         state: >
@@ -1100,7 +1100,7 @@ timer:
     name: Owen Suppress Alert
     duration: "00:10:00"
     icon: mdi:timer
-    
+
   master_bedroom_suppress_motion_alert:
     name: Master Bedroom Suppress Alert
     duration: "00:10:00"
@@ -1110,7 +1110,7 @@ timer:
     name: Master Bathroom Suppress Alert
     duration: "00:10:00"
     icon: mdi:timer
-    
+
 input_datetime:
   office_most_recent_motion:
     name: Office Most Recent Motion
