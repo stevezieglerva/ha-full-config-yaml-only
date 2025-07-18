@@ -1,5 +1,6 @@
-!configuration.yaml
-!automation.yaml
-!*.md
 *.*
 *
+!configuration.yaml
+!automation.yaml
+!features/maggie_dog_upstairs_motion.md
+!features/

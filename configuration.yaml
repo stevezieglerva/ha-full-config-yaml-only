@@ -1001,6 +1001,21 @@ input_boolean:
     name: 🥩 Meat Cooking
     initial: off
     icon: mdi:food-drumstick
+    
+  maggie_upstairs_monitor:
+    name: 🐕 Maggie Upstairs Monitor
+    initial: off
+    icon: mdi:dog
+    
+  alexa_maggie_monitor:
+    name: Alexa Maggie Monitor
+    initial: off
+    icon: mdi:amazon-alexa
+    
+  alexa_maggie_alert:
+    name: Alexa Maggie Alert
+    initial: off
+    icon: mdi:message-alert
 
 input_number:
   monthly_high_total:

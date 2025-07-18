@@ -5826,3 +5826,135 @@
     data:
       preset_mode: Home
   mode: single
+- id: '1751062870540'
+  alias: "🐕 Maggie Upstairs Motion Detection"
+  description: 'Monitors upstairs rooms for motion when the toggle is on and sends notifications'
+  trigger:
+  - type: occupied
+    platform: device
+    device_id: 73b0e9f01107a7254f075391c15b3ca3
+    entity_id: 46110b9ab6ad4190ca4bde8d99b7386d
+    domain: binary_sensor
+    id: charlotte
+  - type: occupied
+    platform: device
+    device_id: 71ccf4e7c04c9f999b4d4e69de0ec325
+    entity_id: 41a502ce172a9fc7aaa3cde86c62039c
+    domain: binary_sensor
+    id: william
+  - type: occupied
+    platform: device
+    device_id: 236765636ad6b4830327b44e7b9ab4ca
+    entity_id: 77ac37fbd504457b6317913dc74dc3ad
+    domain: binary_sensor
+    id: owen
+  - type: occupied
+    platform: device
+    device_id: 4045ad03705b1a1db194ca6220ef6210
+    entity_id: 70103ab535967624969f508590e4012b
+    domain: binary_sensor
+    id: bathroom
+  - type: occupied
+    platform: device
+    device_id: 71eeaaccdfbcb19ec501fb586f2dfdc7
+    entity_id: 932a7aecdf9969ecfaf3e7b558bc24aa
+    domain: binary_sensor
+    id: bedroom
+  condition:
+  - condition: state
+    entity_id: input_boolean.maggie_upstairs_monitor
+    state: 'on'
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - charlotte
+      sequence:
+      - service: notify.mobile_app_iphone703
+        metadata: {}
+        data:
+          message: "🐕 Maggie detected in Charlotte's room!"
+          data:
+            push:
+              sound: dog-bark.wav
+    - conditions:
+      - condition: trigger
+        id:
+        - william
+      sequence:
+      - service: notify.mobile_app_iphone703
+        metadata: {}
+        data:
+          message: "🐕 Maggie detected in William's room!"
+          data:
+            push:
+              sound: dog-bark.wav
+    - conditions:
+      - condition: trigger
+        id:
+        - owen
+      sequence:
+      - service: notify.mobile_app_iphone703
+        metadata: {}
+        data:
+          message: "🐕 Maggie detected in Owen's room!"
+          data:
+            push:
+              sound: dog-bark.wav
+    - conditions:
+      - condition: trigger
+        id:
+        - bathroom
+      sequence:
+      - service: notify.mobile_app_iphone703
+        metadata: {}
+        data:
+          message: "🐕 Maggie detected in the master bathroom!"
+          data:
+            push:
+              sound: dog-bark.wav
+    - conditions:
+      - condition: trigger
+        id:
+        - bedroom
+      sequence:
+      - service: notify.mobile_app_iphone703
+        metadata: {}
+        data:
+          message: "🐕 Maggie detected in the master bedroom!"
+          data:
+            push:
+              sound: dog-bark.wav
+  - condition: state
+    entity_id: input_boolean.alexa_maggie_alert
+    state: 'on'
+  - service: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.alexa_maggie_alert
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.alexa_maggie_alert
+  mode: single
+  
+- id: '1751062870541'
+  alias: "🐕 Alexa Maggie Monitor Toggle"
+  description: 'Toggles the Maggie upstairs monitor when the Alexa toggle changes'
+  trigger:
+  - platform: state
+    entity_id: input_boolean.alexa_maggie_monitor
+  condition: []
+  action:
+  - service: input_boolean.turn_{{ trigger.to_state.state }}
+    target:
+      entity_id: input_boolean.maggie_upstairs_monitor
+  mode: single
