@@ -57,3 +57,11 @@ There are three smart home ecosystems: Home Assistant, Apple Home, and Alexa. So
 
 ## Claude Processing Notifications
 - Play a unique macbook sound when a long running claud process is finished to catch my attention. 
+- Send a desktop notification when a long running claud process is finished.
+- Send a ios mobile notification when a long running claud process is finished to stephen.v.ziegler@gmail.com
+
+## Allowed commands
+- Allow basic bash commands like `ls`, `cd`, `cat`, `echo`, `touch`, `mkdir`, `rm`, and `cp`.
+- Allow git commands like `git status`, `git add`, `git commit`, `git
+- allows bash commands for file search and reading like `grep`, `find`, and `cat`.
+- Allows oascripts for notifications and sound playback.

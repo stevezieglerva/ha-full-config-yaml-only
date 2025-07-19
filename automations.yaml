@@ -5964,3 +5964,136 @@
     target:
       entity_id: input_boolean.maggie_upstairs_monitor
   mode: single
+- id: smart_night_light_pantry
+  alias: "Smart Night Light - Pantry"
+  description: "Controls the pantry night light with smart behavior"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.pantry_night_light_occupancy_3
+    - platform: state
+      entity_id: sensor.night
+    - platform: homeassistant
+      event: start
+  action:
+    - service: script.smart_night_light
+      data:
+        motion_sensor: binary_sensor.pantry_night_light_occupancy_3
+        light_entity: light.pantry_night_light_light_3
+        illuminance_sensor: sensor.kitchen_motion_illuminance_lux
+        darkness_threshold: 25
+        dim_brightness: 20
+        bright_brightness: 255
+        timeout: 60
+  mode: restart
+
+- id: smart_night_light_coat_closet
+  alias: "Smart Night Light - Coat Closet"
+  description: "Controls the coat closet night light with smart behavior"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.office_motion_sensor_occupancy
+    - platform: state
+      entity_id: sensor.night
+    - platform: homeassistant
+      event: start
+  action:
+    - service: script.smart_night_light
+      data:
+        motion_sensor: binary_sensor.office_motion_sensor_occupancy
+        light_entity: light.coat_closet_hall
+        illuminance_sensor: sensor.office_motion_sensor_illuminance_lux
+        darkness_threshold: 200
+        dim_brightness: 25
+        bright_brightness: 150
+        timeout: 120
+  mode: restart
+
+- id: smart_night_light_garage
+  alias: "Smart Night Light - Garage"
+  description: "Controls the garage lights with smart night light behavior"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.garage_motion_backdoor_occupancy
+    - platform: state
+      entity_id: binary_sensor.back_door_contact
+    - platform: state
+      entity_id: sensor.night
+    - platform: homeassistant
+      event: start
+  action:
+    - service: script.smart_night_light
+      data:
+        motion_sensor: binary_sensor.garage_motion_backdoor_occupancy
+        light_entity: light.garage_light_overhead
+        illuminance_sensor: sensor.garage_motion_backdoor_illuminance_lux
+        darkness_threshold: 25
+        dim_brightness: 30
+        bright_brightness: 255
+        timeout: 180
+  mode: restart
+
+- id: smart_night_light_charlotte
+  alias: "Smart Night Light - Charlotte Room"
+  description: "Controls Charlotte's room night light with smart behavior"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.charlotte_night_light_occupancy
+    - platform: state
+      entity_id: sensor.night
+    - platform: homeassistant
+      event: start
+  action:
+    - service: script.smart_night_light
+      data:
+        motion_sensor: binary_sensor.charlotte_night_light_occupancy
+        light_entity: light.charlotte_night_light
+        illuminance_sensor: sensor.charlotte_night_light_illuminance_lux
+        darkness_threshold: 25
+        dim_brightness: 15
+        bright_brightness: 100
+        timeout: 60
+  mode: restart
+
+- id: smart_night_light_owen
+  alias: "Smart Night Light - Owen Room"
+  description: "Controls Owen's room night light with smart behavior"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.owen_night_light_occupancy
+    - platform: state
+      entity_id: sensor.night
+    - platform: homeassistant
+      event: start
+  action:
+    - service: script.smart_night_light
+      data:
+        motion_sensor: binary_sensor.owen_night_light_occupancy
+        light_entity: light.owen_night_light
+        illuminance_sensor: sensor.owen_night_light_illuminance_lux
+        darkness_threshold: 25
+        dim_brightness: 15
+        bright_brightness: 100
+        timeout: 60
+  mode: restart
+
+- id: smart_night_light_william
+  alias: "Smart Night Light - William Room"
+  description: "Controls William's room night light with smart behavior"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.william_night_light_occupancy
+    - platform: state
+      entity_id: sensor.night
+    - platform: homeassistant
+      event: start
+  action:
+    - service: script.smart_night_light
+      data:
+        motion_sensor: binary_sensor.william_night_light_occupancy
+        light_entity: light.william_night_light
+        illuminance_sensor: sensor.william_night_light_illuminance_lux
+        darkness_threshold: 25
+        dim_brightness: 15
+        bright_brightness: 100
+        timeout: 60
+  mode: restart
