@@ -1,0 +1,760 @@
+send_text:
+  sequence:
+  - service: rest_command.textbelt_dynamic
+    data:
+      phone: '{{ phone }}'
+      message: '{{ message }}'
+aws_send_text:
+  sequence:
+  - service: rest_command.aws_text_send
+    data:
+      phone: '{{ phone }}'
+      message: '{{ message }}'
+aws_send_text_testing:
+  sequence:
+  - service: rest_command.aws_text_send_testing
+    data:
+      phone: '{{ phone }}'
+      message: '{{ message }}'
+send_yahoo_text:
+  description: Send the given message as a text via yahoo email
+  fields:
+    notify_service:
+      description: The notification service to use
+      example: notify.williamtext
+    message:
+      description: The message to send
+      example: ⏱ Don't forget to vacuum!
+  sequence:
+  - service: '{{ notify_service }}'
+    data:
+      message: '{{ message }}'
+kitchen_trash:
+  sequence:
+  - service: script.send_yahoo_text
+    data:
+      notify_service: '{{ states(''input_select.trash_text'') }}'
+      message: "{% set input_value = states('input_select.trash_person') %} {% set
+        timestamp = now().strftime('%H:%M:%S') %} \U0001F5D1 Please take out the kitchen
+        trash. Time: {{ timestamp }}\n"
+  - service: notify.mobile_app_iphone703
+    data:
+      message: "{% set input_value = states('input_select.trash_person') %} {% set
+        timestamp = now().strftime('%H:%M:%S') %} \U0001F5D1 Told {{ input_value }}
+        to take out the kitchen trash. Time: {{ timestamp }}\n"
+notify_kids:
+  fields:
+    message:
+      description: The message to send
+      example: ⏱ Don't forget to vacuum!
+  sequence:
+  - service: script.send_yahoo_text
+    data:
+      notify_service: notify.owentext
+      message: '{{ message }}'
+  - service: script.send_yahoo_text
+    data:
+      notify_service: notify.williamtext
+      message: '{{ message }}'
+  - service: notify.mobile_app_iphone703
+    data:
+      message: "{% set timestamp = now().strftime('%H:%M:%S') %} \U0001F6D2 Told kids
+        to come out to car to help. Time: {{ timestamp }}\n"
+test_overlay:
+  alias: TV Overlay
+  sequence:
+  - service: notify.TvOverlayNotify
+    data:
+      title: Need Paper Towels In Kitchen
+      message: ok
+      data:
+        id: notification_sample
+        appTitle: Chore
+        smallIcon: mdi:speaker-multiple
+        color: '#FFF000'
+        largeIcon: mdi:paper-roll
+        corner: bottom_end
+        seconds: 20
+        image: https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Paper_towel.jpg/1200px-Paper_towel.jpg
+  mode: single
+  description: ''
+  icon: mdi:television
+notify_most_alexas:
+  alias: Notify most Alexas
+  sequence:
+  - service: media_player.media_pause
+    data: {}
+    target:
+      device_id: b70b4a9d53afe7325df470dafb82fefc
+  - service: notify.alexa_media_steve_s_3rd_echo_dotsp
+    data:
+      message: '{{ message }}'
+      data:
+        type: tts
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: notify.alexa_media_steve_s_3rd_echo_dot
+    data:
+      message: '{{ message }}'
+      data:
+        type: tts
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: notify.alexa_media_steve_s_2nd_echo_dot
+    data:
+      message: '{{ message }}'
+      data:
+        type: tts
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: notify.alexa_media_steve_s_echo_dot
+    data:
+      message: '{{ message }}'
+      data:
+        type: tts
+laundry_update:
+  alias: Laundry Update
+  sequence:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sensor.ht338496n_laundry_machine_state
+        state: Run
+      sequence:
+      - service: notify.alexa_media_steve_s_echo_dot
+        metadata: {}
+        data:
+          data:
+            type: tts
+          message: '{% set input_value = states(''sensor.ht338496n_laundry_time_remaining'')
+            %} {% set hours = input_value.split('':'')[0] %} {% set minutes = input_value.split('':'')[1]
+            %} The washer is running and there is {{ hours }} hour{{ ''s'' if hours
+            != ''1'' else '''' }} and {{ minutes }} minute{{ ''s'' if minutes != ''1''
+            else '''' }} remaining.'
+      - service: notify.alexa_media_steve_s_2nd_echo_dot
+        metadata: {}
+        data:
+          data:
+            type: tts
+          message: '{% set input_value = states(''sensor.ht338496n_laundry_time_remaining'')
+            %} {% set hours = input_value.split('':'')[0] %} {% set minutes = input_value.split('':'')[1]
+            %} The washer is running and there is {{ hours }} hour{{ ''s'' if hours
+            != ''1'' else '''' }} and {{ minutes }} minute{{ ''s'' if minutes != ''1''
+            else '''' }} remaining.'
+      - service: notify.alexa_media_steve_s_3rd_echo_dotsp
+        metadata: {}
+        data:
+          data:
+            type: tts
+          message: '{% set input_value = states(''sensor.ht338496n_laundry_time_remaining'')
+            %} {% set hours = input_value.split('':'')[0] %} {% set minutes = input_value.split('':'')[1]
+            %} The washer is running and there is {{ hours }} hour{{ ''s'' if hours
+            != ''1'' else '''' }} and {{ minutes }} minute{{ ''s'' if minutes != ''1''
+            else '''' }} remaining.'
+    - conditions:
+      - condition: state
+        entity_id: sensor.ht338496n_laundry_machine_state
+        state: 'Off'
+      sequence:
+      - service: notify.alexa_media_steve_s_echo_dot
+        metadata: {}
+        data:
+          message: The washer is not running.
+          data:
+            type: tts
+      - service: notify.alexa_media_steve_s_2nd_echo_dot
+        metadata: {}
+        data:
+          message: The washer is not running.
+          data:
+            type: tts
+      - service: notify.alexa_media_steve_s_3rd_echo_dotsp
+        metadata: {}
+        data:
+          message: The washer is not running.
+          data:
+            type: tts
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 4
+      milliseconds: 0
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sensor.ft997237g_laundry_machine_state
+        state: Run
+      sequence:
+      - service: notify.alexa_media_steve_s_echo_dot
+        metadata: {}
+        data:
+          data:
+            type: tts
+          message: '{% set input_value = states(''sensor.ft997237g_laundry_time_remaining'')
+            %} {% set hours = input_value.split('':'')[0] %} {% set minutes = input_value.split('':'')[1]
+            %} The dryer is running and there is {{ hours }} hour{{ ''s'' if hours
+            != ''1'' else '''' }} and {{ minutes }} minute{{ ''s'' if minutes != ''1''
+            else '''' }} remaining.'
+      - service: notify.alexa_media_steve_s_2nd_echo_dot
+        metadata: {}
+        data:
+          data:
+            type: tts
+          message: '{% set input_value = states(''sensor.ft997237g_laundry_time_remaining'')
+            %} {% set hours = input_value.split('':'')[0] %} {% set minutes = input_value.split('':'')[1]
+            %} The dryer is running and there is {{ hours }} hour{{ ''s'' if hours
+            != ''1'' else '''' }} and {{ minutes }} minute{{ ''s'' if minutes != ''1''
+            else '''' }} remaining.'
+      - service: notify.alexa_media_steve_s_3rd_echo_dot
+        metadata: {}
+        data:
+          data:
+            type: tts
+          message: '{% set input_value = states(''sensor.ft997237g_laundry_time_remaining'')
+            %} {% set hours = input_value.split('':'')[0] %} {% set minutes = input_value.split('':'')[1]
+            %} The dryer is running and there is {{ hours }} hour{{ ''s'' if hours
+            != ''1'' else '''' }} and {{ minutes }} minute{{ ''s'' if minutes != ''1''
+            else '''' }} remaining.'
+    - conditions:
+      - condition: state
+        entity_id: sensor.ft997237g_laundry_machine_state
+        state: 'Off'
+      sequence:
+      - service: notify.alexa_media_steve_s_echo_dot
+        metadata: {}
+        data:
+          message: The dryer is not running.
+          data:
+            type: tts
+      - service: notify.alexa_media_steve_s_2nd_echo_dot
+        metadata: {}
+        data:
+          message: The dryer is not running.
+          data:
+            type: tts
+      - service: notify.alexa_media_steve_s_3rd_echo_dotsp
+        metadata: {}
+        data:
+          message: The dryer is not running.
+          data:
+            type: tts
+  description: ''
+laundry_update_kitchen:
+  alias: Laundry Update - Kitchen
+  sequence:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sensor.ht338496n_laundry_machine_state
+        state: Run
+      sequence:
+      - service: notify.alexa_media_steve_s_3rd_echo_dotsp
+        metadata: {}
+        data:
+          data:
+            type: tts
+          message: '{% set input_value = states(''sensor.ht338496n_laundry_time_remaining'')
+            %} {% set hours = input_value.split('':'')[0] %} {% set minutes = input_value.split('':'')[1]
+            %} The washer is running and there is {{ hours }} hour{{ ''s'' if hours
+            != ''1'' else '''' }} and {{ minutes }} minute{{ ''s'' if minutes != ''1''
+            else '''' }} remaining.'
+    - conditions:
+      - condition: state
+        entity_id: sensor.ht338496n_laundry_machine_state
+        state: 'Off'
+      sequence:
+      - service: notify.alexa_media_steve_s_3rd_echo_dotsp
+        metadata: {}
+        data:
+          message: The washer is not running.
+          data:
+            type: tts
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 4
+      milliseconds: 0
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sensor.ft997237g_laundry_machine_state
+        state: Run
+      sequence:
+      - service: notify.alexa_media_steve_s_3rd_echo_dot
+        metadata: {}
+        data:
+          data:
+            type: tts
+          message: '{% set input_value = states(''sensor.ft997237g_laundry_time_remaining'')
+            %} {% set hours = input_value.split('':'')[0] %} {% set minutes = input_value.split('':'')[1]
+            %} The dryer is running and there is {{ hours }} hour{{ ''s'' if hours
+            != ''1'' else '''' }} and {{ minutes }} minute{{ ''s'' if minutes != ''1''
+            else '''' }} remaining.'
+    - conditions:
+      - condition: state
+        entity_id: sensor.ft997237g_laundry_machine_state
+        state: 'Off'
+      sequence:
+      - service: notify.alexa_media_steve_s_3rd_echo_dotsp
+        metadata: {}
+        data:
+          message: The dryer is not running.
+          data:
+            type: tts
+  description: ''
+laundry_update_master:
+  alias: Laundry Update - Master
+  sequence:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sensor.ht338496n_laundry_machine_state
+        state: Run
+      sequence:
+      - service: notify.alexa_media_steve_s_echo_dot
+        metadata: {}
+        data:
+          data:
+            type: tts
+          message: '{% set input_value = states(''sensor.ht338496n_laundry_time_remaining'')
+            %} {% set hours = input_value.split('':'')[0] %} {% set minutes = input_value.split('':'')[1]
+            %} The washer is running and there is {{ hours }} hour{{ ''s'' if hours
+            != ''1'' else '''' }} and {{ minutes }} minute{{ ''s'' if minutes != ''1''
+            else '''' }} remaining.'
+    - conditions:
+      - condition: state
+        entity_id: sensor.ht338496n_laundry_machine_state
+        state: 'Off'
+      sequence:
+      - service: notify.alexa_media_steve_s_echo_dot
+        metadata: {}
+        data:
+          message: The washer is not running.
+          data:
+            type: tts
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 4
+      milliseconds: 0
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sensor.ft997237g_laundry_machine_state
+        state: Run
+      sequence:
+      - service: notify.alexa_media_steve_s_echo_dot
+        metadata: {}
+        data:
+          data:
+            type: tts
+          message: '{% set input_value = states(''sensor.ft997237g_laundry_time_remaining'')
+            %} {% set hours = input_value.split('':'')[0] %} {% set minutes = input_value.split('':'')[1]
+            %} The dryer is running and there is {{ hours }} hour{{ ''s'' if hours
+            != ''1'' else '''' }} and {{ minutes }} minute{{ ''s'' if minutes != ''1''
+            else '''' }} remaining.'
+    - conditions:
+      - condition: state
+        entity_id: sensor.ft997237g_laundry_machine_state
+        state: 'Off'
+      sequence:
+      - service: notify.alexa_media_steve_s_echo_dot
+        metadata: {}
+        data:
+          message: The dryer is not running.
+          data:
+            type: tts
+  description: ''
+test_kitchen_alexa:
+  alias: "\U0001F509 Test Kitchen Alexa"
+  sequence:
+  - service: notify.alexa_media_steve_s_3rd_echo_dotsp
+    data:
+      message: Testing the Kitchen alexa
+      data:
+        type: tts
+  description: ''
+british_tts_on_tv:
+  alias: British TTS on TV
+  sequence:
+  - service: tts.cloud_say
+    data:
+      entity_id: media_player.living_room_tv_3
+      message: Hello, this is a test message!
+      language: en-GB
+      options: {}
+  description: ''
+dishwasher_timer_notification:
+  alias: "\U0001F4A6\U0001F374 Dishwasher Timer Notification"
+  description: Send a custom notification about the dishwasher timer
+  fields:
+    notification_message:
+      description: The message to send
+      example: Dishwasher Timer Started
+      default: Dishwasher Timer Started
+  sequence:
+  - service: notify.mobile_app_iphone703
+    data:
+      message: "\U0001F4A6\U0001F374 {{ notification_message }}"
+      data:
+        push:
+          sound: Tiptoes.caf
+  mode: single
+launch_hulu_on_sony_bravia_tv:
+  alias: Launch Hulu on Sony Bravia TV
+  sequence:
+  - service: media_player.turn_on
+    target:
+      entity_id:
+      - media_player.sony_xbr_55x850g
+    data: {}
+  - service: media_player.play_media
+    data:
+      media_content_id: Hulu
+      media_content_type: app
+    target:
+      entity_id: media_player.sony_xbr_55x850g
+  mode: single
+blink_light:
+  alias: "\U0001F4A1Blink Light"
+  variables:
+    light_entity: '{{ light_entity }}'
+  sequence:
+  - service: light.turn_on
+    target:
+      entity_id: '{{ light_entity }}'
+    data:
+      brightness: 255
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0.5
+      milliseconds: 0
+  - service: light.turn_off
+    target:
+      entity_id: '{{ light_entity }}'
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  - repeat:
+      count: 3
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: '{{ light_entity }}'
+        data:
+          brightness: 255
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 0.5
+          milliseconds: 0
+      - service: light.turn_off
+        target:
+          entity_id: '{{ light_entity }}'
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 2
+          milliseconds: 0
+  mode: single
+  description: ''
+  icon: mdi:lightbulb
+school_notifications:
+  alias: "\U0001F4D3 School Notification"
+  sequence:
+  - service: notify.mobile_app_iphone703
+    data:
+      message: "\U0001F4D3 {{ notification_message }}"
+      data:
+        push:
+          sound: Bloom.caf
+  description: Send a custom school notification
+  fields:
+    notification_message:
+      description: The message to send
+      example: Dishwasher Timer Started
+      default: Dishwasher Timer Started
+  mode: single
+  icon: mdi:account-school
+hulu:
+  alias: Hulu
+  sequence: []
+  description: Turns Hulu on Living Room TV
+  icon: mdi:remote-tv
+set_lights_by_label:
+  alias: Set Lights by Label
+  mode: single
+  fields:
+    label:
+      description: The label to filter lights by
+      example: downstairs
+      selector:
+        text:
+    light:
+      description: Light field with options for off, dim, bright, or red
+      example: bright
+      selector:
+        select:
+          options:
+          - 'off'
+          - dim
+          - bright
+          - red
+  sequence:
+  - variables:
+      filtered_devices: '{{ label_devices(label) }}'
+  - repeat:
+      for_each: '{{ filtered_devices }}'
+      sequence:
+      - choose:
+        - conditions:
+          - condition: template
+            value_template: '{{ light == ''off'' }}'
+          sequence:
+          - service: light.turn_off
+            target:
+              device_id: '{{ repeat.item }}'
+        - conditions:
+          - condition: template
+            value_template: '{{ light == ''dim'' }}'
+          sequence:
+          - service: light.turn_on
+            target:
+              device_id: '{{ repeat.item }}'
+            data:
+              brightness: 1
+              rgb_color:
+              - 255
+              - 192
+              - 141
+        - conditions:
+          - condition: template
+            value_template: '{{ light == ''bright'' }}'
+          sequence:
+          - service: light.turn_on
+            target:
+              device_id: '{{ repeat.item }}'
+            data:
+              brightness: 255
+              rgb_color:
+              - 255
+              - 192
+              - 141
+        - conditions:
+          - condition: template
+            value_template: '{{ light == ''red'' }}'
+          sequence:
+          - service: light.turn_on
+            target:
+              device_id: '{{ repeat.item }}'
+            data:
+              brightness: 255
+              rgb_color:
+              - 255
+              - 0
+              - 0
+set_recessed_light:
+  alias: Set Recessed Light
+  description: Turn a light on or off with predefined styles.
+  fields:
+    device:
+      name: Light Device
+      description: Select the light to control.
+      required: true
+      selector:
+        entity:
+          domain: light
+    style:
+      name: Light Style
+      description: Choose how the light should be set.
+      required: true
+      selector:
+        select:
+          options:
+          - 'off'
+          - dim
+          - bright
+          - red
+  sequence:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ style == ''off'' }}'
+      sequence:
+      - service: light.turn_off
+        target:
+          entity_id: '{{ device }}'
+    - conditions:
+      - condition: template
+        value_template: '{{ style == ''dim'' }}'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: '{{ device }}'
+        data:
+          brightness: 5
+          color_temp: 400
+    - conditions:
+      - condition: template
+        value_template: '{{ style == ''bright'' }}'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: '{{ device }}'
+        data:
+          brightness: 250
+          color_temp: 400
+    - conditions:
+      - condition: template
+        value_template: '{{ style == ''red'' }}'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: '{{ device }}'
+        data:
+          brightness: 255
+          rgb_color:
+          - 255
+          - 0
+          - 0
+  mode: single
+  icon: mdi:light-recessed
+set_downstairs_lights:
+  alias: Set Downstairs Lights
+  description: Call 'Set Recessed Light' script for multiple devices based on the
+    selected label.
+  fields:
+    label:
+      name: Label
+      description: Choose the group of lights to control.
+      required: true
+      selector:
+        select:
+          options:
+          - kitchen
+          - downstairs
+    style:
+      name: Light Style
+      description: Choose how the lights should be set.
+      required: true
+      selector:
+        select:
+          options:
+          - 'off'
+          - dim
+          - bright
+          - red
+  sequence:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ label == ''kitchen'' }}'
+      sequence:
+      - service: script.set_recessed_light
+        data:
+          device: light.kitchen_sink_light
+          style: '{{ style }}'
+      - service: script.set_recessed_light
+        data:
+          device: light.butlers_pantry_light
+          style: '{{ style }}'
+    - conditions:
+      - condition: template
+        value_template: '{{ label == ''downstairs'' }}'
+      sequence:
+      - service: script.set_recessed_light
+        data:
+          device: light.kitchen_sink_light
+          style: '{{ style }}'
+      - service: script.set_recessed_light
+        data:
+          device: light.butlers_pantry_light
+          style: '{{ style }}'
+      - service: script.set_recessed_light
+        data:
+          device: light.coat_closet_hall
+          style: '{{ style }}'
+  mode: single
+  icon: mdi:light-recessed
+set_office_lights:
+  alias: Set Office Lights
+  description: Control the office lamp and office light switch with predefined styles.
+  fields:
+    style:
+      name: Light Style
+      description: Choose how the office lights should be set.
+      required: true
+      selector:
+        select:
+          options:
+          - 'off'
+          - dim
+          - medium
+          - bright
+  sequence:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ style == ''off'' }}'
+      sequence:
+      - service: light.turn_off
+        target:
+          entity_id: light.office_lamp_light
+        data: {}
+      - service: switch.turn_off
+        target:
+          entity_id: switch.office_light_switch
+        data: {}
+    - conditions:
+      - condition: template
+        value_template: '{{ style == ''dim'' }}'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: light.office_lamp_light
+        data:
+          brightness_pct: 5
+      - service: switch.turn_off
+        target:
+          entity_id: switch.office_light_switch
+        data: {}
+    - conditions:
+      - condition: template
+        value_template: '{{ style == ''medium'' }}'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: light.office_lamp_light
+        data:
+          brightness: 125
+      - service: switch.turn_off
+        target:
+          entity_id: switch.office_light_switch
+        data: {}
+    - conditions:
+      - condition: template
+        value_template: '{{ style == ''bright'' }}'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: light.office_lamp_light
+        data:
+          brightness: 255
+      - service: switch.turn_on
+        target:
+          entity_id: switch.office_light_switch
+        data: {}
+  mode: single
+  icon: mdi:briefcase
