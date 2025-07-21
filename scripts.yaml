@@ -1,0 +1,98 @@
+smart_night_light:
+  alias: "Smart Night Light Control"
+  description: "Controls night lights with dim/bright behavior based on motion and darkness"
+  fields:
+    motion_sensor:
+      name: Motion Sensor
+      description: "Motion sensor that triggers the night light"
+      required: true
+      selector:
+        entity:
+          domain: binary_sensor
+    light_entity:
+      name: Light Entity
+      description: "Light to control as a night light"
+      required: true
+      selector:
+        entity:
+          domain: light
+    illuminance_sensor:
+      name: Illuminance Sensor
+      description: "Sensor that measures room brightness"
+      required: true
+      selector:
+        entity:
+          domain: sensor
+    darkness_threshold:
+      name: Darkness Threshold
+      description: "Lux level below which the room is considered dark"
+      default: 25
+      selector:
+        number:
+          min: 1
+          max: 500
+          unit_of_measurement: lx
+    dim_brightness:
+      name: Dim Brightness
+      description: "Brightness level when dimmed (1-255)"
+      default: 25
+      selector:
+        number:
+          min: 1
+          max: 255
+    bright_brightness:
+      name: Bright Brightness
+      description: "Brightness level when motion detected (1-255)"
+      default: 255
+      selector:
+        number:
+          min: 1
+          max: 255
+    timeout:
+      name: Motion Timeout
+      description: "Time to remain at bright level after motion stops"
+      default: 120
+      selector:
+        number:
+          min: 10
+          max: 300
+          unit_of_measurement: seconds
+  sequence:
+    - variables:
+        is_night: "{{ is_state('sensor.night', 'True') }}"
+        is_dark: "{{ states(illuminance_sensor) | float(1000) < darkness_threshold }}"
+        is_motion: "{{ is_state(motion_sensor, 'on') }}"
+        light_is_on: "{{ is_state(light_entity, 'on') }}"
+    - choose:
+        # When motion is detected AND it's night AND it's dark - turn on bright
+        - conditions:
+            - condition: template
+              value_template: "{{ is_motion and is_night and is_dark }}"
+          sequence:
+            - service: light.turn_on
+              target:
+                entity_id: "{{ light_entity }}"
+              data:
+                brightness: "{{ bright_brightness }}"
+        # When no motion AND light is on AND it's night AND it's dark - dim the light
+        - conditions:
+            - condition: template
+              value_template: "{{ not is_motion and light_is_on and is_night and is_dark }}"
+          sequence:
+            - delay:
+                seconds: "{{ timeout }}"
+            - service: light.turn_on
+              target:
+                entity_id: "{{ light_entity }}"
+              data:
+                brightness: "{{ dim_brightness }}"
+        # When it's not night OR not dark - turn off light
+        - conditions:
+            - condition: template
+              value_template: "{{ not is_night or not is_dark }}"
+          sequence:
+            - service: light.turn_off
+              target:
+                entity_id: "{{ light_entity }}"
+      default:
+        - stop: "No action needed"
