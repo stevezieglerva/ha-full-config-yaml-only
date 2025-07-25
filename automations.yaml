@@ -6153,6 +6153,13 @@
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.maggie_location_pantry
+    - conditions:
+      - condition: template
+        value_template: "{{ most_recent_location == 'unknown' }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.maggie_location_no_recent_motion
   - delay: '00:00:02'
   - choose:
     - conditions:
@@ -6197,6 +6204,13 @@
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.maggie_location_pantry
+    - conditions:
+      - condition: template
+        value_template: "{{ second_most_recent_location == 'unknown' }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.maggie_location_no_recent_motion
   - service: input_boolean.turn_off
     target:
       entity_id: input_boolean.wheres_maggie_trigger
@@ -6210,4 +6224,5 @@
         - input_boolean.maggie_location_master_bathroom
         - input_boolean.maggie_location_master_bedroom
         - input_boolean.maggie_location_pantry
+        - input_boolean.maggie_location_no_recent_motion
   mode: single

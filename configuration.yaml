@@ -1130,6 +1130,11 @@ input_boolean:
     initial: off
     icon: mdi:dog
     
+  maggie_location_no_recent_motion:
+    name: 🚫 No Recent Maggie Motion
+    initial: off
+    icon: mdi:dog-off
+    
   # Ceiling fan state trackers for Alexa-only devices
   master_bedroom_ceiling_fan:
     name: Master Bedroom Ceiling Fan
