@@ -6218,6 +6218,7 @@
   - service: input_boolean.turn_off
     target:
       entity_id: 
+        - input_boolean.wheres_maggie_trigger
         - input_boolean.maggie_location_charlotte
         - input_boolean.maggie_location_william
         - input_boolean.maggie_location_owen
