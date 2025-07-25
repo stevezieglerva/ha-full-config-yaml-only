@@ -54,6 +54,15 @@ smart_night_light:
           max: 300
           unit_of_measurement: seconds
   sequence:
+    - service: logbook.log
+      data:
+        name: "Smart Night Light"
+        message: >-
+          Parameters - Motion: {{ motion_sensor }} ({{ is_state(motion_sensor, 'on') }}), Light: {{ light_entity }}, 
+          Illuminance: {{ illuminance_sensor }} ({{ states(illuminance_sensor) }}), 
+          Darkness threshold: {{ darkness_threshold }}lx, 
+          Dim brightness: {{ dim_brightness }}, Bright brightness: {{ bright_brightness }}, 
+          Timeout: {{ timeout }}s
     - variables:
         is_night: "{{ is_state('sensor.night', 'True') }}"
         is_dark: "{{ states(illuminance_sensor) | float(1000) < darkness_threshold }}"
@@ -70,6 +79,10 @@ smart_night_light:
                 entity_id: "{{ light_entity }}"
               data:
                 brightness: "{{ bright_brightness }}"
+            - service: logbook.log
+              data:
+                name: "Smart Night Light"
+                message: "Action: Light turned on bright ({{ bright_brightness }}) due to motion"
         # When no motion AND light is on AND it's night AND it's dark - dim the light
         - conditions:
             - condition: template
@@ -82,6 +95,10 @@ smart_night_light:
                 entity_id: "{{ light_entity }}"
               data:
                 brightness: "{{ dim_brightness }}"
+            - service: logbook.log
+              data:
+                name: "Smart Night Light"
+                message: "Action: Light dimmed ({{ dim_brightness }}) after timeout"
         # When it's not night OR not dark - turn off light
         - conditions:
             - condition: template
@@ -90,7 +107,15 @@ smart_night_light:
             - service: light.turn_off
               target:
                 entity_id: "{{ light_entity }}"
+            - service: logbook.log
+              data:
+                name: "Smart Night Light"
+                message: "Action: Light turned off (not night or not dark)"
       default:
+        - service: logbook.log
+          data:
+            name: "Smart Night Light"
+            message: "Action: No action needed"
         - stop: "No action needed"
 
 send_text:

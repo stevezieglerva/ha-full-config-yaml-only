@@ -5974,6 +5974,9 @@
       entity_id: sensor.night
     - platform: homeassistant
       event: start
+    - platform: numeric_state
+      entity_id: sensor.kitchen_motion_illuminance_lux
+      below: 5
   action:
     - service: script.smart_night_light
       data:
@@ -5986,51 +5989,7 @@
         timeout: 60
   mode: restart
 
-- id: smart_night_light_coat_closet
-  alias: "Smart Night Light - Coat Closet"
-  description: "Controls the coat closet night light with smart behavior"
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.office_motion_sensor_occupancy
-    - platform: state
-      entity_id: sensor.night
-    - platform: homeassistant
-      event: start
-  action:
-    - service: script.smart_night_light
-      data:
-        motion_sensor: binary_sensor.office_motion_sensor_occupancy
-        light_entity: light.coat_closet_hall
-        illuminance_sensor: sensor.office_motion_sensor_illuminance_lux
-        darkness_threshold: 200
-        dim_brightness: 25
-        bright_brightness: 150
-        timeout: 120
-  mode: restart
 
-- id: smart_night_light_garage
-  alias: "Smart Night Light - Garage"
-  description: "Controls the garage lights with smart night light behavior"
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.garage_motion_backdoor_occupancy
-    - platform: state
-      entity_id: binary_sensor.back_door_contact
-    - platform: state
-      entity_id: sensor.night
-    - platform: homeassistant
-      event: start
-  action:
-    - service: script.smart_night_light
-      data:
-        motion_sensor: binary_sensor.garage_motion_backdoor_occupancy
-        light_entity: light.garage_light_overhead
-        illuminance_sensor: sensor.garage_motion_backdoor_illuminance_lux
-        darkness_threshold: 25
-        dim_brightness: 30
-        bright_brightness: 255
-        timeout: 180
-  mode: restart
 
 - id: smart_night_light_charlotte
   alias: "Smart Night Light - Charlotte Room"
@@ -6042,6 +6001,9 @@
       entity_id: sensor.night
     - platform: homeassistant
       event: start
+    - platform: numeric_state
+      entity_id: sensor.charlotte_night_light_illuminance_lux
+      below: 5
   action:
     - service: script.smart_night_light
       data:
@@ -6064,6 +6026,9 @@
       entity_id: sensor.night
     - platform: homeassistant
       event: start
+    - platform: numeric_state
+      entity_id: sensor.owen_night_light_illuminance_lux
+      below: 5
   action:
     - service: script.smart_night_light
       data:
@@ -6086,6 +6051,9 @@
       entity_id: sensor.night
     - platform: homeassistant
       event: start
+    - platform: numeric_state
+      entity_id: sensor.william_night_light_illuminance_lux
+      below: 5
   action:
     - service: script.smart_night_light
       data:
