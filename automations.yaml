@@ -6200,4 +6200,14 @@
   - service: input_boolean.turn_off
     target:
       entity_id: input_boolean.wheres_maggie_trigger
+  - delay: '00:00:05'
+  - service: input_boolean.turn_off
+    target:
+      entity_id: 
+        - input_boolean.maggie_location_charlotte
+        - input_boolean.maggie_location_william
+        - input_boolean.maggie_location_owen
+        - input_boolean.maggie_location_master_bathroom
+        - input_boolean.maggie_location_master_bedroom
+        - input_boolean.maggie_location_pantry
   mode: single
