@@ -55,6 +55,9 @@ This is a Home Assistant configuration repository containing:
 ## Ecosystems
 There are three smart home ecosystems: Home Assistant, Apple Home, and Alexa. Some virtual switches (input booleans) are used to enable integration of automations among them. 
 
+### Alexa only devices
+- Ceiling fans with lights in: Master, Owen, William, and Charlotte rooms
+
 ## Claude Processing Notifications
 - Play a unique macbook sound when a long running claud process is finished to catch my attention. 
 - Send a desktop notification when a long running claud process is finished.
