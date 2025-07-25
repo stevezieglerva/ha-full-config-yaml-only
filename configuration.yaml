@@ -911,6 +911,59 @@ template:
             mdi:clock-outline
           {% endif %}
 
+      # Where's Maggie location sensors
+      - name: "🐕 Maggie's Most Recent Location"
+        state: >
+          {% set rooms = [
+            {'name': 'charlotte', 'sensor': 'sensor.minutes_since_charlotte_motion'},
+            {'name': 'william', 'sensor': 'sensor.minutes_since_william_motion'},
+            {'name': 'owen', 'sensor': 'sensor.minutes_since_owen_motion'},
+            {'name': 'master_bathroom', 'sensor': 'sensor.minutes_since_master_bathroom_motion'},
+            {'name': 'master_bedroom', 'sensor': 'sensor.minutes_since_master_bedroom_motion'},
+            {'name': 'pantry', 'sensor': 'sensor.minutes_since_pantry_motion'}
+          ] %}
+          {% set valid_rooms = [] %}
+          {% for room in rooms %}
+            {% set minutes = states(room.sensor) | int(default=9999) %}
+            {% if minutes < 9999 %}
+              {% set valid_rooms = valid_rooms + [{'name': room.name, 'minutes': minutes}] %}
+            {% endif %}
+          {% endfor %}
+          {% if valid_rooms | length > 0 %}
+            {% set sorted_rooms = valid_rooms | sort(attribute='minutes') %}
+            {{ sorted_rooms[0].name }}
+          {% else %}
+            unknown
+          {% endif %}
+        icon: mdi:dog
+
+      - name: "🐕 Maggie's Second Most Recent Location"
+        state: >
+          {% set rooms = [
+            {'name': 'charlotte', 'sensor': 'sensor.minutes_since_charlotte_motion'},
+            {'name': 'william', 'sensor': 'sensor.minutes_since_william_motion'},
+            {'name': 'owen', 'sensor': 'sensor.minutes_since_owen_motion'},
+            {'name': 'master_bathroom', 'sensor': 'sensor.minutes_since_master_bathroom_motion'},
+            {'name': 'master_bedroom', 'sensor': 'sensor.minutes_since_master_bedroom_motion'},
+            {'name': 'pantry', 'sensor': 'sensor.minutes_since_pantry_motion'}
+          ] %}
+          {% set valid_rooms = [] %}
+          {% for room in rooms %}
+            {% set minutes = states(room.sensor) | int(default=9999) %}
+            {% if minutes < 9999 %}
+              {% set valid_rooms = valid_rooms + [{'name': room.name, 'minutes': minutes}] %}
+            {% endif %}
+          {% endfor %}
+          {% if valid_rooms | length > 1 %}
+            {% set sorted_rooms = valid_rooms | sort(attribute='minutes') %}
+            {{ sorted_rooms[1].name }}
+          {% elif valid_rooms | length == 1 %}
+            {{ valid_rooms[0].name }}
+          {% else %}
+            unknown
+          {% endif %}
+        icon: mdi:dog
+
 input_select:
   # Trash
   trash_person:
@@ -1016,6 +1069,42 @@ input_boolean:
     name: Alexa Maggie Alert
     initial: off
     icon: mdi:message-alert
+    
+  # Where's Maggie Alexa Alert System
+  wheres_maggie_trigger:
+    name: 🐕 Where's Maggie Trigger
+    initial: off
+    icon: mdi:dog
+    
+  maggie_location_charlotte:
+    name: 🩷 Maggie in Charlotte's Room
+    initial: off
+    icon: mdi:dog
+    
+  maggie_location_william:
+    name: 🟩 Maggie in William's Room
+    initial: off
+    icon: mdi:dog
+    
+  maggie_location_owen:
+    name: 🟦 Maggie in Owen's Room
+    initial: off
+    icon: mdi:dog
+    
+  maggie_location_master_bathroom:
+    name: 🚽 Maggie in Master Bathroom
+    initial: off
+    icon: mdi:dog
+    
+  maggie_location_master_bedroom:
+    name: 🛌 Maggie in Master Bedroom
+    initial: off
+    icon: mdi:dog
+    
+  maggie_location_pantry:
+    name: 🥫 Maggie in Pantry
+    initial: off
+    icon: mdi:dog
     
   # Ceiling fan state trackers for Alexa-only devices
   master_bedroom_ceiling_fan:
