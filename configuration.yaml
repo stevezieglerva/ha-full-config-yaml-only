@@ -921,20 +921,29 @@ template:
           {% set master_bedroom_minutes = states('sensor.minutes_since_master_bedroom_motion') | int(default=9999) %}
           {% set pantry_minutes = states('sensor.minutes_since_pantry_motion') | int(default=9999) %}
           
-          {% set min_minutes = [charlotte_minutes, william_minutes, owen_minutes, master_bathroom_minutes, master_bedroom_minutes, pantry_minutes] | min %}
+          {% set valid_rooms = [] %}
+          {% if charlotte_minutes <= 2 %}
+            {% set valid_rooms = valid_rooms + [{'name': 'charlotte', 'minutes': charlotte_minutes}] %}
+          {% endif %}
+          {% if william_minutes <= 2 %}
+            {% set valid_rooms = valid_rooms + [{'name': 'william', 'minutes': william_minutes}] %}
+          {% endif %}
+          {% if owen_minutes <= 2 %}
+            {% set valid_rooms = valid_rooms + [{'name': 'owen', 'minutes': owen_minutes}] %}
+          {% endif %}
+          {% if master_bathroom_minutes <= 2 %}
+            {% set valid_rooms = valid_rooms + [{'name': 'master_bathroom', 'minutes': master_bathroom_minutes}] %}
+          {% endif %}
+          {% if master_bedroom_minutes <= 2 %}
+            {% set valid_rooms = valid_rooms + [{'name': 'master_bedroom', 'minutes': master_bedroom_minutes}] %}
+          {% endif %}
+          {% if pantry_minutes <= 2 %}
+            {% set valid_rooms = valid_rooms + [{'name': 'pantry', 'minutes': pantry_minutes}] %}
+          {% endif %}
           
-          {% if min_minutes == charlotte_minutes and charlotte_minutes < 9999 %}
-            charlotte
-          {% elif min_minutes == william_minutes and william_minutes < 9999 %}
-            william
-          {% elif min_minutes == owen_minutes and owen_minutes < 9999 %}
-            owen
-          {% elif min_minutes == master_bathroom_minutes and master_bathroom_minutes < 9999 %}
-            master_bathroom
-          {% elif min_minutes == master_bedroom_minutes and master_bedroom_minutes < 9999 %}
-            master_bedroom
-          {% elif min_minutes == pantry_minutes and pantry_minutes < 9999 %}
-            pantry
+          {% if valid_rooms | length > 0 %}
+            {% set sorted_rooms = valid_rooms | sort(attribute='minutes') %}
+            {{ sorted_rooms[0].name }}
           {% else %}
             unknown
           {% endif %}
@@ -949,16 +958,26 @@ template:
           {% set master_bedroom_minutes = states('sensor.minutes_since_master_bedroom_motion') | int(default=9999) %}
           {% set pantry_minutes = states('sensor.minutes_since_pantry_motion') | int(default=9999) %}
           
-          {% set room_data = [
-            {'name': 'charlotte', 'minutes': charlotte_minutes},
-            {'name': 'william', 'minutes': william_minutes}, 
-            {'name': 'owen', 'minutes': owen_minutes},
-            {'name': 'master_bathroom', 'minutes': master_bathroom_minutes},
-            {'name': 'master_bedroom', 'minutes': master_bedroom_minutes},
-            {'name': 'pantry', 'minutes': pantry_minutes}
-          ] %}
+          {% set valid_rooms = [] %}
+          {% if charlotte_minutes <= 2 %}
+            {% set valid_rooms = valid_rooms + [{'name': 'charlotte', 'minutes': charlotte_minutes}] %}
+          {% endif %}
+          {% if william_minutes <= 2 %}
+            {% set valid_rooms = valid_rooms + [{'name': 'william', 'minutes': william_minutes}] %}
+          {% endif %}
+          {% if owen_minutes <= 2 %}
+            {% set valid_rooms = valid_rooms + [{'name': 'owen', 'minutes': owen_minutes}] %}
+          {% endif %}
+          {% if master_bathroom_minutes <= 2 %}
+            {% set valid_rooms = valid_rooms + [{'name': 'master_bathroom', 'minutes': master_bathroom_minutes}] %}
+          {% endif %}
+          {% if master_bedroom_minutes <= 2 %}
+            {% set valid_rooms = valid_rooms + [{'name': 'master_bedroom', 'minutes': master_bedroom_minutes}] %}
+          {% endif %}
+          {% if pantry_minutes <= 2 %}
+            {% set valid_rooms = valid_rooms + [{'name': 'pantry', 'minutes': pantry_minutes}] %}
+          {% endif %}
           
-          {% set valid_rooms = room_data | selectattr('minutes', 'lt', 9999) | list %}
           {% if valid_rooms | length > 1 %}
             {% set sorted_rooms = valid_rooms | sort(attribute='minutes') %}
             {{ sorted_rooms[1].name }}
