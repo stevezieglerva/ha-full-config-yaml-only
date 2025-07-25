@@ -914,24 +914,27 @@ template:
       # Where's Maggie location sensors
       - name: "🐕 Maggie's Most Recent Location"
         state: >
-          {% set rooms = [
-            {'name': 'charlotte', 'sensor': 'sensor.minutes_since_charlotte_motion'},
-            {'name': 'william', 'sensor': 'sensor.minutes_since_william_motion'},
-            {'name': 'owen', 'sensor': 'sensor.minutes_since_owen_motion'},
-            {'name': 'master_bathroom', 'sensor': 'sensor.minutes_since_master_bathroom_motion'},
-            {'name': 'master_bedroom', 'sensor': 'sensor.minutes_since_master_bedroom_motion'},
-            {'name': 'pantry', 'sensor': 'sensor.minutes_since_pantry_motion'}
-          ] %}
-          {% set valid_rooms = [] %}
-          {% for room in rooms %}
-            {% set minutes = states(room.sensor) | int(default=9999) %}
-            {% if minutes < 9999 %}
-              {% set valid_rooms = valid_rooms + [{'name': room.name, 'minutes': minutes}] %}
-            {% endif %}
-          {% endfor %}
-          {% if valid_rooms | length > 0 %}
-            {% set sorted_rooms = valid_rooms | sort(attribute='minutes') %}
-            {{ sorted_rooms[0].name }}
+          {% set charlotte_minutes = states('sensor.minutes_since_charlotte_motion') | int(default=9999) %}
+          {% set william_minutes = states('sensor.minutes_since_william_motion') | int(default=9999) %}
+          {% set owen_minutes = states('sensor.minutes_since_owen_motion') | int(default=9999) %}
+          {% set master_bathroom_minutes = states('sensor.minutes_since_master_bathroom_motion') | int(default=9999) %}
+          {% set master_bedroom_minutes = states('sensor.minutes_since_master_bedroom_motion') | int(default=9999) %}
+          {% set pantry_minutes = states('sensor.minutes_since_pantry_motion') | int(default=9999) %}
+          
+          {% set min_minutes = [charlotte_minutes, william_minutes, owen_minutes, master_bathroom_minutes, master_bedroom_minutes, pantry_minutes] | min %}
+          
+          {% if min_minutes == charlotte_minutes and charlotte_minutes < 9999 %}
+            charlotte
+          {% elif min_minutes == william_minutes and william_minutes < 9999 %}
+            william
+          {% elif min_minutes == owen_minutes and owen_minutes < 9999 %}
+            owen
+          {% elif min_minutes == master_bathroom_minutes and master_bathroom_minutes < 9999 %}
+            master_bathroom
+          {% elif min_minutes == master_bedroom_minutes and master_bedroom_minutes < 9999 %}
+            master_bedroom
+          {% elif min_minutes == pantry_minutes and pantry_minutes < 9999 %}
+            pantry
           {% else %}
             unknown
           {% endif %}
@@ -939,21 +942,23 @@ template:
 
       - name: "🐕 Maggie's Second Most Recent Location"
         state: >
-          {% set rooms = [
-            {'name': 'charlotte', 'sensor': 'sensor.minutes_since_charlotte_motion'},
-            {'name': 'william', 'sensor': 'sensor.minutes_since_william_motion'},
-            {'name': 'owen', 'sensor': 'sensor.minutes_since_owen_motion'},
-            {'name': 'master_bathroom', 'sensor': 'sensor.minutes_since_master_bathroom_motion'},
-            {'name': 'master_bedroom', 'sensor': 'sensor.minutes_since_master_bedroom_motion'},
-            {'name': 'pantry', 'sensor': 'sensor.minutes_since_pantry_motion'}
+          {% set charlotte_minutes = states('sensor.minutes_since_charlotte_motion') | int(default=9999) %}
+          {% set william_minutes = states('sensor.minutes_since_william_motion') | int(default=9999) %}
+          {% set owen_minutes = states('sensor.minutes_since_owen_motion') | int(default=9999) %}
+          {% set master_bathroom_minutes = states('sensor.minutes_since_master_bathroom_motion') | int(default=9999) %}
+          {% set master_bedroom_minutes = states('sensor.minutes_since_master_bedroom_motion') | int(default=9999) %}
+          {% set pantry_minutes = states('sensor.minutes_since_pantry_motion') | int(default=9999) %}
+          
+          {% set room_data = [
+            {'name': 'charlotte', 'minutes': charlotte_minutes},
+            {'name': 'william', 'minutes': william_minutes}, 
+            {'name': 'owen', 'minutes': owen_minutes},
+            {'name': 'master_bathroom', 'minutes': master_bathroom_minutes},
+            {'name': 'master_bedroom', 'minutes': master_bedroom_minutes},
+            {'name': 'pantry', 'minutes': pantry_minutes}
           ] %}
-          {% set valid_rooms = [] %}
-          {% for room in rooms %}
-            {% set minutes = states(room.sensor) | int(default=9999) %}
-            {% if minutes < 9999 %}
-              {% set valid_rooms = valid_rooms + [{'name': room.name, 'minutes': minutes}] %}
-            {% endif %}
-          {% endfor %}
+          
+          {% set valid_rooms = room_data | selectattr('minutes', 'lt', 9999) | list %}
           {% if valid_rooms | length > 1 %}
             {% set sorted_rooms = valid_rooms | sort(attribute='minutes') %}
             {{ sorted_rooms[1].name }}
