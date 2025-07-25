@@ -1016,6 +1016,48 @@ input_boolean:
     name: Alexa Maggie Alert
     initial: off
     icon: mdi:message-alert
+    
+  # Ceiling fan state trackers for Alexa-only devices
+  master_bedroom_ceiling_fan:
+    name: Master Bedroom Ceiling Fan
+    initial: off
+    icon: mdi:fan
+    
+  owen_bedroom_ceiling_fan:
+    name: 🟦 Owen's Bedroom Ceiling Fan
+    initial: off
+    icon: mdi:fan
+    
+  william_bedroom_ceiling_fan:
+    name: 🟩 William's Bedroom Ceiling Fan
+    initial: off
+    icon: mdi:fan
+    
+  charlotte_bedroom_ceiling_fan:
+    name: 🩷 Charlotte's Bedroom Ceiling Fan
+    initial: off
+    icon: mdi:fan
+    
+  # Ceiling fan light state trackers for Alexa-only devices
+  master_bedroom_ceiling_light:
+    name: Master Bedroom Ceiling Light
+    initial: off
+    icon: mdi:ceiling-light
+    
+  owen_bedroom_ceiling_light:
+    name: 🟦 Owen's Bedroom Ceiling Light
+    initial: off
+    icon: mdi:ceiling-light
+    
+  william_bedroom_ceiling_light:
+    name: 🟩 William's Bedroom Ceiling Light
+    initial: off
+    icon: mdi:ceiling-light
+    
+  charlotte_bedroom_ceiling_light:
+    name: 🩷 Charlotte's Bedroom Ceiling Light
+    initial: off
+    icon: mdi:ceiling-light
 
 input_number:
   monthly_high_total:
