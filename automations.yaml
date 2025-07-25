@@ -6097,3 +6097,107 @@
         bright_brightness: 100
         timeout: 60
   mode: restart
+
+- id: 'wheres_maggie_alexa_alert'
+  alias: 🐕 Where's Maggie Alexa Alert
+  description: 'Triggered by Alexa routine to announce Maggie location based on recent motion'
+  trigger:
+  - platform: state
+    entity_id: input_boolean.wheres_maggie_trigger
+    to: 'on'
+  condition: []
+  action:
+  - variables:
+      most_recent_location: "{{ states('sensor.maggie_s_most_recent_location') }}"
+      second_most_recent_location: "{{ states('sensor.maggie_s_second_most_recent_location') }}"
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: "{{ most_recent_location == 'charlotte' }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.maggie_location_charlotte
+    - conditions:
+      - condition: template
+        value_template: "{{ most_recent_location == 'william' }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.maggie_location_william
+    - conditions:
+      - condition: template
+        value_template: "{{ most_recent_location == 'owen' }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.maggie_location_owen
+    - conditions:
+      - condition: template
+        value_template: "{{ most_recent_location == 'master_bathroom' }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.maggie_location_master_bathroom
+    - conditions:
+      - condition: template
+        value_template: "{{ most_recent_location == 'master_bedroom' }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.maggie_location_master_bedroom
+    - conditions:
+      - condition: template
+        value_template: "{{ most_recent_location == 'pantry' }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.maggie_location_pantry
+  - delay: '00:00:02'
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: "{{ second_most_recent_location == 'charlotte' }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.maggie_location_charlotte
+    - conditions:
+      - condition: template
+        value_template: "{{ second_most_recent_location == 'william' }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.maggie_location_william
+    - conditions:
+      - condition: template
+        value_template: "{{ second_most_recent_location == 'owen' }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.maggie_location_owen
+    - conditions:
+      - condition: template
+        value_template: "{{ second_most_recent_location == 'master_bathroom' }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.maggie_location_master_bathroom
+    - conditions:
+      - condition: template
+        value_template: "{{ second_most_recent_location == 'master_bedroom' }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.maggie_location_master_bedroom
+    - conditions:
+      - condition: template
+        value_template: "{{ second_most_recent_location == 'pantry' }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.maggie_location_pantry
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.wheres_maggie_trigger
+  mode: single
