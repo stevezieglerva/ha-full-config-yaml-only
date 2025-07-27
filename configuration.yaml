@@ -920,6 +920,7 @@ template:
           {% set master_bathroom_minutes = states('sensor.minutes_since_master_bathroom_motion') | int(default=9999) %}
           {% set master_bedroom_minutes = states('sensor.minutes_since_master_bedroom_motion') | int(default=9999) %}
           {% set pantry_minutes = states('sensor.minutes_since_pantry_motion') | int(default=9999) %}
+          {% set office_minutes = states('sensor.minutes_since_office_motion') | int(default=9999) %}
           
           {% set valid_rooms = [] %}
           {% if charlotte_minutes <= 2 %}
@@ -939,6 +940,9 @@ template:
           {% endif %}
           {% if pantry_minutes <= 2 %}
             {% set valid_rooms = valid_rooms + [{'name': 'pantry', 'minutes': pantry_minutes}] %}
+          {% endif %}
+          {% if office_minutes <= 2 %}
+            {% set valid_rooms = valid_rooms + [{'name': 'office', 'minutes': office_minutes}] %}
           {% endif %}
           
           {% if valid_rooms | length > 0 %}
@@ -957,6 +961,7 @@ template:
           {% set master_bathroom_minutes = states('sensor.minutes_since_master_bathroom_motion') | int(default=9999) %}
           {% set master_bedroom_minutes = states('sensor.minutes_since_master_bedroom_motion') | int(default=9999) %}
           {% set pantry_minutes = states('sensor.minutes_since_pantry_motion') | int(default=9999) %}
+          {% set office_minutes = states('sensor.minutes_since_office_motion') | int(default=9999) %}
           
           {% set valid_rooms = [] %}
           {% if charlotte_minutes <= 2 %}
@@ -976,6 +981,9 @@ template:
           {% endif %}
           {% if pantry_minutes <= 2 %}
             {% set valid_rooms = valid_rooms + [{'name': 'pantry', 'minutes': pantry_minutes}] %}
+          {% endif %}
+          {% if office_minutes <= 2 %}
+            {% set valid_rooms = valid_rooms + [{'name': 'office', 'minutes': office_minutes}] %}
           {% endif %}
           
           {% if valid_rooms | length > 1 %}
@@ -1134,6 +1142,11 @@ input_boolean:
     name: 🚫 No Recent Maggie Motion
     initial: off
     icon: mdi:dog-off
+    
+  maggie_location_office:
+    name: 🏠 Maggie in Office
+    initial: off
+    icon: mdi:dog
     
   # Ceiling fan state trackers for Alexa-only devices
   master_bedroom_ceiling_fan:
