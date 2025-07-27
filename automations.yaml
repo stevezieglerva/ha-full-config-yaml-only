@@ -5017,6 +5017,7 @@
         - condition: state
           entity_id: schedule.coat_closet_schedule
           state: 'on'
+          enabled: false
         - condition: numeric_state
           entity_id: sensor.average_sunlight
           below: 200
@@ -5035,6 +5036,7 @@
         - condition: state
           entity_id: schedule.coat_closet_schedule
           state: 'off'
+          enabled: false
         - condition: numeric_state
           entity_id: sensor.average_sunlight
           above: 200
@@ -5965,110 +5967,105 @@
       entity_id: input_boolean.maggie_upstairs_monitor
   mode: single
 - id: smart_night_light_pantry
-  alias: "Smart Night Light - Pantry"
-  description: "Controls the pantry night light with smart behavior"
+  alias: Smart Night Light - Pantry
+  description: Controls the pantry night light with smart behavior
   trigger:
-    - platform: state
-      entity_id: binary_sensor.pantry_night_light_occupancy_3
-    - platform: state
-      entity_id: sensor.night
-    - platform: homeassistant
-      event: start
-    - platform: numeric_state
-      entity_id: sensor.kitchen_motion_illuminance_lux
-      below: 5
+  - platform: state
+    entity_id: binary_sensor.pantry_night_light_occupancy_3
+  - platform: state
+    entity_id: sensor.night
+  - platform: homeassistant
+    event: start
+  - platform: numeric_state
+    entity_id: sensor.kitchen_motion_illuminance_lux
+    below: 5
   action:
-    - service: script.smart_night_light
-      data:
-        motion_sensor: binary_sensor.pantry_night_light_occupancy_3
-        light_entity: light.pantry_night_light_light_3
-        illuminance_sensor: sensor.kitchen_motion_illuminance_lux
-        darkness_threshold: 25
-        dim_brightness: 20
-        bright_brightness: 255
-        timeout: 60
+  - service: script.smart_night_light
+    data:
+      motion_sensor: binary_sensor.pantry_night_light_occupancy_3
+      light_entity: light.pantry_night_light_light_3
+      illuminance_sensor: sensor.kitchen_motion_illuminance_lux
+      darkness_threshold: 25
+      dim_brightness: 20
+      bright_brightness: 255
+      timeout: 60
   mode: restart
-
-
-
 - id: smart_night_light_charlotte
-  alias: "Smart Night Light - Charlotte Room"
-  description: "Controls Charlotte's room night light with smart behavior"
+  alias: Smart Night Light - Charlotte Room
+  description: Controls Charlotte's room night light with smart behavior
   trigger:
-    - platform: state
-      entity_id: binary_sensor.charlotte_night_light_occupancy
-    - platform: state
-      entity_id: sensor.night
-    - platform: homeassistant
-      event: start
-    - platform: numeric_state
-      entity_id: sensor.charlotte_night_light_illuminance_lux
-      below: 5
+  - platform: state
+    entity_id: binary_sensor.charlotte_night_light_occupancy
+  - platform: state
+    entity_id: sensor.night
+  - platform: homeassistant
+    event: start
+  - platform: numeric_state
+    entity_id: sensor.charlotte_night_light_illuminance_lux
+    below: 5
   action:
-    - service: script.smart_night_light
-      data:
-        motion_sensor: binary_sensor.charlotte_night_light_occupancy
-        light_entity: light.charlotte_night_light
-        illuminance_sensor: sensor.charlotte_night_light_illuminance_lux
-        darkness_threshold: 25
-        dim_brightness: 15
-        bright_brightness: 100
-        timeout: 60
+  - service: script.smart_night_light
+    data:
+      motion_sensor: binary_sensor.charlotte_night_light_occupancy
+      light_entity: light.charlotte_night_light
+      illuminance_sensor: sensor.charlotte_night_light_illuminance_lux
+      darkness_threshold: 25
+      dim_brightness: 15
+      bright_brightness: 100
+      timeout: 60
   mode: restart
-
 - id: smart_night_light_owen
-  alias: "Smart Night Light - Owen Room"
-  description: "Controls Owen's room night light with smart behavior"
+  alias: Smart Night Light - Owen Room
+  description: Controls Owen's room night light with smart behavior
   trigger:
-    - platform: state
-      entity_id: binary_sensor.owen_night_light_occupancy
-    - platform: state
-      entity_id: sensor.night
-    - platform: homeassistant
-      event: start
-    - platform: numeric_state
-      entity_id: sensor.owen_night_light_illuminance_lux
-      below: 5
+  - platform: state
+    entity_id: binary_sensor.owen_night_light_occupancy
+  - platform: state
+    entity_id: sensor.night
+  - platform: homeassistant
+    event: start
+  - platform: numeric_state
+    entity_id: sensor.owen_night_light_illuminance_lux
+    below: 5
   action:
-    - service: script.smart_night_light
-      data:
-        motion_sensor: binary_sensor.owen_night_light_occupancy
-        light_entity: light.owen_night_light
-        illuminance_sensor: sensor.owen_night_light_illuminance_lux
-        darkness_threshold: 25
-        dim_brightness: 15
-        bright_brightness: 100
-        timeout: 60
+  - service: script.smart_night_light
+    data:
+      motion_sensor: binary_sensor.owen_night_light_occupancy
+      light_entity: light.owen_night_light
+      illuminance_sensor: sensor.owen_night_light_illuminance_lux
+      darkness_threshold: 25
+      dim_brightness: 15
+      bright_brightness: 100
+      timeout: 60
   mode: restart
-
 - id: smart_night_light_william
-  alias: "Smart Night Light - William Room"
-  description: "Controls William's room night light with smart behavior"
+  alias: Smart Night Light - William Room
+  description: Controls William's room night light with smart behavior
   trigger:
-    - platform: state
-      entity_id: binary_sensor.william_night_light_occupancy
-    - platform: state
-      entity_id: sensor.night
-    - platform: homeassistant
-      event: start
-    - platform: numeric_state
-      entity_id: sensor.william_night_light_illuminance_lux
-      below: 5
+  - platform: state
+    entity_id: binary_sensor.william_night_light_occupancy
+  - platform: state
+    entity_id: sensor.night
+  - platform: homeassistant
+    event: start
+  - platform: numeric_state
+    entity_id: sensor.william_night_light_illuminance_lux
+    below: 5
   action:
-    - service: script.smart_night_light
-      data:
-        motion_sensor: binary_sensor.william_night_light_occupancy
-        light_entity: light.william_night_light
-        illuminance_sensor: sensor.william_night_light_illuminance_lux
-        darkness_threshold: 25
-        dim_brightness: 15
-        bright_brightness: 100
-        timeout: 60
+  - service: script.smart_night_light
+    data:
+      motion_sensor: binary_sensor.william_night_light_occupancy
+      light_entity: light.william_night_light
+      illuminance_sensor: sensor.william_night_light_illuminance_lux
+      darkness_threshold: 25
+      dim_brightness: 15
+      bright_brightness: 100
+      timeout: 60
   mode: restart
-
-- id: 'wheres_maggie_alexa_alert'
-  alias: 🐕 Where's Maggie Alexa Alert
-  description: 'Triggered by Alexa routine to announce Maggie location based on recent motion'
+- id: wheres_maggie_alexa_alert
+  alias: "\U0001F415 Where's Maggie Alexa Alert"
+  description: Triggered by Alexa routine to announce Maggie location based on recent
+    motion
   trigger:
   - platform: state
     entity_id: input_boolean.wheres_maggie_trigger
@@ -6076,105 +6073,106 @@
   condition: []
   action:
   - variables:
-      most_recent_location: "{{ states('sensor.maggie_s_most_recent_location') }}"
-      second_most_recent_location: "{{ states('sensor.maggie_s_second_most_recent_location') }}"
+      most_recent_location: '{{ states(''sensor.maggie_s_most_recent_location'') }}'
+      second_most_recent_location: '{{ states(''sensor.maggie_s_second_most_recent_location'')
+        }}'
   - choose:
     - conditions:
       - condition: template
-        value_template: "{{ most_recent_location == 'charlotte' }}"
+        value_template: '{{ most_recent_location == ''charlotte'' }}'
       sequence:
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.maggie_location_charlotte
     - conditions:
       - condition: template
-        value_template: "{{ most_recent_location == 'william' }}"
+        value_template: '{{ most_recent_location == ''william'' }}'
       sequence:
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.maggie_location_william
     - conditions:
       - condition: template
-        value_template: "{{ most_recent_location == 'owen' }}"
+        value_template: '{{ most_recent_location == ''owen'' }}'
       sequence:
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.maggie_location_owen
     - conditions:
       - condition: template
-        value_template: "{{ most_recent_location == 'master_bathroom' }}"
+        value_template: '{{ most_recent_location == ''master_bathroom'' }}'
       sequence:
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.maggie_location_master_bathroom
     - conditions:
       - condition: template
-        value_template: "{{ most_recent_location == 'master_bedroom' }}"
+        value_template: '{{ most_recent_location == ''master_bedroom'' }}'
       sequence:
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.maggie_location_master_bedroom
     - conditions:
       - condition: template
-        value_template: "{{ most_recent_location == 'pantry' }}"
+        value_template: '{{ most_recent_location == ''pantry'' }}'
       sequence:
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.maggie_location_pantry
     - conditions:
       - condition: template
-        value_template: "{{ most_recent_location == 'unknown' }}"
+        value_template: '{{ most_recent_location == ''unknown'' }}'
       sequence:
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.maggie_location_no_recent_motion
-  - delay: '00:00:02'
+  - delay: 00:00:02
   - choose:
     - conditions:
       - condition: template
-        value_template: "{{ second_most_recent_location == 'charlotte' }}"
+        value_template: '{{ second_most_recent_location == ''charlotte'' }}'
       sequence:
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.maggie_location_charlotte
     - conditions:
       - condition: template
-        value_template: "{{ second_most_recent_location == 'william' }}"
+        value_template: '{{ second_most_recent_location == ''william'' }}'
       sequence:
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.maggie_location_william
     - conditions:
       - condition: template
-        value_template: "{{ second_most_recent_location == 'owen' }}"
+        value_template: '{{ second_most_recent_location == ''owen'' }}'
       sequence:
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.maggie_location_owen
     - conditions:
       - condition: template
-        value_template: "{{ second_most_recent_location == 'master_bathroom' }}"
+        value_template: '{{ second_most_recent_location == ''master_bathroom'' }}'
       sequence:
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.maggie_location_master_bathroom
     - conditions:
       - condition: template
-        value_template: "{{ second_most_recent_location == 'master_bedroom' }}"
+        value_template: '{{ second_most_recent_location == ''master_bedroom'' }}'
       sequence:
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.maggie_location_master_bedroom
     - conditions:
       - condition: template
-        value_template: "{{ second_most_recent_location == 'pantry' }}"
+        value_template: '{{ second_most_recent_location == ''pantry'' }}'
       sequence:
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.maggie_location_pantry
     - conditions:
       - condition: template
-        value_template: "{{ second_most_recent_location == 'unknown' }}"
+        value_template: '{{ second_most_recent_location == ''unknown'' }}'
       sequence:
       - service: input_boolean.turn_on
         target:
@@ -6182,16 +6180,39 @@
   - service: input_boolean.turn_off
     target:
       entity_id: input_boolean.wheres_maggie_trigger
-  - delay: '00:00:05'
+  - delay: 00:00:05
   - service: input_boolean.turn_off
     target:
-      entity_id: 
-        - input_boolean.wheres_maggie_trigger
-        - input_boolean.maggie_location_charlotte
-        - input_boolean.maggie_location_william
-        - input_boolean.maggie_location_owen
-        - input_boolean.maggie_location_master_bathroom
-        - input_boolean.maggie_location_master_bedroom
-        - input_boolean.maggie_location_pantry
-        - input_boolean.maggie_location_no_recent_motion
+      entity_id:
+      - input_boolean.wheres_maggie_trigger
+      - input_boolean.maggie_location_charlotte
+      - input_boolean.maggie_location_william
+      - input_boolean.maggie_location_owen
+      - input_boolean.maggie_location_master_bathroom
+      - input_boolean.maggie_location_master_bedroom
+      - input_boolean.maggie_location_pantry
+      - input_boolean.maggie_location_no_recent_motion
+  mode: single
+- id: '1753482248994'
+  alias: Turn on master bedroom light when night and occupied
+  description: ''
+  trigger:
+  - type: occupied
+    platform: device
+    device_id: 71eeaaccdfbcb19ec501fb586f2dfdc7
+    entity_id: 932a7aecdf9969ecfaf3e7b558bc24aa
+    domain: binary_sensor
+  condition:
+  - condition: time
+    before: '23:30:00'
+    after: '17:00:00'
+  - condition: state
+    entity_id: sensor.night
+    state: 'True'
+  action:
+  - service: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.master_bedroom_ceiling_light
   mode: single
