@@ -18,7 +18,10 @@ recorder:
     domains:
       - device_tracker
       - icloud3
-automation: !include automations.yaml
+automation:
+  - !include automations.yaml
+  - !include custom_not_awake_automation.yaml
+  - !include alexa_custom_not_awake.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 
@@ -1097,6 +1100,16 @@ input_boolean:
     initial: off
     icon: mdi:amazon-alexa
     
+  custom_not_awake_enabled:
+    name: Custom Not Awake Notifications Enabled
+    initial: off
+    icon: mdi:bell
+  
+  alexa_custom_not_awake:
+    name: Custom Not Awake Alexa Announcements
+    initial: off
+    icon: mdi:amazon-alexa
+    
   alexa_maggie_alert:
     name: Alexa Maggie Alert
     initial: off
@@ -1191,6 +1204,14 @@ input_boolean:
     icon: mdi:ceiling-light
 
 input_number:
+  custom_awake_delay:
+    name: Minutes to Wait Before Notification
+    initial: 10
+    min: 1
+    max: 60
+    step: 1
+    unit_of_measurement: min
+    icon: mdi:timer
   monthly_high_total:
     name: Monthly High Total
     min: -5000
@@ -1302,6 +1323,11 @@ timer:
     icon: mdi:timer
 
 input_datetime:
+  custom_awake_time:
+    name: Custom Awake Time
+    has_date: false
+    has_time: true
+    icon: mdi:alarm
   office_most_recent_motion:
     name: Office Most Recent Motion
     has_date: true
