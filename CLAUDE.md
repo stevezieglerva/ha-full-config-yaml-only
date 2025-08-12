@@ -68,3 +68,7 @@ There are three smart home ecosystems: Home Assistant, Apple Home, and Alexa. So
 - Allow git commands like `git status`, `git add`, `git commit`, `git
 - allows bash commands for file search and reading like `grep`, `find`, and `cat`.
 - Allows oascripts for notifications and sound playback.
+
+
+# Tests
+- Run the test_yaml_keys.py script to validate YAML key-value pairs.
