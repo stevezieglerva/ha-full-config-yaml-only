@@ -6372,7 +6372,7 @@
               id: motion_cleared
           sequence:
             - delay:
-                minutes: 1
+                minutes: 3
             - service: light.turn_on
               target:
                 entity_id: light.owen_night_light
@@ -6381,7 +6381,7 @@
             - service: logbook.log
               data:
                 name: "Owen's Night Light"
-                message: "No motion for 1 minute: Light returned to 10% brightness"
+                message: "No motion for 3 minutes: Light returned to 10% brightness"
   mode: restart
 - id: "william_room_motion_brightness"
   alias: "🟩 William's Room - Motion Brightness Control"
@@ -6422,7 +6422,7 @@
               id: motion_cleared
           sequence:
             - delay:
-                minutes: 1
+                minutes: 3
             - service: light.turn_on
               target:
                 entity_id: light.william_night_light
@@ -6431,7 +6431,7 @@
             - service: logbook.log
               data:
                 name: "William's Night Light"
-                message: "No motion for 1 minute: Light returned to 10% brightness"
+                message: "No motion for 3 minutes: Light returned to 10% brightness"
   mode: restart
 - id: "charlotte_room_motion_brightness"
   alias: "🧡 Charlotte's Room - Motion Brightness Control"
@@ -6472,7 +6472,7 @@
               id: motion_cleared
           sequence:
             - delay:
-                minutes: 1
+                minutes: 3
             - service: light.turn_on
               target:
                 entity_id: light.charlotte_night_light
@@ -6481,7 +6481,7 @@
             - service: logbook.log
               data:
                 name: "Charlotte's Night Light"
-                message: "No motion for 1 minute: Light returned to 10% brightness"
+                message: "No motion for 3 minutes: Light returned to 10% brightness"
   mode: restart
 - id: "charlotte_room_night_mode"
   alias: "🧡 Charlotte's Room - Night Mode Control"
