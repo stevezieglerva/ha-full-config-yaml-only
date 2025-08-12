@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import re
 import sys
+import os
 
 def test_yaml_key_value_inline(file_path, key_value_pairs):
     """
@@ -14,6 +15,10 @@ def test_yaml_key_value_inline(file_path, key_value_pairs):
         True if all patterns match, False otherwise
     """
     try:
+        if not os.path.exists(file_path):
+            print(f"ERROR: File not found: {file_path}")
+            return False
+            
         with open(file_path, 'r') as file:
             content = file.readlines()
         
@@ -22,18 +27,30 @@ def test_yaml_key_value_inline(file_path, key_value_pairs):
             key = pair['key']
             value = pair['value']
             
-            pattern = f"^{re.escape(key)}\s*{re.escape(value)}.*$"
+            # Pattern to match key and value on the same line
+            pattern = f"^\s*{re.escape(key)}\s*{re.escape(value)}.*$"
             
             found = False
-            for line in content:
+            line_num = 0
+            for i, line in enumerate(content):
+                line_num = i + 1
                 line = line.strip()
                 if re.match(pattern, line):
-                    print(f"PASS: '{key} {value}' is correctly formatted on a single line")
+                    print(f"PASS: '{key} {value}' is correctly formatted on a single line (line {line_num})")
                     found = True
                     break
             
             if not found:
                 print(f"ERROR: '{key} {value}' was not found on a single line in {file_path}")
+                
+                # Search for the key by itself to provide more diagnostics
+                key_pattern = f"^\s*{re.escape(key)}.*$"
+                for i, line in enumerate(content):
+                    line_num = i + 1
+                    line = line.strip()
+                    if re.match(key_pattern, line):
+                        print(f"  Found key '{key}' on line {line_num}: '{line}'")
+                        
                 all_matched = False
         
         return all_matched
@@ -43,7 +60,13 @@ def test_yaml_key_value_inline(file_path, key_value_pairs):
         return False
 
 if __name__ == "__main__":
-    file_path = "/Users/sziegler/Documents/GitHub/ha-full-config-yaml-only/configuration.yaml"
+    # Allow specifying file path as command-line argument
+    if len(sys.argv) > 1:
+        file_path = sys.argv[1]
+    else:
+        file_path = "/Users/sziegler/Documents/GitHub/ha-full-config-yaml-only/configuration.yaml"
+    
+    print(f"Testing file: {file_path}")
     
     # Key-value pairs to check
     key_value_pairs = [
@@ -55,8 +78,8 @@ if __name__ == "__main__":
     success = test_yaml_key_value_inline(file_path, key_value_pairs)
     
     if success:
-        print("\nAll keys have values on the same line!")
+        print("\nALL TESTS PASSED: All keys have values on the same line!")
         sys.exit(0)
     else:
-        print("\nSome keys do not have values on the same line.")
+        print("\nTEST FAILED: Some keys do not have values on the same line.")
         sys.exit(1)
