@@ -6297,3 +6297,261 @@
       target:
         entity_id: input_boolean.master_bedroom_ceiling_light
   mode: single
+- id: "william_room_night_mode"
+  alias: "🟩 William's Room - Night Mode Control"
+  description: "Controls William's night light based on night sensor state"
+  trigger:
+    - platform: state
+      entity_id: sensor.night
+  condition: []
+  action:
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: sensor.night
+              state: "True"
+          sequence:
+            - service: light.turn_on
+              target:
+                entity_id: light.william_night_light
+              data:
+                brightness: 26 # 10% of 255
+            - service: logbook.log
+              data:
+                name: "William's Night Light"
+                message: "Night mode ON: Light set to 10% brightness"
+        - conditions:
+            - condition: state
+              entity_id: sensor.night
+              state: "False"
+          sequence:
+            - service: light.turn_off
+              target:
+                entity_id: light.william_night_light
+            - service: logbook.log
+              data:
+                name: "William's Night Light"
+                message: "Night mode OFF: Light turned off"
+  mode: single
+- id: "owen_room_motion_brightness"
+  alias: "🟦 Owen's Room - Motion Brightness Control"
+  description: "Controls Owen's night light brightness based on motion detection"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.owen_night_light_occupancy
+      to: "on"
+      id: motion_detected
+    - platform: state
+      entity_id: binary_sensor.owen_night_light_occupancy
+      to: "off"
+      id: motion_cleared
+  condition:
+    - condition: state
+      entity_id: sensor.night
+      state: "True"
+    - condition: state
+      entity_id: light.owen_night_light
+      state: "on"
+  action:
+    - choose:
+        - conditions:
+            - condition: trigger
+              id: motion_detected
+          sequence:
+            - service: light.turn_on
+              target:
+                entity_id: light.owen_night_light
+              data:
+                brightness: 255 # 100%
+            - service: logbook.log
+              data:
+                name: "Owen's Night Light"
+                message: "Motion detected: Light set to 100% brightness"
+        - conditions:
+            - condition: trigger
+              id: motion_cleared
+          sequence:
+            - delay:
+                minutes: 1
+            - service: light.turn_on
+              target:
+                entity_id: light.owen_night_light
+              data:
+                brightness: 26 # 10% of 255
+            - service: logbook.log
+              data:
+                name: "Owen's Night Light"
+                message: "No motion for 1 minute: Light returned to 10% brightness"
+  mode: restart
+- id: "william_room_motion_brightness"
+  alias: "🟩 William's Room - Motion Brightness Control"
+  description: "Controls William's night light brightness based on motion detection"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.william_night_light_occupancy
+      to: "on"
+      id: motion_detected
+    - platform: state
+      entity_id: binary_sensor.william_night_light_occupancy
+      to: "off"
+      id: motion_cleared
+  condition:
+    - condition: state
+      entity_id: sensor.night
+      state: "True"
+    - condition: state
+      entity_id: light.william_night_light
+      state: "on"
+  action:
+    - choose:
+        - conditions:
+            - condition: trigger
+              id: motion_detected
+          sequence:
+            - service: light.turn_on
+              target:
+                entity_id: light.william_night_light
+              data:
+                brightness: 255 # 100%
+            - service: logbook.log
+              data:
+                name: "William's Night Light"
+                message: "Motion detected: Light set to 100% brightness"
+        - conditions:
+            - condition: trigger
+              id: motion_cleared
+          sequence:
+            - delay:
+                minutes: 1
+            - service: light.turn_on
+              target:
+                entity_id: light.william_night_light
+              data:
+                brightness: 26 # 10% of 255
+            - service: logbook.log
+              data:
+                name: "William's Night Light"
+                message: "No motion for 1 minute: Light returned to 10% brightness"
+  mode: restart
+- id: "charlotte_room_motion_brightness"
+  alias: "🧡 Charlotte's Room - Motion Brightness Control"
+  description: "Controls Charlotte's night light brightness based on motion detection"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.charlotte_night_light_occupancy
+      to: "on"
+      id: motion_detected
+    - platform: state
+      entity_id: binary_sensor.charlotte_night_light_occupancy
+      to: "off"
+      id: motion_cleared
+  condition:
+    - condition: state
+      entity_id: sensor.night
+      state: "True"
+    - condition: state
+      entity_id: light.charlotte_night_light
+      state: "on"
+  action:
+    - choose:
+        - conditions:
+            - condition: trigger
+              id: motion_detected
+          sequence:
+            - service: light.turn_on
+              target:
+                entity_id: light.charlotte_night_light
+              data:
+                brightness: 255 # 100%
+            - service: logbook.log
+              data:
+                name: "Charlotte's Night Light"
+                message: "Motion detected: Light set to 100% brightness"
+        - conditions:
+            - condition: trigger
+              id: motion_cleared
+          sequence:
+            - delay:
+                minutes: 1
+            - service: light.turn_on
+              target:
+                entity_id: light.charlotte_night_light
+              data:
+                brightness: 26 # 10% of 255
+            - service: logbook.log
+              data:
+                name: "Charlotte's Night Light"
+                message: "No motion for 1 minute: Light returned to 10% brightness"
+  mode: restart
+- id: "charlotte_room_night_mode"
+  alias: "🧡 Charlotte's Room - Night Mode Control"
+  description: "Controls Charlotte's night light based on night sensor state"
+  trigger:
+    - platform: state
+      entity_id: sensor.night
+  condition: []
+  action:
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: sensor.night
+              state: "True"
+          sequence:
+            - service: light.turn_on
+              target:
+                entity_id: light.charlotte_night_light
+              data:
+                brightness: 26 # 10% of 255
+            - service: logbook.log
+              data:
+                name: "Charlotte's Night Light"
+                message: "Night mode ON: Light set to 10% brightness"
+        - conditions:
+            - condition: state
+              entity_id: sensor.night
+              state: "False"
+          sequence:
+            - service: light.turn_off
+              target:
+                entity_id: light.charlotte_night_light
+            - service: logbook.log
+              data:
+                name: "Charlotte's Night Light"
+                message: "Night mode OFF: Light turned off"
+  mode: single
+- id: "owen_room_night_mode"
+  alias: "🟦 Owen's Room - Night Mode Control"
+  description: "Controls Owen's night light based on night sensor state"
+  trigger:
+    - platform: state
+      entity_id: sensor.night
+  condition: []
+  action:
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: sensor.night
+              state: "True"
+          sequence:
+            - service: light.turn_on
+              target:
+                entity_id: light.owen_night_light
+              data:
+                brightness: 26 # 10% of 255
+            - service: logbook.log
+              data:
+                name: "Owen's Night Light"
+                message: "Night mode ON: Light set to 10% brightness"
+        - conditions:
+            - condition: state
+              entity_id: sensor.night
+              state: "False"
+          sequence:
+            - service: light.turn_off
+              target:
+                entity_id: light.owen_night_light
+            - service: logbook.log
+              data:
+                name: "Owen's Night Light"
+                message: "Night mode OFF: Light turned off"
+  mode: single
