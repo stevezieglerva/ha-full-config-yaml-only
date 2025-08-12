@@ -294,6 +294,79 @@ template:
             false
           {% endif %}
         device_class: safety
+        
+      # Smart light off at switch detection binary sensors
+      - name: "💡❌ Butler's Pantry Light Off at Switch"
+        unique_id: butlers_pantry_light_off_at_switch
+        state: >
+          {% set last_updated = state_attr('light.butlers_pantry_light', 'last_updated') if state_attr('light.butlers_pantry_light', 'last_updated') else state_attr('light.butlers_pantry_light', 'last_changed') %}
+          {% if last_updated and states('light.butlers_pantry_light') == 'unavailable' %}
+            {% set minutes_since = ((now() - as_datetime(last_updated)).total_seconds() / 60) | int %}
+            {{ minutes_since > 30 }}
+          {% else %}
+            false
+          {% endif %}
+        device_class: problem
+        
+      - name: "💡❌ Coat Closet Hall Light Off at Switch"
+        unique_id: coat_closet_hall_light_off_at_switch
+        state: >
+          {% set last_updated = state_attr('light.coat_closet_hall_light', 'last_updated') if state_attr('light.coat_closet_hall_light', 'last_updated') else state_attr('light.coat_closet_hall_light', 'last_changed') %}
+          {% if last_updated and states('light.coat_closet_hall_light') == 'unavailable' %}
+            {% set minutes_since = ((now() - as_datetime(last_updated)).total_seconds() / 60) | int %}
+            {{ minutes_since > 30 }}
+          {% else %}
+            false
+          {% endif %}
+        device_class: problem
+        
+      - name: "💡❌ Garage Back Door Light Off at Switch"
+        unique_id: garage_back_door_light_off_at_switch
+        state: >
+          {% set last_updated = state_attr('light.garage_back_door_light', 'last_updated') if state_attr('light.garage_back_door_light', 'last_updated') else state_attr('light.garage_back_door_light', 'last_changed') %}
+          {% if last_updated and states('light.garage_back_door_light') == 'unavailable' %}
+            {% set minutes_since = ((now() - as_datetime(last_updated)).total_seconds() / 60) | int %}
+            {{ minutes_since > 30 }}
+          {% else %}
+            false
+          {% endif %}
+        device_class: problem
+        
+      - name: "💡❌ Garage Tool Light Off at Switch"
+        unique_id: garage_tool_light_off_at_switch
+        state: >
+          {% set last_updated = state_attr('light.garage_tool_light', 'last_updated') if state_attr('light.garage_tool_light', 'last_updated') else state_attr('light.garage_tool_light', 'last_changed') %}
+          {% if last_updated and states('light.garage_tool_light') == 'unavailable' %}
+            {% set minutes_since = ((now() - as_datetime(last_updated)).total_seconds() / 60) | int %}
+            {{ minutes_since > 30 }}
+          {% else %}
+            false
+          {% endif %}
+        device_class: problem
+        
+      - name: "💡❌ Kitchen Sink Light Off at Switch"
+        unique_id: kitchen_sink_light_off_at_switch
+        state: >
+          {% set last_updated = state_attr('light.kitchen_sink_light', 'last_updated') if state_attr('light.kitchen_sink_light', 'last_updated') else state_attr('light.kitchen_sink_light', 'last_changed') %}
+          {% if last_updated and states('light.kitchen_sink_light') == 'unavailable' %}
+            {% set minutes_since = ((now() - as_datetime(last_updated)).total_seconds() / 60) | int %}
+            {{ minutes_since > 30 }}
+          {% else %}
+            false
+          {% endif %}
+        device_class: problem
+        
+      - name: "💡❌ Office Lamp Light Off at Switch"
+        unique_id: office_lamp_light_off_at_switch
+        state: >
+          {% set last_updated = state_attr('light.office_lamp_light', 'last_updated') if state_attr('light.office_lamp_light', 'last_updated') else state_attr('light.office_lamp_light', 'last_changed') %}
+          {% if last_updated and states('light.office_lamp_light') == 'unavailable' %}
+            {% set minutes_since = ((now() - as_datetime(last_updated)).total_seconds() / 60) | int %}
+            {{ minutes_since > 30 }}
+          {% else %}
+            false
+          {% endif %}
+        device_class: problem
 
   - trigger:
       - platform: time
@@ -1216,6 +1289,37 @@ input_boolean:
     name: 🩷 Charlotte's Bedroom Ceiling Light
     initial: off
     icon: mdi:ceiling-light
+    
+  # Smart light off at switch alert booleans
+  alexa_butlers_pantry_light_off:
+    name: 💡❌ Butler's Pantry Light Off
+    initial: off
+    icon: mdi:lightbulb-off
+    
+  alexa_coat_closet_hall_light_off:
+    name: 💡❌ Coat Closet Hall Light Off
+    initial: off
+    icon: mdi:lightbulb-off
+    
+  alexa_garage_back_door_light_off:
+    name: 💡❌ Garage Back Door Light Off
+    initial: off
+    icon: mdi:lightbulb-off
+    
+  alexa_garage_tool_light_off:
+    name: 💡❌ Garage Tool Light Off
+    initial: off
+    icon: mdi:lightbulb-off
+    
+  alexa_kitchen_sink_light_off:
+    name: 💡❌ Kitchen Sink Light Off
+    initial: off
+    icon: mdi:lightbulb-off
+    
+  alexa_office_lamp_light_off:
+    name: 💡❌ Office Lamp Light Off
+    initial: off
+    icon: mdi:lightbulb-off
 
 input_number:
   monthly_high_total:
