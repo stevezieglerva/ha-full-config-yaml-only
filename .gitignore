@@ -3,8 +3,8 @@
 !configuration.yaml
 !automation.yaml
 !scripts.yaml
-!features/maggie_dog_upstairs_motion.md
 !features/
 !*.yaml
 !*.md
 !*.py
+!.claude/settings.local.json

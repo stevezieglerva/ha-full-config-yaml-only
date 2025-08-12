@@ -71,4 +71,5 @@ There are three smart home ecosystems: Home Assistant, Apple Home, and Alexa. So
 
 
 # Tests
+- Home Assistant uses a custom version of yaml and traditional Yaml parsing will not work for tests
 - Run the test_yaml_keys.py script to validate YAML key-value pairs.
