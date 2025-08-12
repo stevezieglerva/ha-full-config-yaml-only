@@ -1,0 +1,14 @@
+- id: "alexa_custom_not_awake_automation"
+  alias: "💤 Alexa Custom Not Awake Announcement"
+  description: "Make Alexa announce when no upstairs motion is detected after the custom time"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.alexa_custom_not_awake
+      from: "off"
+      to: "on"
+  condition: []
+  action:
+    - service: script.notify_most_alexas
+      data:
+        message: "Attention! No one upstairs appears to be awake yet. Please check upstairs."
+  mode: single

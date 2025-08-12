@@ -1,0 +1,40 @@
+- id: "custom_not_awake_automation"
+  alias: "💤 Custom Not Awake Warning"
+  description: "Check for upstairs motion after a custom time and send notifications if none detected"
+  trigger:
+    - platform: template
+      value_template: >
+        {% set target_time = states('input_datetime.custom_awake_time') %}
+        {% set delay_minutes = states('input_number.custom_awake_delay') | int %}
+        {% set target_hour = target_time.split(':')[0] | int(0) %}
+        {% set target_minute = target_time.split(':')[1] | int(0) %}
+        {% set total_minutes = target_hour * 60 + target_minute + delay_minutes %}
+        {% set final_hour = (total_minutes // 60) | string | pad(2, '0') %}
+        {% set final_minute = (total_minutes % 60) | string | pad(2, '0') %}
+        {{ now().strftime('%H:%M') == final_hour ~ ':' ~ final_minute }}
+  condition:
+    - condition: state
+      entity_id: input_boolean.custom_not_awake_enabled
+      state: "on"
+    - condition: state
+      entity_id: input_boolean.recent_upstairs_motion
+      state: "off"
+  action:
+    - service: notify.mobile_app_iphone703
+      metadata: {}
+      data:
+        message: "💤 No upstairs motion detected after custom wake-up time!"
+        data:
+          sound: alarm-clock.wav
+    - condition: state
+      entity_id: input_boolean.alexa_custom_not_awake
+      state: "on"
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.alexa_custom_not_awake
+    - delay:
+        seconds: 10
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.alexa_custom_not_awake
+  mode: single
