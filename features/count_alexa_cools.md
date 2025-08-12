@@ -1,0 +1,1 @@
+Count the number of times Alexa Cool Downstairs and Alexa Cool Upstairs has been turned on in a day. Add sensors or templates as needed.

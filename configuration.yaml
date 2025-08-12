@@ -252,8 +252,35 @@ sensor:
     type: time
     start: "{{ now().replace(hour=0, minute=0, second=0) }}"
     end: "{{ now() }}"
+  - platform: history_stats
+    name: "❄️ Alexa Cool Upstairs Count"
+    entity_id: input_boolean.alexa_cool_upstairs
+    state: "on"
+    type: count
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+  - platform: history_stats
+    name: "❄️ Alexa Cool Downstairs Count"
+    entity_id: input_boolean.alexa_cool_downstairs
+    state: "on"
+    type: count
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
 
 template:
+  - sensor:
+      - name: "❄️ Today's Alexa Cool Commands"
+        state: >-
+          {{ states('sensor.alexa_cool_upstairs_count') | int(0) + states('sensor.alexa_cool_downstairs_count') | int(0) }}
+        icon: mdi:thermometer-low
+        state_class: measurement
+        attributes:
+          upstairs: "{{ states('sensor.alexa_cool_upstairs_count') }}"
+          downstairs: "{{ states('sensor.alexa_cool_downstairs_count') }}"
+          friendly_display: >
+            ❄️ Today's Alexa Cool Commands: {{ states('sensor.alexa_cool_upstairs_count') | int(0) + states('sensor.alexa_cool_downstairs_count') | int(0) }} 
+            (Upstairs: {{ states('sensor.alexa_cool_upstairs_count') }}, Downstairs: {{ states('sensor.alexa_cool_downstairs_count') }})
+
   - binary_sensor:
       - name: "Payday Soon"
         unique_id: payday_soon
