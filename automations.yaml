@@ -6678,3 +6678,25 @@
     data:
       message: Office Lamp Light detected as off at the switch
   mode: single
+- id: '1755364533742'
+  alias: Nightly master bathroom fan
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:45:00'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 1270cc0ff83d07446858eb388339b38b
+    entity_id: 65d9be250ff0d6342c1e9aff462cb072
+    domain: switch
+  - delay:
+      hours: 0
+      minutes: 45
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: 1270cc0ff83d07446858eb388339b38b
+    entity_id: 65d9be250ff0d6342c1e9aff462cb072
+    domain: switch
+  mode: single
