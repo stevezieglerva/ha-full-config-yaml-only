@@ -26,30 +26,28 @@ This is a Home Assistant configuration repository containing:
 - `zigbee2mqtt/` - Zigbee2MQTT bridge configuration
 
 ## Emojis
-     │ 1. Entity Names: Emojis are directly added to entity names in the configuration files. For example:                                 │
-     │   - Temperature sensors: 🌡️ (lines 464, 474)                                                                                       │
-     │   - Climate status: 🔥 (heating), ❄️ (cooling) (lines 200, 221, 228)                                                                │
-     │   - Washer/laundry: 👚 (lines 163-173, 378-416)                                                                                     │
-     │   - Notifications: ‼️ (alarm), ⁉️ (text), 🚪 (door)                                                                                 │
-     │ 2. Sensor Values: Some sensors include emojis in their returned values, like the "Any Lights" sensor that returns area names with   │
-     │ lights on (lines 427-428).                                                                                                          │
-     │ 3. Message Templates: Emojis are used in notification templates, like for door events (lines 433-447).                              │
-     │ 4. Mode Indicators: Emojis are used in house modes like 🏡 Home, 🏝️ Vacation, etc. 
 
- │ 1. Children's Color Associations:                                                                                                         │ │
-│ │   - 🟦 Blue for Owen (lines 619-643, 5479)                                                                                                │ │
-│ │   - 🟩 Green for William (lines 593-617, 5451)                                                                                            │ │
-│ │   - 🩷 Pink for Charlotte (lines 567-591, 5469)                                                                                           │ │
-│ │ 2. School Indicators:                                                                                                                     │ │
-│ │   - 🔵📓 Owen's school status (lines 330-343)                                                                                             │ │
-│ │   - 🟢📓 William's school status (lines 344-357)                                                                                          │ │
-│ │   - 🩷📓 Charlotte's school status (lines 358-371)                                                                                        │ │
-│ │ 3. Morning Notifications:                                                                                                                 │ │
-│ │   - 🔵 Owen is up (line 5431)                                                                                                             │ │
-│ │   - 🟩 William is up (line 5450)                                                                                                          │ │
-│ │   - 🩷 Charlotte is up (line 5469)                                                                                                        │ │
-│ │ 4. Room Motion Tracking:                                                                                                                  │ │
-│ │   - Uses the same color scheme for tracking motion (lines 567-695)  
+### Entity and UI Conventions
+
+| Category | Examples | Line References |
+|---------|----------|----------------|
+| Temperature sensors | 🌡️ | 464, 474 |
+| Climate status | 🔥 (heating), ❄️ (cooling) | 200, 221, 228 |
+| Washer/laundry | 👚 | 163-173, 378-416 |
+| Notifications | ‼️ (alarm), ⁉️ (text), 🚪 (door) | - |
+| Sensor Values | "Any Lights" sensor returns area names | 427-428 |
+| Message Templates | Door events | 433-447 |
+| Mode Indicators | 🏡 Home, 🏝️ Vacation | - |
+
+### Children's Color System
+
+| Child | Color | Line References | Morning Alert | School Status |
+|-------|-------|----------------|--------------|---------------|
+| Owen | 🟦 Blue | 619-643, 5479 | 🔵 (line 5431) | 🔵📓 (lines 330-343) |
+| William | 🟩 Green | 593-617, 5451 | 🟩 (line 5450) | 🟢📓 (lines 344-357) |
+| Charlotte | 🩷 Pink | 567-591, 5469 | 🩷 (line 5469) | 🩷📓 (lines 358-371) |
+
+Room motion tracking also uses the same color scheme (lines 567-695).
 
 
 ## Ecosystems
@@ -64,7 +62,7 @@ There are three smart home ecosystems: Home Assistant, Apple Home, and Alexa. So
 - Send a ios mobile notification when a long running claud process is finished to stephen.v.ziegler@gmail.com
 
 ## Allowed commands
-- Allow basic bash commands like `ls`, `cd`, `cat`, `echo`, `touch`, `mkdir`, `rm`, and `cp`.
+- Allow basic bash commands like `ls`, `cd`, `cat`, `echo`, `touch`, `mkdir`, `rm`, `say`, and `cp`.
 - Allow git commands like `git status`, `git add`, `git commit`, `git
 - allows bash commands for file search and reading like `grep`, `find`, and `cat`.
 - Allows oascripts for notifications and sound playback.
