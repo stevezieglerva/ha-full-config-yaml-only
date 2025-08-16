@@ -6712,3 +6712,41 @@
     entity_id: 65d9be250ff0d6342c1e9aff462cb072
     domain: switch
   mode: single
+- id: '1755373382684'
+  alias: Playroom Lamp
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.night
+    from: 'False'
+    to: 'True'
+    id: night
+  - platform: state
+    entity_id:
+    - sensor.night
+    from: 'True'
+    to: 'False'
+    id: day
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - night
+      sequence:
+      - type: turn_on
+        device_id: 57621b38f6548905ac420d1b6bb041c7
+        entity_id: 3731527d3962678fca89a29b86bf14e4
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id:
+        - day
+      sequence:
+      - type: turn_off
+        device_id: 57621b38f6548905ac420d1b6bb041c7
+        entity_id: 3731527d3962678fca89a29b86bf14e4
+        domain: switch
+  mode: single
