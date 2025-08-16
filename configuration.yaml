@@ -356,16 +356,6 @@ template:
             {{ states('sensor.butlers_pantry_light_last_seen') if states('sensor.butlers_pantry_light_last_seen') != 'unknown' else none }}
           {% endif %}
 
-      - name: "Coat Closet Hall Light Last Seen"
-        unique_id: coat_closet_hall_light_last_seen
-        icon: mdi:clock-outline
-        state: >
-          {% if states('light.coat_closet_hall_light') != 'unavailable' %}
-            {{ now().isoformat() }}
-          {% else %}
-            {{ states('sensor.coat_closet_hall_light_last_seen') if states('sensor.coat_closet_hall_light_last_seen') != 'unknown' else none }}
-          {% endif %}
-
       - name: "Garage Back Door Light Last Seen"
         unique_id: garage_back_door_light_last_seen
         icon: mdi:clock-outline
