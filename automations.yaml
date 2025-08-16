@@ -6519,9 +6519,11 @@
   - service: input_boolean.turn_off
     target:
       entity_id: input_boolean.alexa_butlers_pantry_light_off
-  - service: logger.info
+  - service: logbook.log
     data:
-      message: Butler's Pantry Light detected as off at the switch
+      name: Butler's Pantry Light
+      message: Detected as off at the switch
+      entity_id: binary_sensor.butlers_pantry_light_off_at_switch
   mode: single
 - id: '1691234500001'
   alias: "\U0001F4A1❌ Alert - Coat Closet Hall Light Off at Switch"
@@ -6550,9 +6552,11 @@
     target:
       entity_id: input_boolean.alexa_coat_closet_hall_light_off
     data: {}
-  - service: logger.info
+  - service: logbook.log
     data:
-      message: Coat Closet Hall Light detected as off at the switch
+      name: Coat Closet Hall Light
+      message: Detected as off at the switch
+      entity_id: binary_sensor.coat_closet_hall_light_off_at_switch
   mode: single
 - id: '1691234500002'
   alias: "\U0001F4A1❌ Alert - Garage Back Door Light Off at Switch"
@@ -6581,9 +6585,11 @@
     target:
       entity_id: input_boolean.alexa_garage_back_door_light_off
     data: {}
-  - service: logger.info
+  - service: logbook.log
     data:
-      message: Garage Back Door Light detected as off at the switch
+      name: Garage Back Door Light
+      message: Detected as off at the switch
+      entity_id: binary_sensor.garage_back_door_light_off_at_switch
   mode: single
 - id: '1691234500003'
   alias: "\U0001F4A1❌ Alert - Garage Tool Light Off at Switch"
@@ -6612,9 +6618,11 @@
     target:
       entity_id: input_boolean.alexa_garage_tool_light_off
     data: {}
-  - service: logger.info
+  - service: logbook.log
     data:
-      message: Garage Tool Light detected as off at the switch
+      name: Garage Tool Light
+      message: Detected as off at the switch
+      entity_id: binary_sensor.garage_tool_light_off_at_switch
   mode: single
 - id: '1691234500004'
   alias: "\U0001F4A1❌ Alert - Kitchen Sink Light Off at Switch"
@@ -6643,9 +6651,11 @@
     target:
       entity_id: input_boolean.alexa_kitchen_sink_light_off
     data: {}
-  - service: logger.info
+  - service: logbook.log
     data:
-      message: Kitchen Sink Light detected as off at the switch
+      name: Kitchen Sink Light
+      message: Detected as off at the switch
+      entity_id: binary_sensor.kitchen_sink_light_off_at_switch
   mode: single
 - id: '1691234500005'
   alias: "\U0001F4A1❌ Alert - Office Lamp Light Off at Switch"
@@ -6674,9 +6684,11 @@
     target:
       entity_id: input_boolean.alexa_office_lamp_light_off
     data: {}
-  - service: logger.info
+  - service: logbook.log
     data:
-      message: Office Lamp Light detected as off at the switch
+      name: Office Lamp Light
+      message: Detected as off at the switch
+      entity_id: binary_sensor.office_lamp_light_off_at_switch
   mode: single
 - id: '1755364533742'
   alias: Nightly master bathroom fan
