@@ -1,0 +1,388 @@
+- id: '1732321111461'
+  name: ‼️ Alarm On!
+  entities:
+    light.kitchen_sink_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 2770
+      color_temp: 361
+      hs_color:
+      - 28.248
+      - 63.531
+      rgb_color:
+      - 255
+      - 169
+      - 92
+      xy_color:
+      - 0.519
+      - 0.387
+      friendly_name: Kitchen Sink Light
+      supported_features: 40
+      state: 'on'
+    light.butlers_pantry_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 2770
+      color_temp: 361
+      hs_color:
+      - 28.248
+      - 63.531
+      rgb_color:
+      - 255
+      - 169
+      - 92
+      xy_color:
+      - 0.519
+      - 0.387
+      friendly_name: Butlers Pantry Light
+      supported_features: 40
+      state: 'on'
+    light.garage_back_door_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 2702
+      color_temp: 370
+      hs_color:
+      - 28.391
+      - 65.659
+      rgb_color:
+      - 255
+      - 166
+      - 87
+      xy_color:
+      - 0.526
+      - 0.387
+      friendly_name: Garage back door light
+      supported_features: 40
+      state: 'on'
+    light.garage_tool_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 2702
+      color_temp: 370
+      hs_color:
+      - 28.391
+      - 65.659
+      rgb_color:
+      - 255
+      - 166
+      - 87
+      xy_color:
+      - 0.526
+      - 0.387
+      friendly_name: Garage Tool Light
+      supported_features: 40
+      state: 'on'
+  icon: mdi:alarm-light
+  metadata: {}
+- id: '1732638174786'
+  name: "\U0001F3DD️ Vacation lights on"
+  entities:
+    light.kitchen_sink_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Kitchen Sink Light
+      supported_features: 40
+      state: 'off'
+    light.butlers_pantry_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Butlers Pantry Light
+      supported_features: 40
+      state: 'off'
+    light.office_lamp_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Office Lamp Light
+      supported_features: 40
+      state: 'off'
+  icon: mdi:island
+  metadata: {}
+- id: '1732638346654'
+  name: "\U0001F3DD️ Vacation lights off"
+  entities:
+    light.kitchen_sink_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: color_temp
+      brightness: 0
+      color_temp_kelvin: 2770
+      color_temp: 361
+      hs_color:
+      - 28.248
+      - 63.531
+      rgb_color:
+      - 255
+      - 169
+      - 92
+      xy_color:
+      - 0.519
+      - 0.387
+      friendly_name: Kitchen Sink Light
+      supported_features: 40
+      state: 'on'
+    light.butlers_pantry_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: color_temp
+      brightness: 0
+      color_temp_kelvin: 2770
+      color_temp: 361
+      hs_color:
+      - 28.248
+      - 63.531
+      rgb_color:
+      - 255
+      - 169
+      - 92
+      xy_color:
+      - 0.519
+      - 0.387
+      friendly_name: Butlers Pantry Light
+      supported_features: 40
+      state: 'on'
+    light.office_lamp_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Office Lamp Light
+      supported_features: 40
+      state: 'off'
+  icon: mdi:island
+  metadata: {}
+- id: '1733091602590'
+  name: Door open
+  entities:
+    light.kitchen_sink_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 2770
+      color_temp: 361
+      hs_color:
+      - 28.248
+      - 63.531
+      rgb_color:
+      - 255
+      - 169
+      - 92
+      xy_color:
+      - 0.519
+      - 0.387
+      friendly_name: Kitchen Sink Light
+      supported_features: 40
+      state: 'on'
+    light.butlers_pantry_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 2770
+      color_temp: 361
+      hs_color:
+      - 28.248
+      - 63.531
+      rgb_color:
+      - 255
+      - 169
+      - 92
+      xy_color:
+      - 0.519
+      - 0.387
+      friendly_name: Butlers Pantry Light
+      supported_features: 40
+      state: 'on'
+  icon: mdi:door-open
+  metadata: {}
+- id: '1733098031799'
+  name: Garage on
+  entities:
+    light.garage_back_door_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 2702
+      color_temp: 370
+      hs_color:
+      - 28.391
+      - 65.659
+      rgb_color:
+      - 255
+      - 166
+      - 87
+      xy_color:
+      - 0.526
+      - 0.387
+      friendly_name: Garage back door light
+      supported_features: 40
+      state: 'on'
+    light.garage_tool_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 2702
+      color_temp: 370
+      hs_color:
+      - 28.391
+      - 65.659
+      rgb_color:
+      - 255
+      - 166
+      - 87
+      xy_color:
+      - 0.526
+      - 0.387
+      friendly_name: Garage Tool Light
+      supported_features: 40
+      state: 'on'
+  icon: mdi:garage
+  metadata: {}
+- id: '1733098105331'
+  name: Garage off
+  entities:
+    light.garage_back_door_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Garage back door light
+      supported_features: 40
+      state: 'off'
+    light.garage_tool_light:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6493
+      min_mireds: 154
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Garage Tool Light
+      supported_features: 40
+      state: 'off'
+  icon: mdi:garage
+  metadata: {}

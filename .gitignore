@@ -8,3 +8,4 @@
 !*.md
 !*.py
 !.claude/settings.local.json
+secrets.yaml
