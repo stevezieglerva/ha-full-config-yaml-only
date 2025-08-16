@@ -300,7 +300,7 @@ template:
         unique_id: butlers_pantry_light_off_at_switch
         state: >
           {% set last_seen = states('sensor.butlers_pantry_light_last_seen') %}
-          {% if last_seen != 'unknown' and last_seen != 'unavailable' and states('light.butlers_pantry_light') == 'unavailable' %}
+          {% if states('light.butlers_pantry_light') == 'unavailable' %}
             {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
             {{ minutes_since > 15 }}
           {% else %}
@@ -312,7 +312,7 @@ template:
         unique_id: coat_closet_hall_light_off_at_switch
         state: >
           {% set last_seen = states('sensor.coat_closet_hall_light_last_seen') %}
-          {% if last_seen != 'unknown' and last_seen != 'unavailable' and states('light.coat_closet_hall_light') == 'unavailable' %}
+          {% if states('light.coat_closet_hall_light') == 'unavailable' %}
             {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
             {{ minutes_since > 15 }}
           {% else %}
@@ -324,7 +324,7 @@ template:
         unique_id: garage_back_door_light_off_at_switch
         state: >
           {% set last_seen = states('sensor.garage_back_door_light_last_seen') %}
-          {% if last_seen != 'unknown' and last_seen != 'unavailable' and states('light.garage_back_door_light') == 'unavailable' %}
+          {% if states('light.garage_back_door_light') == 'unavailable' %}
             {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
             {{ minutes_since > 15 }}
           {% else %}
@@ -336,7 +336,7 @@ template:
         unique_id: garage_tool_light_off_at_switch
         state: >
           {% set last_seen = states('sensor.garage_tool_light_last_seen') %}
-          {% if last_seen != 'unknown' and last_seen != 'unavailable' and states('light.garage_tool_light') == 'unavailable' %}
+          {% if states('light.garage_tool_light') == 'unavailable' %}
             {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
             {{ minutes_since > 15 }}
           {% else %}
@@ -348,7 +348,7 @@ template:
         unique_id: kitchen_sink_light_off_at_switch
         state: >
           {% set last_seen = states('sensor.kitchen_sink_light_last_seen') %}
-          {% if last_seen != 'unknown' and last_seen != 'unavailable' and states('light.kitchen_sink_light') == 'unavailable' %}
+          {% if states('light.kitchen_sink_light') == 'unavailable' %}
             {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
             {{ minutes_since > 15 }}
           {% else %}
@@ -360,7 +360,7 @@ template:
         unique_id: office_lamp_light_off_at_switch
         state: >
           {% set last_seen = states('sensor.office_lamp_light_last_seen') %}
-          {% if last_seen != 'unknown' and last_seen != 'unavailable' and states('light.office_lamp_light') == 'unavailable' %}
+          {% if states('light.office_lamp_light') == 'unavailable' %}
             {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
             {{ minutes_since > 15 }}
           {% else %}
