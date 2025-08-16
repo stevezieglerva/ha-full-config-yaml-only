@@ -299,74 +299,112 @@ template:
       - name: "💡❌ Butler's Pantry Light Off at Switch"
         unique_id: butlers_pantry_light_off_at_switch
         state: >
-          {% set last_updated = state_attr('light.butlers_pantry_light', 'last_updated') if state_attr('light.butlers_pantry_light', 'last_updated') else state_attr('light.butlers_pantry_light', 'last_changed') %}
-          {% if last_updated and states('light.butlers_pantry_light') == 'unavailable' %}
-            {% set minutes_since = ((now() - as_datetime(last_updated)).total_seconds() / 60) | int %}
-            {{ minutes_since > 30 }}
-          {% else %}
-            false
-          {% endif %}
+          {% set last_seen = states('sensor.butlers_pantry_light_last_seen') %}
+          {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
+          {{ minutes_since > 15 }}
         device_class: problem
 
       - name: "💡❌ Coat Closet Hall Light Off at Switch"
         unique_id: coat_closet_hall_light_off_at_switch
         state: >
-          {% set last_updated = state_attr('light.coat_closet_hall_light', 'last_updated') if state_attr('light.coat_closet_hall_light', 'last_updated') else state_attr('light.coat_closet_hall_light', 'last_changed') %}
-          {% if last_updated and states('light.coat_closet_hall_light') == 'unavailable' %}
-            {% set minutes_since = ((now() - as_datetime(last_updated)).total_seconds() / 60) | int %}
-            {{ minutes_since > 15 }}
-          {% else %}
-            false
-          {% endif %}
+          {% set last_seen = states('sensor.coat_closet_hall_light_last_seen') %}
+          {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
+          {{ minutes_since > 15 }}
         device_class: problem
 
       - name: "💡❌ Garage Back Door Light Off at Switch"
         unique_id: garage_back_door_light_off_at_switch
         state: >
-          {% set last_updated = state_attr('light.garage_back_door_light', 'last_updated') if state_attr('light.garage_back_door_light', 'last_updated') else state_attr('light.garage_back_door_light', 'last_changed') %}
-          {% if last_updated and states('light.garage_back_door_light') == 'unavailable' %}
-            {% set minutes_since = ((now() - as_datetime(last_updated)).total_seconds() / 60) | int %}
-            {{ minutes_since > 30 }}
-          {% else %}
-            false
-          {% endif %}
+          {% set last_seen = states('sensor.garage_back_door_light_last_seen') %}
+          {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
+          {{ minutes_since > 15 }}
         device_class: problem
 
       - name: "💡❌ Garage Tool Light Off at Switch"
         unique_id: garage_tool_light_off_at_switch
         state: >
-          {% set last_updated = state_attr('light.garage_tool_light', 'last_updated') if state_attr('light.garage_tool_light', 'last_updated') else state_attr('light.garage_tool_light', 'last_changed') %}
-          {% if last_updated and states('light.garage_tool_light') == 'unavailable' %}
-            {% set minutes_since = ((now() - as_datetime(last_updated)).total_seconds() / 60) | int %}
-            {{ minutes_since > 30 }}
-          {% else %}
-            false
-          {% endif %}
+          {% set last_seen = states('sensor.garage_tool_light_last_seen') %}
+          {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
+          {{ minutes_since > 15 }}
         device_class: problem
 
       - name: "💡❌ Kitchen Sink Light Off at Switch"
         unique_id: kitchen_sink_light_off_at_switch
         state: >
-          {% set last_updated = state_attr('light.kitchen_sink_light', 'last_updated') if state_attr('light.kitchen_sink_light', 'last_updated') else state_attr('light.kitchen_sink_light', 'last_changed') %}
-          {% if last_updated and states('light.kitchen_sink_light') == 'unavailable' %}
-            {% set minutes_since = ((now() - as_datetime(last_updated)).total_seconds() / 60) | int %}
-            {{ minutes_since > 30 }}
-          {% else %}
-            false
-          {% endif %}
+          {% set last_seen = states('sensor.kitchen_sink_light_last_seen') %}
+          {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
+          {{ minutes_since > 15 }}
         device_class: problem
 
       - name: "💡❌ Office Lamp Light Off at Switch"
         unique_id: office_lamp_light_off_at_switch
         state: >
-          {% set last_updated = state_attr('light.office_lamp_light', 'last_updated') if state_attr('light.office_lamp_light', 'last_updated') else state_attr('light.office_lamp_light', 'last_changed') %}
-          {% if last_updated and states('light.office_lamp_light') == 'unavailable' %}
-            {% set minutes_since = ((now() - as_datetime(last_updated)).total_seconds() / 60) | int %}
-            {{ minutes_since > 30 }}
-          {% else %}
-            false
-          {% endif %}
+          {% set last_seen = states('sensor.office_lamp_light_last_seen') %}
+          {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
+          {{ minutes_since > 15 }}
         device_class: problem
+
+  # Smart light last seen sensors
+  - sensor:
+      - name: "Butler's Pantry Light Last Seen"
+        unique_id: butlers_pantry_light_last_seen
+        icon: mdi:clock-outline
+        state: >
+          {% if states('light.butlers_pantry_light') != 'unavailable' %}
+            {{ now().isoformat() }}
+          {% else %}
+            {{ states('sensor.butlers_pantry_light_last_seen') if states('sensor.butlers_pantry_light_last_seen') != 'unknown' else none }}
+          {% endif %}
+
+      - name: "Coat Closet Hall Light Last Seen"
+        unique_id: coat_closet_hall_light_last_seen
+        icon: mdi:clock-outline
+        state: >
+          {% if states('light.coat_closet_hall_light') != 'unavailable' %}
+            {{ now().isoformat() }}
+          {% else %}
+            {{ states('sensor.coat_closet_hall_light_last_seen') if states('sensor.coat_closet_hall_light_last_seen') != 'unknown' else none }}
+          {% endif %}
+
+      - name: "Garage Back Door Light Last Seen"
+        unique_id: garage_back_door_light_last_seen
+        icon: mdi:clock-outline
+        state: >
+          {% if states('light.garage_back_door_light') != 'unavailable' %}
+            {{ now().isoformat() }}
+          {% else %}
+            {{ states('sensor.garage_back_door_light_last_seen') if states('sensor.garage_back_door_light_last_seen') != 'unknown' else none }}
+          {% endif %}
+
+      - name: "Garage Tool Light Last Seen"
+        unique_id: garage_tool_light_last_seen
+        icon: mdi:clock-outline
+        state: >
+          {% if states('light.garage_tool_light') != 'unavailable' %}
+            {{ now().isoformat() }}
+          {% else %}
+            {{ states('sensor.garage_tool_light_last_seen') if states('sensor.garage_tool_light_last_seen') != 'unknown' else none }}
+          {% endif %}
+
+      - name: "Kitchen Sink Light Last Seen"
+        unique_id: kitchen_sink_light_last_seen
+        icon: mdi:clock-outline
+        state: >
+          {% if states('light.kitchen_sink_light') != 'unavailable' %}
+            {{ now().isoformat() }}
+          {% else %}
+            {{ states('sensor.kitchen_sink_light_last_seen') if states('sensor.kitchen_sink_light_last_seen') != 'unknown' else none }}
+          {% endif %}
+
+      - name: "Office Lamp Light Last Seen"
+        unique_id: office_lamp_light_last_seen
+        icon: mdi:clock-outline
+        state: >
+          {% if states('light.office_lamp_light') != 'unavailable' %}
+            {{ now().isoformat() }}
+          {% else %}
+            {{ states('sensor.office_lamp_light_last_seen') if states('sensor.office_lamp_light_last_seen') != 'unknown' else none }}
+          {% endif %}
 
   - trigger:
       - platform: time
