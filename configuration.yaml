@@ -294,7 +294,7 @@ template:
             false
           {% endif %}
         device_class: safety
-        
+
       # Smart light off at switch detection binary sensors
       - name: "💡❌ Butler's Pantry Light Off at Switch"
         unique_id: butlers_pantry_light_off_at_switch
@@ -307,19 +307,19 @@ template:
             false
           {% endif %}
         device_class: problem
-        
+
       - name: "💡❌ Coat Closet Hall Light Off at Switch"
         unique_id: coat_closet_hall_light_off_at_switch
         state: >
           {% set last_updated = state_attr('light.coat_closet_hall_light', 'last_updated') if state_attr('light.coat_closet_hall_light', 'last_updated') else state_attr('light.coat_closet_hall_light', 'last_changed') %}
           {% if last_updated and states('light.coat_closet_hall_light') == 'unavailable' %}
             {% set minutes_since = ((now() - as_datetime(last_updated)).total_seconds() / 60) | int %}
-            {{ minutes_since > 30 }}
+            {{ minutes_since > 15 }}
           {% else %}
             false
           {% endif %}
         device_class: problem
-        
+
       - name: "💡❌ Garage Back Door Light Off at Switch"
         unique_id: garage_back_door_light_off_at_switch
         state: >
@@ -331,7 +331,7 @@ template:
             false
           {% endif %}
         device_class: problem
-        
+
       - name: "💡❌ Garage Tool Light Off at Switch"
         unique_id: garage_tool_light_off_at_switch
         state: >
@@ -343,7 +343,7 @@ template:
             false
           {% endif %}
         device_class: problem
-        
+
       - name: "💡❌ Kitchen Sink Light Off at Switch"
         unique_id: kitchen_sink_light_off_at_switch
         state: >
@@ -355,7 +355,7 @@ template:
             false
           {% endif %}
         device_class: problem
-        
+
       - name: "💡❌ Office Lamp Light Off at Switch"
         unique_id: office_lamp_light_off_at_switch
         state: >
@@ -1021,7 +1021,7 @@ template:
           {% set master_bedroom_minutes = states('sensor.minutes_since_master_bedroom_motion') | int(default=9999) %}
           {% set pantry_minutes = states('sensor.minutes_since_pantry_motion') | int(default=9999) %}
           {% set office_minutes = states('sensor.minutes_since_office_motion') | int(default=9999) %}
-          
+
           {% set valid_rooms = [] %}
           {% if charlotte_minutes <= 2 %}
             {% set valid_rooms = valid_rooms + [{'name': 'charlotte', 'minutes': charlotte_minutes}] %}
@@ -1044,7 +1044,7 @@ template:
           {% if office_minutes <= 2 %}
             {% set valid_rooms = valid_rooms + [{'name': 'office', 'minutes': office_minutes}] %}
           {% endif %}
-          
+
           {% if valid_rooms | length > 0 %}
             {% set sorted_rooms = valid_rooms | sort(attribute='minutes') %}
             {{ sorted_rooms[0].name }}
@@ -1062,7 +1062,7 @@ template:
           {% set master_bedroom_minutes = states('sensor.minutes_since_master_bedroom_motion') | int(default=9999) %}
           {% set pantry_minutes = states('sensor.minutes_since_pantry_motion') | int(default=9999) %}
           {% set office_minutes = states('sensor.minutes_since_office_motion') | int(default=9999) %}
-          
+
           {% set valid_rooms = [] %}
           {% if charlotte_minutes <= 2 %}
             {% set valid_rooms = valid_rooms + [{'name': 'charlotte', 'minutes': charlotte_minutes}] %}
@@ -1085,7 +1085,7 @@ template:
           {% if office_minutes <= 2 %}
             {% set valid_rooms = valid_rooms + [{'name': 'office', 'minutes': office_minutes}] %}
           {% endif %}
-          
+
           {% if valid_rooms | length > 1 %}
             {% set sorted_rooms = valid_rooms | sort(attribute='minutes') %}
             {{ sorted_rooms[1].name }}
@@ -1186,136 +1186,136 @@ input_boolean:
     name: 🥩 Meat Cooking
     initial: off
     icon: mdi:food-drumstick
-    
+
   maggie_upstairs_monitor:
     name: 🐕 Maggie Upstairs Monitor
     initial: off
     icon: mdi:dog
-    
+
   alexa_maggie_monitor:
     name: Alexa Maggie Monitor
     initial: off
     icon: mdi:amazon-alexa
-    
+
   alexa_maggie_alert:
     name: Alexa Maggie Alert
     initial: off
     icon: mdi:message-alert
-    
+
   # Where's Maggie Alexa Alert System
   wheres_maggie_trigger:
     name: 🐕 Where's Maggie Trigger
     initial: off
     icon: mdi:dog
-    
+
   maggie_location_charlotte:
     name: 🩷 Maggie in Charlotte's Room
     initial: off
     icon: mdi:dog
-    
+
   maggie_location_william:
     name: 🟩 Maggie in William's Room
     initial: off
     icon: mdi:dog
-    
+
   maggie_location_owen:
     name: 🟦 Maggie in Owen's Room
     initial: off
     icon: mdi:dog
-    
+
   maggie_location_master_bathroom:
     name: 🚽 Maggie in Master Bathroom
     initial: off
     icon: mdi:dog
-    
+
   maggie_location_master_bedroom:
     name: 🛌 Maggie in Master Bedroom
     initial: off
     icon: mdi:dog
-    
+
   maggie_location_pantry:
     name: 🥫 Maggie in Pantry
     initial: off
     icon: mdi:dog
-    
+
   maggie_location_no_recent_motion:
     name: 🚫 No Recent Maggie Motion
     initial: off
     icon: mdi:dog-off
-    
+
   maggie_location_office:
     name: 🏠 Maggie in Office
     initial: off
     icon: mdi:dog
-    
+
   # Ceiling fan state trackers for Alexa-only devices
   master_bedroom_ceiling_fan:
     name: Master Bedroom Ceiling Fan
     initial: off
     icon: mdi:fan
-    
+
   owen_bedroom_ceiling_fan:
     name: 🟦 Owen's Bedroom Ceiling Fan
     initial: off
     icon: mdi:fan
-    
+
   william_bedroom_ceiling_fan:
     name: 🟩 William's Bedroom Ceiling Fan
     initial: off
     icon: mdi:fan
-    
+
   charlotte_bedroom_ceiling_fan:
     name: 🩷 Charlotte's Bedroom Ceiling Fan
     initial: off
     icon: mdi:fan
-    
+
   # Ceiling fan light state trackers for Alexa-only devices
   master_bedroom_ceiling_light:
     name: Master Bedroom Ceiling Light
     initial: off
     icon: mdi:ceiling-light
-    
+
   owen_bedroom_ceiling_light:
     name: 🟦 Owen's Bedroom Ceiling Light
     initial: off
     icon: mdi:ceiling-light
-    
+
   william_bedroom_ceiling_light:
     name: 🟩 William's Bedroom Ceiling Light
     initial: off
     icon: mdi:ceiling-light
-    
+
   charlotte_bedroom_ceiling_light:
     name: 🩷 Charlotte's Bedroom Ceiling Light
     initial: off
     icon: mdi:ceiling-light
-    
+
   # Smart light off at switch alert booleans
   alexa_butlers_pantry_light_off:
     name: 💡❌ Butler's Pantry Light Off
     initial: off
     icon: mdi:lightbulb-off
-    
+
   alexa_coat_closet_hall_light_off:
     name: 💡❌ Coat Closet Hall Light Off
     initial: off
     icon: mdi:lightbulb-off
-    
+
   alexa_garage_back_door_light_off:
     name: 💡❌ Garage Back Door Light Off
     initial: off
     icon: mdi:lightbulb-off
-    
+
   alexa_garage_tool_light_off:
     name: 💡❌ Garage Tool Light Off
     initial: off
     icon: mdi:lightbulb-off
-    
+
   alexa_kitchen_sink_light_off:
     name: 💡❌ Kitchen Sink Light Off
     initial: off
     icon: mdi:lightbulb-off
-    
+
   alexa_office_lamp_light_off:
     name: 💡❌ Office Lamp Light Off
     initial: off
