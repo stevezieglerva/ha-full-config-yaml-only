@@ -6010,7 +6010,7 @@
   - service: script.smart_night_light
     data:
       motion_sensor: binary_sensor.charlotte_night_light_occupancy
-      light_entity: light.charlotte_night_light
+      light_entity: light.charlotte_night_light_light
       illuminance_sensor: sensor.charlotte_night_light_illuminance_lux
       darkness_threshold: 25
       dim_brightness: 15
@@ -6034,7 +6034,7 @@
   - service: script.smart_night_light
     data:
       motion_sensor: binary_sensor.owen_night_light_occupancy
-      light_entity: light.owen_night_light
+      light_entity: light.owen_night_light_light
       illuminance_sensor: sensor.owen_night_light_illuminance_lux
       darkness_threshold: 25
       dim_brightness: 15
@@ -6058,7 +6058,7 @@
   - service: script.smart_night_light
     data:
       motion_sensor: binary_sensor.william_night_light_occupancy
-      light_entity: light.william_night_light
+      light_entity: light.william_night_light_light
       illuminance_sensor: sensor.william_night_light_illuminance_lux
       darkness_threshold: 25
       dim_brightness: 15
@@ -6249,10 +6249,10 @@
         state: 'True'
       sequence:
       - service: light.turn_on
-        target:
-          entity_id: light.william_night_light
         data:
           brightness: 26
+        target:
+          entity_id: light.william_night_light_light
       - service: logbook.log
         data:
           name: William's Night Light
@@ -6264,7 +6264,8 @@
       sequence:
       - service: light.turn_off
         target:
-          entity_id: light.william_night_light
+          entity_id: light.william_night_light_light
+        data: {}
       - service: logbook.log
         data:
           name: William's Night Light
@@ -6275,11 +6276,13 @@
   description: Controls Owen's night light brightness based on motion detection
   trigger:
   - platform: state
-    entity_id: binary_sensor.owen_night_light_occupancy
+    entity_id:
+    - binary_sensor.owen_night_light_occupancy_2
     to: 'on'
     id: motion_detected
   - platform: state
-    entity_id: binary_sensor.owen_night_light_occupancy
+    entity_id:
+    - binary_sensor.owen_night_light_occupancy_2
     to: 'off'
     id: motion_cleared
   condition:
@@ -6287,7 +6290,7 @@
     entity_id: sensor.night
     state: 'True'
   - condition: state
-    entity_id: light.owen_night_light
+    entity_id: light.owen_night_light_light_2
     state: 'on'
   action:
   - choose:
@@ -6296,10 +6299,10 @@
         id: motion_detected
       sequence:
       - service: light.turn_on
-        target:
-          entity_id: light.owen_night_light
         data:
           brightness: 255
+        target:
+          entity_id: light.owen_night_light_light_2
       - service: logbook.log
         data:
           name: Owen's Night Light
@@ -6311,10 +6314,10 @@
       - delay:
           minutes: 3
       - service: light.turn_on
-        target:
-          entity_id: light.owen_night_light
         data:
           brightness: 26
+        target:
+          entity_id: light.owen_night_light_light_2
       - service: logbook.log
         data:
           name: Owen's Night Light
@@ -6337,7 +6340,7 @@
     entity_id: sensor.night
     state: 'True'
   - condition: state
-    entity_id: light.william_night_light
+    entity_id: light.william_night_light_light
     state: 'on'
   action:
   - choose:
@@ -6347,7 +6350,7 @@
       sequence:
       - service: light.turn_on
         target:
-          entity_id: light.william_night_light
+          entity_id: light.william_night_light_light
         data:
           brightness: 255
       - service: logbook.log
@@ -6362,7 +6365,7 @@
           minutes: 3
       - service: light.turn_on
         target:
-          entity_id: light.william_night_light
+          entity_id: light.william_night_light_light
         data:
           brightness: 26
       - service: logbook.log
@@ -6387,7 +6390,7 @@
     entity_id: sensor.night
     state: 'True'
   - condition: state
-    entity_id: light.charlotte_night_light
+    entity_id: light.charlotte_night_light_light
     state: 'on'
   action:
   - choose:
@@ -6397,7 +6400,7 @@
       sequence:
       - service: light.turn_on
         target:
-          entity_id: light.charlotte_night_light
+          entity_id: light.charlotte_night_light_light
         data:
           brightness: 255
       - service: logbook.log
@@ -6412,7 +6415,7 @@
           minutes: 3
       - service: light.turn_on
         target:
-          entity_id: light.charlotte_night_light
+          entity_id: light.charlotte_night_light_light
         data:
           brightness: 26
       - service: logbook.log
@@ -6436,7 +6439,7 @@
       sequence:
       - service: light.turn_on
         target:
-          entity_id: light.charlotte_night_light
+          entity_id: light.charlotte_night_light_light
         data:
           brightness: 26
       - service: logbook.log
@@ -6450,7 +6453,7 @@
       sequence:
       - service: light.turn_off
         target:
-          entity_id: light.charlotte_night_light
+          entity_id: light.charlotte_night_light_light
       - service: logbook.log
         data:
           name: Charlotte's Night Light
@@ -6472,7 +6475,7 @@
       sequence:
       - service: light.turn_on
         target:
-          entity_id: light.owen_night_light
+          entity_id: light.owen_night_light_light
         data:
           brightness: 26
       - service: logbook.log
@@ -6486,7 +6489,7 @@
       sequence:
       - service: light.turn_off
         target:
-          entity_id: light.owen_night_light
+          entity_id: light.owen_night_light_light
       - service: logbook.log
         data:
           name: Owen's Night Light
