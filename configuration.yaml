@@ -301,7 +301,7 @@ template:
         state: >
           {% set last_seen = states('sensor.butlers_pantry_light_last_seen') %}
           {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
-          {{ states('light.butlers_pantry_light') == 'unavailable' and minutes_since > 15 }}
+          {{ minutes_since > 15 }}
         device_class: problem
 
       - name: "💡❌ Coat Closet Hall Light Off at Switch"
@@ -309,7 +309,7 @@ template:
         state: >
           {% set last_seen = states('sensor.coat_closet_hall_light_last_seen') %}
           {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
-          {{ states('light.coat_closet_hall_light') == 'unavailable' and minutes_since > 15 }}
+          {{ minutes_since > 15 }}
         device_class: problem
 
       - name: "💡❌ Garage Back Door Light Off at Switch"
@@ -317,7 +317,7 @@ template:
         state: >
           {% set last_seen = states('sensor.garage_back_door_light_last_seen') %}
           {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
-          {{ states('light.garage_back_door_light') == 'unavailable' and minutes_since > 15 }}
+          {{ minutes_since > 15 }}
         device_class: problem
 
       - name: "💡❌ Garage Tool Light Off at Switch"
@@ -325,7 +325,7 @@ template:
         state: >
           {% set last_seen = states('sensor.garage_tool_light_last_seen') %}
           {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
-          {{ states('light.garage_tool_light') == 'unavailable' and minutes_since > 15 }}
+          {{ minutes_since > 15 }}
         device_class: problem
 
       - name: "💡❌ Kitchen Sink Light Off at Switch"
@@ -333,7 +333,7 @@ template:
         state: >
           {% set last_seen = states('sensor.kitchen_sink_light_last_seen') %}
           {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
-          {{ states('light.kitchen_sink_light') == 'unavailable' and minutes_since > 15 }}
+          {{ minutes_since > 15 }}
         device_class: problem
 
       - name: "💡❌ Office Lamp Light Off at Switch"
@@ -341,7 +341,7 @@ template:
         state: >
           {% set last_seen = states('sensor.office_lamp_light_last_seen') %}
           {% set minutes_since = ((now() - as_datetime(last_seen)).total_seconds() / 60) | int %}
-          {{ states('light.office_lamp_light') == 'unavailable' and minutes_since > 15 }}
+          {{ minutes_since > 15 }}
         device_class: problem
 
   # Smart light last seen sensors
