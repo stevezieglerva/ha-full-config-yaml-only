@@ -1799,7 +1799,7 @@
       - choose:
         - conditions:
           - condition: template
-            value_template: ' {{ (as_timestamp(state_attr(''calendar.owen_days_off'',
+            value_template: ' {{ (as_timestamp(state_attr(''calendar.owen_william_days_off_new'',
               ''start_time''))   | timestamp_custom(''%Y-%m-%d'')) == now().strftime(''%Y-%m-%d'')
               }}
 
@@ -1819,7 +1819,7 @@
       - choose:
         - conditions:
           - condition: template
-            value_template: ' {{ (as_timestamp(state_attr(''calendar.william_charlotte_days_off'',
+            value_template: ' {{ (as_timestamp(state_attr(''calendar.owen_william_days_off_new'',
               ''start_time''))   | timestamp_custom(''%Y-%m-%d'')) == now().strftime(''%Y-%m-%d'')
               }}
 
@@ -1839,7 +1839,7 @@
       - choose:
         - conditions:
           - condition: template
-            value_template: ' {{ (as_timestamp(state_attr(''calendar.william_charlotte_days_off'',
+            value_template: ' {{ (as_timestamp(state_attr(''calendar.charlotte_days_off_new'',
               ''start_time''))   | timestamp_custom(''%Y-%m-%d'')) == now().strftime(''%Y-%m-%d'')
               }}
 
@@ -1864,7 +1864,7 @@
       - choose:
         - conditions:
           - condition: template
-            value_template: ' {{ (as_timestamp(state_attr(''calendar.owen_days_off'',
+            value_template: ' {{ (as_timestamp(state_attr(''calendar.owen_william_days_off_new'',
               ''start_time''))   | timestamp_custom(''%Y-%m-%d'')) == (now() + timedelta(days=1)).strftime(''%Y-%m-%d'')
               }}
 
@@ -1884,7 +1884,7 @@
       - choose:
         - conditions:
           - condition: template
-            value_template: ' {{ (as_timestamp(state_attr(''calendar.william_charlotte_days_off'',
+            value_template: ' {{ (as_timestamp(state_attr(''calendar.owen_william_days_off_new'',
               ''start_time''))   | timestamp_custom(''%Y-%m-%d'')) == (now() + timedelta(days=1)).strftime(''%Y-%m-%d'')
               }}
 
@@ -1904,7 +1904,7 @@
       - choose:
         - conditions:
           - condition: template
-            value_template: ' {{ (as_timestamp(state_attr(''calendar.william_charlotte_days_off'',
+            value_template: ' {{ (as_timestamp(state_attr(''calendar.charlotte_days_off_new'',
               ''start_time''))   | timestamp_custom(''%Y-%m-%d'')) == (now() + timedelta(days=1)).strftime(''%Y-%m-%d'')
               }}
 
@@ -1928,14 +1928,14 @@
   trigger:
   - platform: state
     entity_id:
-    - calendar.owen_days_off
+    - calendar.owen_william_days_off_new
     attribute: start_time
-    id: Owen
+    id: Owen and William
   - platform: state
     entity_id:
-    - calendar.william_charlotte_days_off
+    - calendar.charlotte_days_off_new
     attribute: start_time
-    id: William and Charlotte
+    id: Charlotte
   condition: []
   action:
   - service: notify.mobile_app_iphone703
