@@ -1297,6 +1297,38 @@ input_boolean:
     initial: off
     icon: mdi:lightbulb-off
 
+  # Individual child wake up announcements
+  alexa_william_wake_up:
+    name: 🟢⏰ William Wake Up Announcement
+    initial: off
+    icon: mdi:account-school
+
+  alexa_charlotte_wake_up:
+    name: 🩷⏰ Charlotte Wake Up Announcement
+    initial: off
+    icon: mdi:account-school
+
+  alexa_owen_wake_up:
+    name: 🔵⏰ Owen Wake Up Announcement
+    initial: off
+    icon: mdi:account-school
+
+  # Individual child time to leave announcements
+  alexa_william_time_to_leave:
+    name: 🟢🚪 William Time to Leave Announcement
+    initial: off
+    icon: mdi:exit-run
+
+  alexa_charlotte_time_to_leave:
+    name: 🩷🚪 Charlotte Time to Leave Announcement
+    initial: off
+    icon: mdi:exit-run
+
+  alexa_owen_time_to_leave:
+    name: 🔵🚪 Owen Time to Leave Announcement
+    initial: off
+    icon: mdi:exit-run
+
 input_number:
   monthly_high_total:
     name: Monthly High Total
