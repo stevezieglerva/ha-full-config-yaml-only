@@ -2720,54 +2720,6 @@
     entity_id: acd08dbaa913032a7150b1f9ce72fbcd
     domain: remote
   mode: single
-- id: '1734977272840'
-  alias: "\U0001F5BC️ Picture frame offline notify"
-  description: ''
-  trigger:
-  - type: power
-    platform: device
-    device_id: 0e68c40eb3b7f1ec567326a292743d27
-    entity_id: 5cd81783e882ee94dc2e81bcb7012b3b
-    domain: sensor
-    below: 5
-    for:
-      hours: 0
-      minutes: 1
-      seconds: 0
-    enabled: false
-  - platform: numeric_state
-    entity_id:
-    - sensor.kitchen_picture_frame_plug_power
-    below: 4.8
-    for:
-      hours: 0
-      minutes: 1
-      seconds: 0
-  - platform: time
-    at: 05:55:00
-  - platform: time
-    at: '12:55:00'
-  condition: []
-  action:
-  - service: notify.mobile_app_iphone703
-    metadata: {}
-    data:
-      message: "\U0001F5BC️ Picture frame offline"
-    enabled: false
-  - type: turn_off
-    device_id: 0e68c40eb3b7f1ec567326a292743d27
-    entity_id: 11de3141aa19aa793282d38aafb74b7b
-    domain: switch
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 1
-      milliseconds: 0
-  - type: turn_on
-    device_id: 0e68c40eb3b7f1ec567326a292743d27
-    entity_id: 11de3141aa19aa793282d38aafb74b7b
-    domain: switch
-  mode: single
 - id: '1735236882354'
   alias: "\U0001F5A8️ Daily printer reboot"
   description: ''
@@ -4234,6 +4186,7 @@
           brightness_pct: 100
         target:
           entity_id: light.kitchen_sink_light
+    enabled: false
   mode: single
 - id: '1740854860349'
   alias: Living Room TV unavailable
@@ -4676,11 +4629,11 @@
     option: home
   mode: single
 - id: '1743947529171'
-  alias: "\U0001F4A4 William and Charlotte not awake for school"
+  alias: "\U0001F4A4  Charlotte not awake for school"
   description: ''
   trigger:
   - platform: time
-    at: 06:52:00
+    at: 06:55:00
   condition:
   - condition: or
     conditions:
@@ -6289,9 +6242,6 @@
   - condition: state
     entity_id: sensor.night
     state: 'True'
-  - condition: state
-    entity_id: light.owen_night_light_light_2
-    state: 'on'
   action:
   - choose:
     - conditions:
@@ -6475,7 +6425,8 @@
       sequence:
       - service: light.turn_on
         target:
-          entity_id: light.owen_night_light_light
+          entity_id:
+          - light.owen_night_light_light_2
         data:
           brightness: 26
       - service: logbook.log
@@ -6489,7 +6440,9 @@
       sequence:
       - service: light.turn_off
         target:
-          entity_id: light.owen_night_light_light
+          entity_id:
+          - light.owen_night_light_light_2
+        data: {}
       - service: logbook.log
         data:
           name: Owen's Night Light
@@ -6532,8 +6485,8 @@
   - platform: state
     entity_id:
     - binary_sensor.coat_closet_hall_light_off_at_switch
-    from: 'off'
     to: 'on'
+    from: 'off'
   condition: []
   action:
   - service: notify.mobile_app_iphone703
@@ -6750,3 +6703,187 @@
         entity_id: 3731527d3962678fca89a29b86bf14e4
         domain: switch
   mode: single
+- id: '1755455343196'
+  alias: Late night playroom lamp
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.recent_upstairs_motion
+    from: 'off'
+    to: 'on'
+    id: motion
+  - platform: state
+    entity_id:
+    - input_boolean.recent_upstairs_motion
+    from: 'on'
+    to: 'off'
+    id: no-motion
+  condition:
+  - condition: state
+    entity_id: sensor.late_night
+    state: 'True'
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - motion
+      sequence:
+      - type: turn_on
+        device_id: 57621b38f6548905ac420d1b6bb041c7
+        entity_id: 3731527d3962678fca89a29b86bf14e4
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id:
+        - no-motion
+      sequence:
+      - type: turn_off
+        device_id: 57621b38f6548905ac420d1b6bb041c7
+        entity_id: 3731527d3962678fca89a29b86bf14e4
+        domain: switch
+  mode: single
+- id: '1755455358486'
+  alias: Late night playroom lamp
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.recent_upstairs_motion
+    from: 'off'
+    to: 'on'
+    id: motion
+  - platform: state
+    entity_id:
+    - input_boolean.recent_upstairs_motion
+    from: 'on'
+    to: 'off'
+    id: no-motion
+  condition:
+  - condition: state
+    entity_id: sensor.late_night
+    state: 'True'
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - motion
+      sequence:
+      - type: turn_on
+        device_id: 57621b38f6548905ac420d1b6bb041c7
+        entity_id: 3731527d3962678fca89a29b86bf14e4
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id:
+        - no-motion
+      sequence:
+      - type: turn_off
+        device_id: 57621b38f6548905ac420d1b6bb041c7
+        entity_id: 3731527d3962678fca89a29b86bf14e4
+        domain: switch
+  mode: single
+- id: '1756087189405'
+  alias: Extra night light
+  description: Controls Charlotte's night light based on night sensor state
+  trigger:
+  - platform: state
+    entity_id: sensor.night
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sensor.night
+        state: 'True'
+      sequence:
+      - service: light.turn_on
+        metadata: {}
+        data:
+          brightness_pct: 10
+          kelvin: 5363
+        target:
+          entity_id: light.extra_night_light_light
+      - service: logbook.log
+        data:
+          name: Extra Night Light
+          message: 'Night mode ON: Light set to 10% brightness'
+    - conditions:
+      - condition: state
+        entity_id: sensor.night
+        state: 'False'
+      sequence:
+      - service: light.turn_off
+        target:
+          entity_id:
+          - light.extra_night_light_light
+        data: {}
+      - service: logbook.log
+        data:
+          name: Charlotte's Night Light
+          message: 'Night mode OFF: Light turned off'
+  mode: single
+- id: '1756088697024'
+  alias: Extra night light - Motion control
+  description: Controls Charlotte's night light brightness based on motion detection
+  trigger:
+  - type: occupied
+    platform: device
+    device_id: 1e1606390f508b7c47a5e337af23f999
+    entity_id: c825c080b0125f16455144fa049bf048
+    domain: binary_sensor
+    id: motion_detected
+  - type: not_occupied
+    platform: device
+    device_id: 1e1606390f508b7c47a5e337af23f999
+    entity_id: c825c080b0125f16455144fa049bf048
+    domain: binary_sensor
+    id: motion_cleared
+  condition:
+  - condition: state
+    entity_id: sensor.night
+    state: 'True'
+  - condition: device
+    type: is_on
+    device_id: 1e1606390f508b7c47a5e337af23f999
+    entity_id: ff991714d46f1c23fd4b38efdc10462e
+    domain: light
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - motion_detected
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.extra_night_light_light
+        data:
+          brightness: 128
+      - service: logbook.log
+        data:
+          name: Extra Night Light
+          message: 'Motion detected: Light set to 100% brightness'
+    - conditions:
+      - condition: trigger
+        id: motion_cleared
+      sequence:
+      - delay:
+          hours: 0
+          minutes: 1
+          seconds: 0
+          milliseconds: 0
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.extra_night_light_light
+        data:
+          brightness: 26
+      - service: logbook.log
+        data:
+          name: Extra Night Light
+          message: 'No motion for 3 minutes: Light returned to 10% brightness'
+  mode: restart
