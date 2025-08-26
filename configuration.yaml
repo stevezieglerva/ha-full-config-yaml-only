@@ -1451,3 +1451,59 @@ logbook:
     entities:
       - automation.record_recent_garage_light_level
       - automation.kitchen_record_light_level
+
+schedule:
+  william_school_schedule:
+    name: "🟢📓 William School Schedule"
+    monday:
+      - from: "06:15:00"
+        to: "06:50:00"
+    tuesday:
+      - from: "06:15:00"
+        to: "06:50:00"
+    wednesday:
+      - from: "06:15:00"
+        to: "06:50:00"
+    thursday:
+      - from: "06:15:00"
+        to: "06:50:00"
+    friday:
+      - from: "06:15:00"
+        to: "06:50:00"
+    icon: mdi:school
+  charlotte_school_schedule:
+    name: "🩷📓 Charlotte School Schedule"
+    monday:
+      - from: "06:40:00"
+        to: "07:30:00"
+    tuesday:
+      - from: "06:40:00"
+        to: "07:30:00"
+    wednesday:
+      - from: "06:40:00"
+        to: "07:30:00"
+    thursday:
+      - from: "06:40:00"
+        to: "07:30:00"
+    friday:
+      - from: "06:40:00"
+        to: "07:30:00"
+    icon: mdi:school
+  owen_school_schedule:
+    name: "🔵📓 Owen School Schedule"
+    monday:
+      - from: "06:50:00"
+        to: "09:00:00"
+    tuesday:
+      - from: "06:50:00"
+        to: "09:00:00"
+    wednesday:
+      - from: "06:50:00"
+        to: "09:00:00"
+    thursday:
+      - from: "06:50:00"
+        to: "09:00:00"
+    friday:
+      - from: "06:50:00"
+        to: "09:00:00"
+    icon: mdi:school
