@@ -1014,6 +1014,8 @@
       - condition: state
         entity_id: sensor.late_night
         state: 'False'
+      - condition: time
+        before: '22:00:00'
       sequence:
       - service: script.set_office_lights
         metadata: {}
@@ -3580,8 +3582,11 @@
   alias: ⏰ Wake up for Owen
   description: ''
   trigger:
-  - platform: time
-    at: 06:03:00
+  - platform: state
+    entity_id:
+    - schedule.owen_school_schedule
+    from: 'off'
+    to: 'on'
   condition:
   - condition: state
     entity_id: sensor.owen_has_school_today
@@ -3590,6 +3595,11 @@
     entity_id: input_boolean.owen_on_wifi
     state: 'on'
   action:
+  - service: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.alexa_owen_wake_up
   - service: media_player.turn_on
     metadata: {}
     data: {}
@@ -3614,6 +3624,24 @@
       media_player_entity_id: media_player.office_homepod
     target:
       entity_id: tts.home_assistant_cloud
+  - delay:
+      hours: 0
+      minutes: 2
+      seconds: 0
+      milliseconds: 0
+  - service: tts.speak
+    metadata: {}
+    data:
+      cache: true
+      message: Alright, Steve, get out of bed.
+      media_player_entity_id: media_player.office_homepod
+    target:
+      entity_id: tts.home_assistant_cloud
+  - service: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.alexa_owen_wake_up
   mode: single
 - id: '1738548569269'
   alias: "\U0001F354❌ Not all kids have lunch"
@@ -4632,14 +4660,18 @@
   alias: "\U0001F4A4  Charlotte not awake for school"
   description: ''
   trigger:
-  - platform: time
-    at: 06:55:00
+  - platform: state
+    entity_id:
+    - schedule.charlotte_school_schedule
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
   condition:
   - condition: or
     conditions:
-    - condition: state
-      entity_id: sensor.william_has_school_today
-      state: 'True'
     - condition: state
       entity_id: sensor.charlotte_has_school_today
       state: 'True'
@@ -4656,7 +4688,7 @@
   - service: notify.mobile_app_iphone703
     metadata: {}
     data:
-      message: "\U0001F4A4 William and Charlotte haven’t woke up!"
+      message: "\U0001F4A4 Charlotte hasen’t woke up!"
       data:
         sound: alarm-clock.wav
   mode: single
@@ -4664,8 +4696,15 @@
   alias: "\U0001F4A4 Owen not awake yet"
   description: ''
   trigger:
-  - platform: time
-    at: 06:40:00
+  - platform: state
+    entity_id:
+    - schedule.owen_school_schedule
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
   condition:
   - condition: state
     entity_id: sensor.owen_has_school_today
@@ -6887,3 +6926,137 @@
           name: Extra Night Light
           message: 'No motion for 3 minutes: Light returned to 10% brightness'
   mode: restart
+- id: '1756264906529'
+  alias: "\U0001F4A4 William not awake yet"
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - schedule.william_school_schedule
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: sensor.william_has_school_today
+    state: 'True'
+  - type: is_not_occupied
+    condition: device
+    device_id: 4045ad03705b1a1db194ca6220ef6210
+    entity_id: 70103ab535967624969f508590e4012b
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  action:
+  - service: notify.mobile_app_iphone703
+    metadata: {}
+    data:
+      message: "\U0001F4A4 William hasn’t woke up!"
+      data:
+        sound: alarm-clock.wav
+  mode: single
+- id: '1756265247803'
+  alias: ⏰ Wake up for William
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - schedule.william_school_schedule
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  condition:
+  - condition: state
+    entity_id: sensor.william_has_school_today
+    state: 'True'
+  action:
+  - service: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.alexa_william_wake_up
+  - service: media_player.turn_on
+    metadata: {}
+    data: {}
+    target:
+      area_id: office
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 0.6
+    target:
+      area_id: office
+  - service: tts.speak
+    metadata: {}
+    data:
+      cache: true
+      message: William needs to wake up and so do you, Steve!
+      media_player_entity_id: media_player.office_homepod
+    target:
+      entity_id: tts.home_assistant_cloud
+  - delay:
+      hours: 0
+      minutes: 2
+      seconds: 0
+      milliseconds: 0
+  - service: tts.speak
+    metadata: {}
+    data:
+      cache: true
+      message: Alright, Steve, get out of bed.
+      media_player_entity_id: media_player.office_homepod
+    target:
+      entity_id: tts.home_assistant_cloud
+  - service: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.alexa_william_wake_up
+  mode: single
+- id: '1756265517309'
+  alias: ⏰ Wake up for Charlotte
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - schedule.charlotte_school_schedule
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: sensor.charlotte_has_school_today
+    state: 'True'
+  action:
+  - service: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.alexa_charlotte_wake_up
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - service: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.alexa_charlotte_wake_up
+  mode: single
