@@ -1329,6 +1329,27 @@ input_boolean:
     initial: off
     icon: mdi:exit-run
 
+  # Bedroom light controls
+  alexa_master_bedroom_light_trigger:
+    name: 🛌💡 Master Bedroom Light Trigger
+    initial: off
+    icon: mdi:ceiling-light
+
+  alexa_owen_bedroom_light_trigger:
+    name: 🔵💡 Owen Bedroom Light Trigger
+    initial: off
+    icon: mdi:ceiling-light
+
+  alexa_william_bedroom_light_trigger:
+    name: 🟢💡 William Bedroom Light Trigger
+    initial: off
+    icon: mdi:ceiling-light
+
+  alexa_charlotte_bedroom_light_trigger:
+    name: 🩷💡 Charlotte Bedroom Light Trigger
+    initial: off
+    icon: mdi:ceiling-light
+
 input_number:
   monthly_high_total:
     name: Monthly High Total
