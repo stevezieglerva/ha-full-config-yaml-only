@@ -2037,14 +2037,14 @@
   description: ''
   trigger:
   - platform: time
-    at: 06:46:00
+    at: 06:41:00
   condition:
   - condition: state
     entity_id: sensor.owen_has_school_today
     state: 'True'
   - condition: numeric_state
     entity_id: sensor.ktta_temperature
-    below: 60
+    below: 50
   action:
   - service: input_boolean.turn_on
     target:
@@ -6880,15 +6880,11 @@
     entity_id: c825c080b0125f16455144fa049bf048
     domain: binary_sensor
     id: motion_cleared
+    enabled: true
   condition:
   - condition: state
     entity_id: sensor.night
     state: 'True'
-  - condition: device
-    type: is_on
-    device_id: 1e1606390f508b7c47a5e337af23f999
-    entity_id: ff991714d46f1c23fd4b38efdc10462e
-    domain: light
   action:
   - choose:
     - conditions:
@@ -6901,7 +6897,7 @@
           entity_id:
           - light.extra_night_light_light
         data:
-          brightness: 128
+          brightness: 64
       - service: logbook.log
         data:
           name: Extra Night Light
@@ -6912,8 +6908,8 @@
       sequence:
       - delay:
           hours: 0
-          minutes: 1
-          seconds: 0
+          minutes: 0
+          seconds: 15
           milliseconds: 0
       - service: light.turn_on
         target:
