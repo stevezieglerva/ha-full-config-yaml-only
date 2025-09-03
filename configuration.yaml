@@ -1350,6 +1350,27 @@ input_boolean:
     initial: off
     icon: mdi:ceiling-light
 
+  # Time announcements
+  alexa_announce_0630:
+    name: ⏰ Alexa Announce 6:30 AM
+    initial: off
+    icon: mdi:clock-time-six
+
+  alexa_announce_0645:
+    name: ⏰ Alexa Announce 6:45 AM
+    initial: off
+    icon: mdi:clock-time-seven
+
+  alexa_announce_0715:
+    name: ⏰ Alexa Announce 7:15 AM
+    initial: off
+    icon: mdi:clock-time-seven
+
+  alexa_announce_0730:
+    name: ⏰ Alexa Announce 7:30 AM
+    initial: off
+    icon: mdi:clock-time-eight
+
 input_number:
   monthly_high_total:
     name: Monthly High Total
