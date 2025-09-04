@@ -1350,6 +1350,17 @@ input_boolean:
     initial: off
     icon: mdi:ceiling-light
 
+  # Dishwasher announcements
+  alexa_said_dishwasher_started:
+    name: 💦🍽️ Alexa Said Dishwasher Started
+    initial: off
+    icon: mdi:dishwasher
+
+  alexa_announce_dishwasher_started:
+    name: 💦🍽️ Announce Dishwasher Started
+    initial: off
+    icon: mdi:message-text
+
   # Time announcements
   alexa_announce_0630:
     name: ⏰ Alexa Announce 6:30 AM

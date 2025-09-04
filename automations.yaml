@@ -1083,6 +1083,12 @@
     device_id: dbae7f7854a2ef97c27a83114cc9acd0
     type: action
     subtype: single
+    id: aqara_button
+  - platform: state
+    entity_id: input_boolean.alexa_said_dishwasher_started
+    from: 'off'
+    to: 'on'
+    id: alexa_trigger
   condition: []
   action:
   - service: timer.start
@@ -1093,6 +1099,26 @@
   - service: script.dishwasher_timer_notification
     data:
       notification_message: Dishwasher timer started
+  - service: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.alexa_announce_dishwasher_started
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.alexa_said_dishwasher_started
+  - service: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.alexa_announce_dishwasher_started
   mode: single
 - id: '1729290757031'
   alias: "\U0001F4A6\U0001F374 Cancel dishwasher timer"
