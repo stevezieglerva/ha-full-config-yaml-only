@@ -1069,6 +1069,10 @@
     data: {}
     target:
       entity_id: input_boolean.apple_home_office_fan
+  - type: turn_off
+    device_id: f907e372fbf85293761b65fa87f28372
+    entity_id: ef9e36b9d9ddf530f0a042c9890f5a12
+    domain: switch
   mode: single
 - id: '1729290615685'
   alias: "\U0001F4A6\U0001F374Start Dishwasher Timer"
@@ -5745,6 +5749,10 @@
     data: {}
     target:
       entity_id: input_boolean.apple_home_office_fan
+  - type: turn_on
+    device_id: f907e372fbf85293761b65fa87f28372
+    entity_id: ef9e36b9d9ddf530f0a042c9890f5a12
+    domain: switch
   mode: single
 - id: '1743930000002'
   alias: Reset Daily Max Heat Index
