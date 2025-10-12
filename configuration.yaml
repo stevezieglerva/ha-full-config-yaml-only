@@ -1541,19 +1541,19 @@ schedule:
   william_school_schedule:
     name: "🟢📓 William School Schedule"
     monday:
-      - from: "06:15:00"
+      - from: "06:17:00"
         to: "06:50:00"
     tuesday:
-      - from: "06:15:00"
+      - from: "06:17:00"
         to: "06:50:00"
     wednesday:
-      - from: "06:15:00"
+      - from: "06:17:00"
         to: "06:50:00"
     thursday:
-      - from: "06:15:00"
+      - from: "06:17:00"
         to: "06:50:00"
     friday:
-      - from: "06:15:00"
+      - from: "06:17:00"
         to: "06:50:00"
     icon: mdi:school
   charlotte_school_schedule:

@@ -6945,12 +6945,11 @@
           minutes: 0
           seconds: 15
           milliseconds: 0
-      - service: light.turn_on
+      - service: light.turn_off
         target:
           entity_id:
           - light.extra_night_light_light
-        data:
-          brightness: 26
+        data: {}
       - service: logbook.log
         data:
           name: Extra Night Light
