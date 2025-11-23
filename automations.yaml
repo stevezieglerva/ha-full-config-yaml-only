@@ -7046,3 +7046,42 @@
       entity_id:
       - input_boolean.alexa_charlotte_wake_up
   mode: single
+- id: 'auto_off_virtual_trigger_on_indoor_christmas_lights'
+  alias: '🎄 Auto Off Virtual Trigger On Indoor Christmas Lights'
+  description: 'Automatically turns off the Virtual Trigger On Indoor Christmas Lights switch 5 seconds after it is turned on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.virtual_trigger_on_indoor_christmas_lights
+      to: 'on'
+  condition: []
+  action:
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 5
+        milliseconds: 0
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.virtual_trigger_on_indoor_christmas_lights
+      data: {}
+  mode: single
+
+- id: 'auto_off_virtual_trigger_off_indoor_christmas_lights'
+  alias: '🎄 Auto Off Virtual Trigger Off Indoor Christmas Lights'
+  description: 'Automatically turns off the Virtual Trigger Off Indoor Christmas Lights switch 5 seconds after it is turned on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.virtual_trigger_off_indoor_christmas_lights
+      to: 'on'
+  condition: []
+  action:
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 5
+        milliseconds: 0
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.virtual_trigger_off_indoor_christmas_lights
+      data: {}
+  mode: single
