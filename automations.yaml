@@ -2844,23 +2844,29 @@
   - condition: state
     entity_id: schedule.christmas_tree
     state: 'on'
-  - condition: device
-    type: is_off
-    device_id: 0093ea3f1ba37445559ac43cfc37c0d4
-    entity_id: 39829ea5e7a25b916fd7921bbb081b31
-    domain: switch
   - condition: state
     entity_id: sensor.recent_house_motion
     state: 'True'
   action:
-  - type: turn_on
-    device_id: 0093ea3f1ba37445559ac43cfc37c0d4
-    entity_id: 39829ea5e7a25b916fd7921bbb081b31
-    domain: switch
   - service: notify.mobile_app_iphone703
     metadata: {}
     data:
       message: "\U0001F384 Christmas tree turned on"
+  - service: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.virtual_trigger_christmas_lights
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - service: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.virtual_trigger_christmas_lights
   mode: single
 - id: '1735582796890'
   alias: "\U0001F384 Christmas Tree Off"
@@ -2877,17 +2883,8 @@
     - sensor.recent_house_motion
     from: 'True'
     to: 'False'
-  condition:
-  - condition: device
-    type: is_on
-    device_id: 0093ea3f1ba37445559ac43cfc37c0d4
-    entity_id: 39829ea5e7a25b916fd7921bbb081b31
-    domain: switch
+  condition: []
   action:
-  - type: turn_off
-    device_id: 0093ea3f1ba37445559ac43cfc37c0d4
-    entity_id: 39829ea5e7a25b916fd7921bbb081b31
-    domain: switch
   - service: notify.mobile_app_iphone703
     metadata: {}
     data:
@@ -2971,38 +2968,11 @@
     from: 'off'
     to: 'on'
     id: schedule
-  - platform: state
-    entity_id:
-    - sensor.recent_house_motion
-    from: 'False'
-    to: 'True'
-  condition:
-  - condition: state
-    state: 'on'
-    entity_id: schedule.christmas_outdoor_lights
-  - condition: state
-    entity_id: sensor.recent_house_motion
-    state: 'True'
-  - condition: or
-    conditions:
-    - condition: device
-      type: is_off
-      device_id: e2d59c61ff071dba7696a591be54e49a
-      entity_id: 761d7c49d0b22a3ec37bd8c3373bd161
-      domain: switch
-    - condition: device
-      type: is_off
-      device_id: f22c7822005cc4cab0d1e9ac366cdc91
-      entity_id: bf87abd425a1598e4ccdc3d57e566540
-      domain: switch
+  condition: []
   action:
   - type: turn_on
-    device_id: e2d59c61ff071dba7696a591be54e49a
-    entity_id: 761d7c49d0b22a3ec37bd8c3373bd161
-    domain: switch
-  - type: turn_on
-    device_id: f22c7822005cc4cab0d1e9ac366cdc91
-    entity_id: bf87abd425a1598e4ccdc3d57e566540
+    device_id: 429b4031f1808f388df166b194a09674
+    entity_id: 5f03d303000fd25c0058d36ec1d862da
     domain: switch
   - service: notify.mobile_app_iphone703
     metadata: {}
@@ -3019,38 +2989,21 @@
     from: 'on'
     to: 'off'
     id: schedule
-  - platform: state
-    entity_id:
-    - sensor.recent_house_motion
-    from: 'True'
-    to: 'False'
   condition:
-  - condition: or
-    conditions:
-    - condition: device
-      type: is_on
-      device_id: e2d59c61ff071dba7696a591be54e49a
-      entity_id: 761d7c49d0b22a3ec37bd8c3373bd161
-      domain: switch
-    - condition: device
-      type: is_on
-      device_id: f22c7822005cc4cab0d1e9ac366cdc91
-      entity_id: bf87abd425a1598e4ccdc3d57e566540
-      domain: switch
+  - condition: device
+    type: is_on
+    device_id: 429b4031f1808f388df166b194a09674
+    entity_id: 5f03d303000fd25c0058d36ec1d862da
+    domain: switch
   action:
   - type: turn_off
-    device_id: e2d59c61ff071dba7696a591be54e49a
-    entity_id: 761d7c49d0b22a3ec37bd8c3373bd161
-    domain: switch
-  - type: turn_off
-    device_id: f22c7822005cc4cab0d1e9ac366cdc91
-    entity_id: bf87abd425a1598e4ccdc3d57e566540
+    device_id: 429b4031f1808f388df166b194a09674
+    entity_id: 5f03d303000fd25c0058d36ec1d862da
     domain: switch
   - service: notify.mobile_app_iphone703
     metadata: {}
     data:
       message: "\U0001F384 Christmas outdoor lights turned off"
-  - parallel: []
   mode: single
 - id: '1735602817489'
   alias: Coat closet dim at late night
@@ -6908,6 +6861,10 @@
     entity_id: c825c080b0125f16455144fa049bf048
     domain: binary_sensor
     id: motion_detected
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
   - type: not_occupied
     platform: device
     device_id: 1e1606390f508b7c47a5e337af23f999
