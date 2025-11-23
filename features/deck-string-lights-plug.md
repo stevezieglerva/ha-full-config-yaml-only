@@ -1,0 +1,1 @@
+create an automation to turn on the deck string lights plug on at sunset and off at midnight
