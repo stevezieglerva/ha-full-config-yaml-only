@@ -1143,6 +1143,11 @@ input_boolean:
     initial: off
     icon: mdi:string-lights
 
+  vswitch_vacation_night:
+    name: "🏝️ VSwitch Vacation Night"
+    initial: off
+    icon: mdi:lightbulb-alert
+
   trash_in_progress:
     name: Trash In Progress
     initial: off
