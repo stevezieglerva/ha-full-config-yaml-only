@@ -2827,7 +2827,7 @@
   mode: single
 - id: '1735581985568'
   alias: "\U0001F384 Christmas Tree On"
-  description: ''
+  description: 'Turns on the indoor Christmas lights virtual switch based on schedule and motion'
   trigger:
   - platform: state
     entity_id:
@@ -2856,21 +2856,11 @@
     metadata: {}
     data: {}
     target:
-      entity_id: input_boolean.virtual_trigger_christmas_lights
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 5
-      milliseconds: 0
-  - service: input_boolean.turn_off
-    metadata: {}
-    data: {}
-    target:
-      entity_id: input_boolean.virtual_trigger_christmas_lights
+      entity_id: input_boolean.vswitch_indoor_christmas_lights
   mode: single
 - id: '1735582796890'
   alias: "\U0001F384 Christmas Tree Off"
-  description: ''
+  description: 'Turns off the indoor Christmas lights virtual switch based on schedule and motion'
   trigger:
   - platform: state
     entity_id:
@@ -2889,10 +2879,15 @@
     metadata: {}
     data:
       message: "\U0001F384 Christmas tree turned off"
+  - service: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.vswitch_indoor_christmas_lights
   mode: single
 - id: '1735583644414'
   alias: "\U0001F384 Christmas Mantel On"
-  description: ''
+  description: 'Turns on the indoor Christmas lights virtual switch based on schedule and motion'
   trigger:
   - platform: state
     entity_id:
@@ -2909,27 +2904,23 @@
   - condition: state
     state: 'on'
     entity_id: schedule.christmas_tree
-  - condition: device
-    type: is_off
-    device_id: 49db66be40a2beb89d5ad2515998210d
-    entity_id: a6a89432b0cd7cedb3c34d66ede569d3
-    domain: switch
   - condition: state
     entity_id: sensor.recent_house_motion
     state: 'True'
   action:
-  - type: turn_on
-    device_id: 49db66be40a2beb89d5ad2515998210d
-    entity_id: a6a89432b0cd7cedb3c34d66ede569d3
-    domain: switch
   - service: notify.mobile_app_iphone703
     metadata: {}
     data:
       message: "\U0001F384 Christmas mantel turned on"
+  - service: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.vswitch_indoor_christmas_lights
   mode: single
 - id: '1735583718266'
   alias: "\U0001F384 Christmas Mantel Off"
-  description: ''
+  description: 'Turns off the indoor Christmas lights virtual switch based on schedule and motion'
   trigger:
   - platform: state
     entity_id:
@@ -2942,25 +2933,21 @@
     - sensor.recent_house_motion
     from: 'True'
     to: 'False'
-  condition:
-  - condition: device
-    type: is_on
-    device_id: 49db66be40a2beb89d5ad2515998210d
-    entity_id: a6a89432b0cd7cedb3c34d66ede569d3
-    domain: switch
+  condition: []
   action:
-  - type: turn_off
-    device_id: 49db66be40a2beb89d5ad2515998210d
-    entity_id: a6a89432b0cd7cedb3c34d66ede569d3
-    domain: switch
   - service: notify.mobile_app_iphone703
     metadata: {}
     data:
       message: "\U0001F384 Christmas mantel turned off"
+  - service: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.vswitch_indoor_christmas_lights
   mode: single
 - id: '1735585767727'
   alias: "\U0001F384 Christmas Outdoor Lights On"
-  description: ''
+  description: 'Turns on the outdoor Christmas lights virtual switch based on schedule'
   trigger:
   - platform: state
     entity_id:
@@ -2970,18 +2957,19 @@
     id: schedule
   condition: []
   action:
-  - type: turn_on
-    device_id: 429b4031f1808f388df166b194a09674
-    entity_id: 5f03d303000fd25c0058d36ec1d862da
-    domain: switch
   - service: notify.mobile_app_iphone703
     metadata: {}
     data:
       message: "\U0001F384 Christmas outdoor lights turned on"
+  - service: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.vswitch_outdoor_christmas_lights
   mode: single
 - id: '1735585931137'
   alias: "\U0001F384 Christmas Outdoor Lights Off"
-  description: ''
+  description: 'Turns off the outdoor Christmas lights virtual switch based on schedule'
   trigger:
   - platform: state
     entity_id:
@@ -2989,21 +2977,73 @@
     from: 'on'
     to: 'off'
     id: schedule
-  condition:
-  - condition: device
-    type: is_on
-    device_id: 429b4031f1808f388df166b194a09674
-    entity_id: 5f03d303000fd25c0058d36ec1d862da
-    domain: switch
+  condition: []
   action:
-  - type: turn_off
-    device_id: 429b4031f1808f388df166b194a09674
-    entity_id: 5f03d303000fd25c0058d36ec1d862da
-    domain: switch
   - service: notify.mobile_app_iphone703
     metadata: {}
     data:
       message: "\U0001F384 Christmas outdoor lights turned off"
+  - service: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.vswitch_outdoor_christmas_lights
+  mode: single
+- id: '1701000001001'
+  alias: "🎄 VSwitch Outdoor Christmas Lights - Control Actual Lights"
+  description: 'Controls the actual outdoor Christmas lights based on the virtual switch state'
+  trigger:
+  - platform: state
+    entity_id: input_boolean.vswitch_outdoor_christmas_lights
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.vswitch_outdoor_christmas_lights
+        state: 'on'
+      sequence:
+      - type: turn_on
+        device_id: 429b4031f1808f388df166b194a09674
+        entity_id: 5f03d303000fd25c0058d36ec1d862da
+        domain: switch
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.vswitch_outdoor_christmas_lights
+        state: 'off'
+      sequence:
+      - type: turn_off
+        device_id: 429b4031f1808f388df166b194a09674
+        entity_id: 5f03d303000fd25c0058d36ec1d862da
+        domain: switch
+  mode: single
+- id: '1701000001000'
+  alias: "🎄 VSwitch Indoor Christmas Lights - Control Actual Lights"
+  description: 'Controls the actual Christmas tree and mantel lights based on the virtual switch state'
+  trigger:
+  - platform: state
+    entity_id: input_boolean.vswitch_indoor_christmas_lights
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.vswitch_indoor_christmas_lights
+        state: 'on'
+      sequence:
+      - type: turn_on
+        device_id: 49db66be40a2beb89d5ad2515998210d
+        entity_id: a6a89432b0cd7cedb3c34d66ede569d3
+        domain: switch
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.vswitch_indoor_christmas_lights
+        state: 'off'
+      sequence:
+      - type: turn_off
+        device_id: 49db66be40a2beb89d5ad2515998210d
+        entity_id: a6a89432b0cd7cedb3c34d66ede569d3
+        domain: switch
   mode: single
 - id: '1735602817489'
   alias: Coat closet dim at late night
