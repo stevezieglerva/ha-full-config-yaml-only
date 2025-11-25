@@ -1133,6 +1133,16 @@ input_select:
 
 # Chore toggles
 input_boolean:
+  vswitch_indoor_christmas_lights:
+    name: "🎄 VSwitch Indoor Christmas Lights"
+    initial: off
+    icon: mdi:string-lights
+
+  vswitch_outdoor_christmas_lights:
+    name: "🎄 VSwitch Outdoor Christmas Lights"
+    initial: off
+    icon: mdi:string-lights
+
   trash_in_progress:
     name: Trash In Progress
     initial: off
