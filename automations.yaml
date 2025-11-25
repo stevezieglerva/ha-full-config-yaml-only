@@ -2997,21 +2997,16 @@
     entity_id: input_boolean.vswitch_outdoor_christmas_lights
   condition: []
   action:
-  - choose:
-    - conditions:
+  - if:
       - condition: state
         entity_id: input_boolean.vswitch_outdoor_christmas_lights
         state: 'on'
-      sequence:
+    then:
       - type: turn_on
         device_id: 429b4031f1808f388df166b194a09674
         entity_id: 5f03d303000fd25c0058d36ec1d862da
         domain: switch
-    - conditions:
-      - condition: state
-        entity_id: input_boolean.vswitch_outdoor_christmas_lights
-        state: 'off'
-      sequence:
+    else:
       - type: turn_off
         device_id: 429b4031f1808f388df166b194a09674
         entity_id: 5f03d303000fd25c0058d36ec1d862da
@@ -3025,21 +3020,16 @@
     entity_id: input_boolean.vswitch_indoor_christmas_lights
   condition: []
   action:
-  - choose:
-    - conditions:
+  - if:
       - condition: state
         entity_id: input_boolean.vswitch_indoor_christmas_lights
         state: 'on'
-      sequence:
+    then:
       - type: turn_on
         device_id: 49db66be40a2beb89d5ad2515998210d
         entity_id: a6a89432b0cd7cedb3c34d66ede569d3
         domain: switch
-    - conditions:
-      - condition: state
-        entity_id: input_boolean.vswitch_indoor_christmas_lights
-        state: 'off'
-      sequence:
+    else:
       - type: turn_off
         device_id: 49db66be40a2beb89d5ad2515998210d
         entity_id: a6a89432b0cd7cedb3c34d66ede569d3
