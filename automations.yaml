@@ -2289,9 +2289,27 @@
     metadata: {}
     target:
       entity_id: scene.vacation_lights_on
+    enabled: false
+  - service: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.vswitch_vacation_night
+  - service: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - light.butlers_pantry_light
+      - light.kitchen_sink_light
+      - light.coat_closet_hall
+  - type: turn_on
+    device_id: 8ca1474cea6a4122af672bd220ed9ce6
+    entity_id: da6f242407f98532354fcdab4aedd601
+    domain: remote
   mode: single
 - id: '1732740416569'
-  alias: Vacation lights off
+  alias: Vacation night lights off
   description: ''
   trigger:
   - platform: time
@@ -2305,6 +2323,20 @@
     metadata: {}
     target:
       entity_id: scene.vacation_lights_off
+    enabled: false
+  - service: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.vswitch_vacation_night
+  - service: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - light.butlers_pantry_light
+      - light.coat_closet_hall
+      - light.kitchen_sink_light
   mode: single
 - id: '1732742625815'
   alias: ‼️ Alarm triggered
@@ -2878,7 +2910,13 @@
     - sensor.recent_house_motion
     from: 'True'
     to: 'False'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.vswitch_indoor_christmas_lights
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.recent_downstairs_motiin
+    state: 'off'
   action:
   - service: notify.mobile_app_iphone703
     metadata: {}
@@ -7117,4 +7155,99 @@
     metadata: {}
     data:
       message: "\U0001F384 Indoor lights triggered"
+    enabled: false
+  mode: single
+- id: '1764117027226'
+  alias: "\U0001F6A8 Armed-Away triggered!"
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.recent_house_motion
+    from: 'False'
+    to: 'True'
+  condition:
+  - condition: state
+    entity_id: input_select.alarm_mode
+    state: Armed - Away
+  - condition: state
+    entity_id: input_boolean.alarm_state
+    state: 'off'
+  action:
+  - service: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.alarm_state
+  mode: single
+- id: '1764117303825'
+  alias: "\U0001F6A8 Armed-Home triggered!"
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.recent_house_motion
+    from: 'False'
+    to: 'True'
+  - platform: state
+    entity_id:
+    - sensor.any_door_open
+    from: 'False'
+    to: 'True'
+  condition:
+  - condition: state
+    entity_id: input_select.alarm_mode
+    state: Armed - Home
+  - condition: state
+    entity_id: input_boolean.alarm_state
+    state: 'off'
+  action:
+  - service: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.alarm_state
+  mode: single
+- id: '1764117531982'
+  alias: "\U0001F6A8 Alarm triggered!"
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.alarm_state
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - light.butlers_pantry_light
+      - light.kitchen_sink_light
+      - light.coat_closet_hall
+  - service: notify.mobile_app_iphone703
+    metadata: {}
+    data:
+      message: "\U0001F6A8 Alarm triggered!"
+      data:
+        push:
+          sound: findsounds.com-submarine.wav
+  mode: single
+- id: '1764538702584'
+  alias: Reset alarm mode when set to Unarmed
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_select.alarm_mode
+    to: Unarmed
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.alarm_state
   mode: single
