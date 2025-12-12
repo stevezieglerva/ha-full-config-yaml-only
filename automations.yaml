@@ -3059,17 +3059,19 @@
         id:
         - 'on'
       sequence:
-  - if:
-    - condition: state
-      entity_id: input_boolean.vswitch_outdoor_christmas_lights
-      state: 'on'
-    then:
+      - type: turn_on
+        device_id: 429b4031f1808f388df166b194a09674
+        entity_id: 5f03d303000fd25c0058d36ec1d862da
+        domain: switch
     - conditions:
       - condition: trigger
         id:
         - 'off'
       sequence:
-    else:
+      - type: turn_off
+        device_id: 429b4031f1808f388df166b194a09674
+        entity_id: 5f03d303000fd25c0058d36ec1d862da
+        domain: switch
 - id: '1701000001000'
   alias: "\U0001F384 VSwitch Indoor Christmas Lights - Control Actual Lights"
   description: Controls the actual Christmas tree and mantel lights based on the virtual
@@ -7156,6 +7158,25 @@
     data:
       message: "\U0001F384 Indoor lights triggered"
     enabled: false
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - 'on'
+      sequence:
+      - type: turn_on
+        device_id: 0e79f42ec4d214bccb46d09bcafe00e7
+        entity_id: b813d92b0c8d333c6d8904969a2fdf0b
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id:
+        - 'off'
+      sequence:
+      - type: turn_off
+        device_id: 0e79f42ec4d214bccb46d09bcafe00e7
+        entity_id: b813d92b0c8d333c6d8904969a2fdf0b
+        domain: switch
   mode: single
 - id: '1764117027226'
   alias: "\U0001F6A8 Armed-Away triggered!"
