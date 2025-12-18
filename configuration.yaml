@@ -418,7 +418,7 @@ template:
         state: >
           {% set avg_light = states('sensor.average_sunlight') | float(0) %}
           {% set sun_elevation = state_attr('sun.sun', 'elevation') | float(0) %}
-          {{ (avg_light > 50 and avg_light < 200 and sun_elevation > 10) }}
+          {{ (avg_light > 50 and avg_light < 200 and sun_elevation > 5) }}
         icon: mdi:weather-cloudy
       - name: "🚶 Recent House Motion"
         state: >
