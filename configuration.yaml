@@ -421,6 +421,13 @@ template:
           {% set lux1 = states('sensor.kitchen_motion_illuminance_lux') | float(0) %}
           {% set lux2 = states('sensor.office_motion_sensor_illuminance_lux') | float(0) %}
           {{ (lux1 + lux2) / 2 }}
+
+      - name: "☁️ Cloudy"
+        device_class: "binary_sensor"
+        state: >
+          {% set avg_light = states('sensor.average_sunlight') | float(0) %}
+          {% set sun_elevation = state_attr('sun.sun', 'elevation') | float(0) %}
+          {{ (avg_light > 50 and avg_light < 200 and sun_elevation > 10) }}
       - name: "🚶 Recent House Motion"
         state: >
           {{ is_state('timer.last_motion_timer', 'active') }}
