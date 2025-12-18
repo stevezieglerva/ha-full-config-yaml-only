@@ -354,20 +354,12 @@ template:
         unique_id: todays_low_temp
         unit_of_measurement: "°F" # Change to °C if needed
         state: >
-          {{ this.attributes.today_low if this.attributes.templow is defined else 'unknown' }}
-        attributes:
-          today_low: >
-            {% set forecasts = (trigger.response.weather.forecast_home.forecast if trigger.response is defined and 'weather.forecast_home' in trigger.response else []) %}
-            {% if forecasts and forecasts[0] %}
-              {{ forecasts[0].templow if forecasts[0].templow is defined else forecasts[0].temperature }}
-            {% else %}
-              unknown
-            {% endif %}
-        trigger_variables:
-          entity_id: weather.forecast_home
-        service: weather.get_forecasts
-        data:
-          type: daily
+          {% set forecast = state_attr('weather.forecast_home', 'forecast') %}
+          {% if forecast and forecast[0] %}
+            {{ forecast[0].templow if 'templow' in forecast[0] else forecast[0].temperature }}
+          {% else %}
+            unknown
+          {% endif %}
 
   - sensor:
       - name: "❄️ Downstairs Cooling Percentage"
@@ -423,11 +415,11 @@ template:
           {{ (lux1 + lux2) / 2 }}
 
       - name: "☁️ Cloudy"
-        device_class: "binary_sensor"
         state: >
           {% set avg_light = states('sensor.average_sunlight') | float(0) %}
           {% set sun_elevation = state_attr('sun.sun', 'elevation') | float(0) %}
-          {{ (avg_light > 50 and avg_light < 200 and sun_elevation > 5) }}
+          {{ (avg_light > 50 and avg_light < 200 and sun_elevation > 10) }}
+        icon: mdi:weather-cloudy
       - name: "🚶 Recent House Motion"
         state: >
           {{ is_state('timer.last_motion_timer', 'active') }}
