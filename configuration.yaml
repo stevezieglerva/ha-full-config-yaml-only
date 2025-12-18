@@ -1574,19 +1574,19 @@ schedule:
   charlotte_school_schedule:
     name: "🩷📓 Charlotte School Schedule"
     monday:
-      - from: "06:40:00"
+      - from: "07:00:00"
         to: "07:30:00"
     tuesday:
-      - from: "06:40:00"
+      - from: "07:00:00"
         to: "07:30:00"
     wednesday:
-      - from: "06:40:00"
+      - from: "07:00:00"
         to: "07:30:00"
     thursday:
-      - from: "06:40:00"
+      - from: "07:00:00"
         to: "07:30:00"
     friday:
-      - from: "06:40:00"
+      - from: "07:00:00"
         to: "07:30:00"
     icon: mdi:school
   owen_school_schedule:

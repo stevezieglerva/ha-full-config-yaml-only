@@ -3059,19 +3059,21 @@
         id:
         - 'on'
       sequence:
-      - type: turn_on
-        device_id: 429b4031f1808f388df166b194a09674
-        entity_id: 5f03d303000fd25c0058d36ec1d862da
-        domain: switch
+      - service: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          label_id: christmas_outdoors
     - conditions:
       - condition: trigger
         id:
         - 'off'
       sequence:
-      - type: turn_off
-        device_id: 429b4031f1808f388df166b194a09674
-        entity_id: 5f03d303000fd25c0058d36ec1d862da
-        domain: switch
+      - service: switch.turn_off
+        metadata: {}
+        data: {}
+        target:
+          label_id: christmas_outdoors
 - id: '1701000001000'
   alias: "\U0001F384 VSwitch Indoor Christmas Lights - Control Actual Lights"
   description: Controls the actual Christmas tree and mantel lights based on the virtual
