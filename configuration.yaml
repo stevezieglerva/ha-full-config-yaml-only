@@ -1591,18 +1591,18 @@ schedule:
   owen_school_schedule:
     name: "🔵📓 Owen School Schedule"
     monday:
-      - from: "06:50:00"
+      - from: "07:30:00"
         to: "09:00:00"
     tuesday:
-      - from: "06:50:00"
+      - from: "07:30:00"
         to: "09:00:00"
     wednesday:
-      - from: "06:50:00"
+      - from: "07:30:00"
         to: "09:00:00"
     thursday:
-      - from: "06:50:00"
+      - from: "07:30:00"
         to: "09:00:00"
     friday:
-      - from: "06:50:00"
+      - from: "07:30:00"
         to: "09:00:00"
     icon: mdi:school
