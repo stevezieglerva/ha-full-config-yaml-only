@@ -1015,7 +1015,7 @@
         entity_id: sensor.late_night
         state: 'False'
       - condition: time
-        before: '22:00:00'
+        before: '20:00:00'
       sequence:
       - service: script.set_office_lights
         metadata: {}
@@ -1024,7 +1024,7 @@
       alias: Evening
     - conditions:
       - condition: time
-        after: '22:00:00'
+        after: '20:00:00'
       - condition: numeric_state
         entity_id: sensor.office_motion_sensor_illuminance_lux
         below: 215
@@ -3000,17 +3000,38 @@
     from: 'off'
     to: 'on'
     id: schedule
+  - platform: state
+    entity_id:
+    - sensor.cloudy
+    from: 'False'
+    to: 'True'
+    id: cloudy
   condition: []
   action:
-  - service: notify.mobile_app_iphone703
-    metadata: {}
-    data:
-      message: "\U0001F384 Christmas outdoor lights turned on"
-  - service: input_boolean.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: input_boolean.vswitch_outdoor_christmas_lights
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - schedule
+      sequence:
+      - service: input_boolean.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.vswitch_outdoor_christmas_lights
+    - conditions:
+      - condition: trigger
+        id:
+        - cloudy
+      - condition: state
+        entity_id: input_boolean.anyone_home
+        state: 'on'
+      sequence:
+      - service: input_boolean.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.vswitch_outdoor_christmas_lights
   mode: single
 - id: '1735585931137'
   alias: "\U0001F384 Christmas Outdoor Lights Off"
@@ -3022,17 +3043,35 @@
     from: 'on'
     to: 'off'
     id: schedule
+  - platform: state
+    entity_id:
+    - sensor.cloudy
+    from: 'True'
+    to: 'False'
+    id: cloudy
   condition: []
   action:
-  - service: notify.mobile_app_iphone703
-    metadata: {}
-    data:
-      message: "\U0001F384 Christmas outdoor lights turned off"
-  - service: input_boolean.turn_off
-    metadata: {}
-    data: {}
-    target:
-      entity_id: input_boolean.vswitch_outdoor_christmas_lights
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - schedule
+      sequence:
+      - service: input_boolean.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.vswitch_outdoor_christmas_lights
+    - conditions:
+      - condition: trigger
+        id:
+        - cloudy
+      sequence:
+      - service: input_boolean.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.vswitch_outdoor_christmas_lights
   mode: single
 - id: '1701000001001'
   alias: "\U0001F384 VSwitch Outdoor Christmas Lights - Control Actual Lights"
@@ -3604,6 +3643,11 @@
     device_id: c879297a402a20b452c50410c40b72d2
     entity_id: 7cef3ced64efa588838c6c0d36d16d98
     domain: switch
+  - service: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.vswitch_deck_lights
   - delay:
       hours: 0
       minutes: 5
@@ -3631,6 +3675,11 @@
     device_id: c879297a402a20b452c50410c40b72d2
     entity_id: 7cef3ced64efa588838c6c0d36d16d98
     domain: switch
+  - service: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.vswitch_deck_lights
   mode: restart
 - id: '1738149464760'
   alias: Kitchen bright lights morning routine
@@ -7273,4 +7322,20 @@
     data: {}
     target:
       entity_id: input_boolean.alarm_state
+  mode: single
+- id: '1767194769681'
+  alias: "\U0001F6DC Notify Katharine back on Wifi"
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.katharine_on_wifi
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.mobile_app_iphone703
+    metadata: {}
+    data:
+      message: "\U0001F6DC\U0001F3E1 Katharine back home"
   mode: single

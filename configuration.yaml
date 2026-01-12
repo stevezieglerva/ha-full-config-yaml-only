@@ -418,7 +418,7 @@ template:
         state: >
           {% set avg_light = states('sensor.average_sunlight') | float(0) %}
           {% set sun_elevation = state_attr('sun.sun', 'elevation') | float(0) %}
-          {{ (avg_light > 50 and avg_light < 200 and sun_elevation > 5) }}
+          {{ (avg_light > 50 and avg_light < 100 and sun_elevation > 5) }}
         icon: mdi:weather-cloudy
       - name: "🚶 Recent House Motion"
         state: >
@@ -1573,19 +1573,19 @@ schedule:
   charlotte_school_schedule:
     name: "🩷📓 Charlotte School Schedule"
     monday:
-      - from: "07:00:00"
+      - from: "07:10:00"
         to: "07:30:00"
     tuesday:
-      - from: "07:00:00"
+      - from: "07:10:00"
         to: "07:30:00"
     wednesday:
-      - from: "07:00:00"
+      - from: "07:10:00"
         to: "07:30:00"
     thursday:
-      - from: "07:00:00"
+      - from: "07:10:00"
         to: "07:30:00"
     friday:
-      - from: "07:00:00"
+      - from: "07:10:00"
         to: "07:30:00"
     icon: mdi:school
   owen_school_schedule:
