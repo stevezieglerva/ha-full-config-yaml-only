@@ -1778,6 +1778,9 @@
   - condition: state
     entity_id: sensor.late_night
     state: 'False'
+  - condition: state
+    entity_id: input_boolean.sleeping
+    state: 'off'
   action:
   - service: notify.mobile_app_iphone703
     metadata: {}
@@ -4575,6 +4578,9 @@
     entity_id: input_boolean.heat_wave
     state: 'off'
     alias: "Confirm \U0001F975 Heat Wave is off because that will keep AC going"
+  - condition: state
+    entity_id: input_boolean.sleeping
+    state: 'off'
   action:
   - choose:
     - conditions:
@@ -7344,4 +7350,48 @@
       data:
         push:
           sound: wifi.wav
+  mode: single
+- id: '1769899232001'
+  alias: "\U0001F319 Set Ecobees to Sleep Mode"
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.sleeping
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - device_id: abebc99ac3bcf057336b1f0ef5e4d0c8
+    domain: select
+    entity_id: b9cdfe91458734f5b458b1a7525f2f8a
+    type: select_option
+    option: sleep
+  - device_id: e107fd237c3ce1ff46b28fd9730fb308
+    domain: select
+    entity_id: 3830dc0f63623ab1bc8ce328082975c8
+    type: select_option
+    option: sleep
+  mode: single
+- id: '1769899232002'
+  alias: "\u2600\uFE0F Set Ecobees to Home Mode"
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.awake
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - device_id: abebc99ac3bcf057336b1f0ef5e4d0c8
+    domain: select
+    entity_id: b9cdfe91458734f5b458b1a7525f2f8a
+    type: select_option
+    option: home
+  - device_id: e107fd237c3ce1ff46b28fd9730fb308
+    domain: select
+    entity_id: 3830dc0f63623ab1bc8ce328082975c8
+    type: select_option
+    option: home
   mode: single
