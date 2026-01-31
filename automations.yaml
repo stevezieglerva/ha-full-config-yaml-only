@@ -2083,6 +2083,9 @@
   - service: notify.mobile_app_iphone703
     data:
       message: "\U0001F697\U0001F525 Warm up the car"
+      data:
+        push:
+          sound: car-start.wav
   mode: single
 - id: '1732461822454'
   alias: "\U0001F504 Reset daily configs at midnight"
@@ -7338,4 +7341,7 @@
     metadata: {}
     data:
       message: "\U0001F6DC\U0001F3E1 Katharine back home"
+      data:
+        push:
+          sound: wifi.wav
   mode: single
