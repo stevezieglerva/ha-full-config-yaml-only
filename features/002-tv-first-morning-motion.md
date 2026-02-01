@@ -2,7 +2,8 @@
 
 **Plan ID:** 002-tv-first-morning-motion  
 **Created:** 2026-02-01  
-**Status:** Planned  
+**Status:** Implemented  
+**Implemented:** 2026-02-01  
 
 ## Problem Statement
 

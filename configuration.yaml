@@ -1536,6 +1536,9 @@ input_datetime:
     name: Living Room Most Recent Motion
     has_date: true
     has_time: true
+  first_downstairs_motion_tv:
+    name: First Downstairs Motion TV
+    has_time: true
 
 tts:
   - platform: cloud
