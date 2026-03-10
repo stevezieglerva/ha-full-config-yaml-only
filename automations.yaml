@@ -7380,7 +7380,7 @@
       message: "\U0001F6DC\U0001F3E1 Katharine back home"
       data:
         push:
-          sound: wifi.wav
+          sound: wifi_1s.wav
   mode: single
 - id: '1769899232001'
   alias: "\U0001F319 Set Ecobees to Sleep Mode"
