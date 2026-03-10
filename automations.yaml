@@ -2726,7 +2726,7 @@
   trigger:
   - platform: state
     entity_id:
-    - input_boolean.recent_downstairs_motiin
+    - input_boolean.recent_downstairs_motion
     from: 'on'
     to: 'off'
   condition:
@@ -2926,7 +2926,7 @@
     entity_id: input_boolean.vswitch_indoor_christmas_lights
     state: 'on'
   - condition: state
-    entity_id: input_boolean.recent_downstairs_motiin
+    entity_id: input_boolean.recent_downstairs_motion
     state: 'off'
   action:
   - service: notify.mobile_app_iphone703
@@ -3440,7 +3440,7 @@
       domain: binary_sensor
   - service: input_boolean.turn_off
     target:
-      entity_id: input_boolean.recent_downstairs_motiin
+      entity_id: input_boolean.recent_downstairs_motion
     data: {}
   mode: restart
 - id: '1737312976237'
@@ -3449,7 +3449,7 @@
   trigger:
   - platform: state
     entity_id:
-    - input_boolean.recent_downstairs_motiin
+    - input_boolean.recent_downstairs_motion
     from: 'off'
     to: 'on'
   condition:
@@ -3839,7 +3839,7 @@
     5 AM
   trigger:
   - platform: state
-    entity_id: input_boolean.recent_downstairs_motiin
+    entity_id: input_boolean.recent_downstairs_motion
     from: 'off'
     to: 'on'
   condition:
@@ -4415,7 +4415,7 @@
   trigger:
   - platform: state
     entity_id:
-    - input_boolean.recent_downstairs_motiin
+    - input_boolean.recent_downstairs_motion
     from: 'off'
     to: 'on'
   - platform: state
@@ -4952,7 +4952,7 @@
     to: 'off'
   - platform: state
     entity_id:
-    - input_boolean.recent_downstairs_motiin
+    - input_boolean.recent_downstairs_motion
     from: 'on'
     to: 'off'
   condition:
@@ -4968,7 +4968,7 @@
       entity_id: sensor.charlotte_has_school_today
       state: 'True'
     - condition: state
-      entity_id: input_boolean.recent_downstairs_motiin
+      entity_id: input_boolean.recent_downstairs_motion
       state: 'off'
     - condition: state
       entity_id: input_boolean.katharine_on_wifi
