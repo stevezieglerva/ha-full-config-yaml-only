@@ -10,3 +10,4 @@
 !*.py
 !.claude/settings.local.json
 secrets.yaml
+!*.sh
