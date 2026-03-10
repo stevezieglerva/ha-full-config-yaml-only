@@ -2070,7 +2070,7 @@
   description: ''
   trigger:
   - platform: time
-    at: 06:41:00
+    at: 06:45:00
   condition:
   - condition: state
     entity_id: sensor.owen_has_school_today
@@ -3393,7 +3393,7 @@
     metadata: {}
     data: {}
     target:
-      entity_id: input_boolean.recent_downstairs_motiin
+      entity_id: input_boolean.recent_downstairs_motion
   mode: single
 - id: '1737261039894'
   alias: Turn off recent downstairs motion
@@ -3834,8 +3834,9 @@
       entity_id: input_boolean.sleeping
   mode: single
 - id: '1738591276945'
-  alias: "📺 Turn On TV at First Morning Downstairs Motion"
-  description: 'Turn on Sony 65" Bravia TV when first downstairs motion detected after 5 AM'
+  alias: "\U0001F4FA Turn On TV at First Morning Downstairs Motion"
+  description: Turn on Sony 65" Bravia TV when first downstairs motion detected after
+    5 AM
   trigger:
   - platform: state
     entity_id: input_boolean.recent_downstairs_motiin
@@ -3845,7 +3846,8 @@
   - condition: time
     after: 05:00:00
   - condition: template
-    value_template: '{{ states(''input_datetime.first_downstairs_motion_tv'') == ''00:00:00'' }}'
+    value_template: '{{ states(''input_datetime.first_downstairs_motion_tv'') == ''00:00:00''
+      }}'
   action:
   - service: input_datetime.set_datetime
     target:
@@ -7403,7 +7405,7 @@
     option: sleep
   mode: single
 - id: '1769899232002'
-  alias: "\u2600\uFE0F Set Ecobees to Home Mode"
+  alias: ☀️ Set Ecobees to Home Mode
   description: ''
   trigger:
   - platform: state
@@ -7423,4 +7425,48 @@
     entity_id: 3830dc0f63623ab1bc8ce328082975c8
     type: select_option
     option: home
+  mode: single
+- id: '1771418104723'
+  alias: Turn on Living Room TV in morning with motion
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.recent_downstairs_motion
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: schedule.morning_living_room_tv_on
+    state: 'on'
+  - condition: state
+    entity_id: media_player.bravia_4k_vh22
+    state: 'off'
+  action:
+  - service: media_player.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - media_player.bravia_4k_vh22
+      - media_player.sony_living_room_tv_65
+  mode: single
+- id: '1771419286968'
+  alias: "\U0001F355 Charlotte pizza Wednesday"
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:30:00
+  condition:
+  - condition: state
+    entity_id: sensor.charlotte_has_school_today
+    state: 'True'
+  - condition: time
+    weekday:
+    - wed
+    after: 06:00:00
+  action:
+  - service: notify.mobile_app_iphone703
+    metadata: {}
+    data:
+      message: "\U0001F355 Charlotte has pizza today"
   mode: single
