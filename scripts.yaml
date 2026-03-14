@@ -557,6 +557,21 @@ launch_hulu_on_sony_bravia_tv:
       target:
         entity_id: media_player.sony_xbr_55x850g
   mode: single
+launch_fully_kiosk_on_bravia_65:
+  alias: Launch Fully Kiosk on Bravia 65
+  sequence:
+    - service: media_player.turn_on
+      target:
+        entity_id:
+          - media_player.bravia_4k_vh22
+      data: {}
+    - service: media_player.play_media
+      data:
+        media_content_id: de.ozerov.fully
+        media_content_type: app
+      target:
+        entity_id: media_player.bravia_4k_vh22
+  mode: single
 blink_light:
   alias: "\U0001F4A1Blink Light"
   variables:

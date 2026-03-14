@@ -1182,6 +1182,11 @@ input_boolean:
     initial: off
     icon: mdi:dog
 
+  vswitch_alexa_launch_fully_kiosk_bravia_65:
+    name: VSwitch Alexa Launch Fully Kiosk Bravia 65
+    initial: off
+    icon: mdi:amazon-alexa
+
   alexa_maggie_monitor:
     name: Alexa Maggie Monitor
     initial: off

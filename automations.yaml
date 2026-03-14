@@ -7470,3 +7470,24 @@
     data:
       message: "\U0001F355 Charlotte has pizza today"
   mode: single
+- id: '1710432000001'
+  alias: Alexa Launch Fully Kiosk on Bravia 65
+  description: When Alexa virtual switch is turned on, launch Fully Kiosk on Bravia
+    65 and turn switch back off
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.vswitch_alexa_launch_fully_kiosk_bravia_65
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: script.launch_fully_kiosk_on_bravia_65
+    data: {}
+  - delay:
+      seconds: 2
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.vswitch_alexa_launch_fully_kiosk_bravia_65
+    data: {}
+  mode: single
