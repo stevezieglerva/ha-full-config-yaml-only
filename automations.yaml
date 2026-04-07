@@ -7498,6 +7498,7 @@
   - platform: state
     entity_id:
     - climate.downstairs_ecobee
+    not_to: heat_cool
   condition: []
   action:
   - service: notify.mobile_app_iphone703
@@ -7513,6 +7514,7 @@
   - platform: state
     entity_id:
     - climate.upstairs_ecobee
+    not_to: heat_cool
   condition: []
   action:
   - service: notify.mobile_app_iphone703
