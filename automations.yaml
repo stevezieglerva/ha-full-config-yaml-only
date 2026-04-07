@@ -7491,3 +7491,34 @@
       entity_id: input_boolean.vswitch_alexa_launch_fully_kiosk_bravia_65
     data: {}
   mode: single
+- id: '1712505600001'
+  alias: "\U0001F514 Downstairs Ecobee HVAC Mode Changed"
+  description: Notify when the downstairs ecobee HVAC mode changes unexpectedly
+  trigger:
+  - platform: state
+    entity_id:
+    - climate.downstairs_ecobee
+  condition: []
+  action:
+  - service: notify.mobile_app_iphone703
+    data:
+      message: "\U0001F514 Downstairs Ecobee mode changed: {{ trigger.from_state.state
+        }} \u2192 {{ trigger.to_state.state }}\nEcobee temp: {{ states('sensor.downstairs_ecobee_current_temperature')
+        }}\xB0F | Outside: {{ states('sensor.ktta_temperature') }}\xB0F"
+  mode: single
+- id: '1712505600002'
+  alias: "\U0001F514 Upstairs Ecobee HVAC Mode Changed"
+  description: Notify when the upstairs ecobee HVAC mode changes unexpectedly
+  trigger:
+  - platform: state
+    entity_id:
+    - climate.upstairs_ecobee
+  condition: []
+  action:
+  - service: notify.mobile_app_iphone703
+    data:
+      message: "\U0001F514 Upstairs Ecobee mode changed: {{ trigger.from_state.state
+        }} \u2192 {{ trigger.to_state.state }}\nEcobee temp: {{ state_attr('climate.upstairs_ecobee',
+        'current_temperature') }}\xB0F | Outside: {{ states('sensor.ktta_temperature')
+        }}\xB0F"
+  mode: single
