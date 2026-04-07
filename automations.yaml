@@ -3659,6 +3659,7 @@
     data: {}
     target:
       entity_id: input_boolean.vswitch_deck_lights
+    enabled: false
   - delay:
       hours: 0
       minutes: 5
@@ -3691,6 +3692,7 @@
     data: {}
     target:
       entity_id: input_boolean.vswitch_deck_lights
+    enabled: false
   mode: restart
 - id: '1738149464760'
   alias: Kitchen bright lights morning routine
@@ -7441,14 +7443,13 @@
   - condition: state
     entity_id: media_player.bravia_4k_vh22
     state: 'off'
+  - condition: time
+    after: 05:00:00
+    before: 08:00:00
   action:
-  - service: media_player.turn_on
+  - service: script.launch_fully_kiosk_on_bravia_65
     metadata: {}
     data: {}
-    target:
-      entity_id:
-      - media_player.bravia_4k_vh22
-      - media_player.sony_living_room_tv_65
   mode: single
 - id: '1771419286968'
   alias: "\U0001F355 Charlotte pizza Wednesday"
