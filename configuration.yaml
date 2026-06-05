@@ -1187,6 +1187,11 @@ input_boolean:
     initial: off
     icon: mdi:amazon-alexa
 
+  vswitch_announce_owen_swim_wake_up:
+    name: "🏊‍♂️🔵 VSwitch Announce Owen Swim Wake Up"
+    initial: off
+    icon: mdi:swim
+
   alexa_maggie_monitor:
     name: Alexa Maggie Monitor
     initial: off
