@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HA 2024.7 → 2026.7 Upgrade Plan — Aqara M3 Pairing Fix</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏠</text></svg>">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Roboto+Mono&display=swap');
+
+:root {
+  --color-primary:         #005ea2;
+  --color-primary-dark:    #1a4480;
+  --color-primary-darker:  #162e51;
+  --color-primary-lighter: #d9e8f6;
+  --color-secondary-dark:  #b50909;
+  --color-accent-cool:         #00bde3;
+  --color-accent-cool-darker:  #07648d;
+  --color-accent-cool-lighter: #e1f3f8;
+  --color-accent-warm-dark:    #c05600;
+  --color-base-darkest:  #1b1b1b;
+  --color-base-darker:   #3d4551;
+  --color-base-dark:     #565c65;
+  --color-base:          #71767a;
+  --color-base-lighter:  #dfe1e2;
+  --color-base-lightest: #f0f0f0;
+  --color-white:         #ffffff;
+  --color-info:           #00bde3;
+  --color-info-lighter:   #e1f3f8;
+  --color-warning:        #ffbe2e;
+  --color-warning-lighter:#faf3d1;
+  --color-error:          #d83933;
+  --color-error-lighter:  #f4e3db;
+  --color-success:        #00a91c;
+  --color-success-lighter:#ecf3ec;
+  --font-sans:  'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:  'Roboto Mono', 'Courier New', Courier, monospace;
+  --font-size-3xs: 0.81rem;
+  --font-size-2xs: 0.88rem;
+  --font-size-xs:  0.94rem;
+  --font-size-sm:  1rem;
+  --font-size-md:  1.06rem;
+  --font-size-lg:  1.38rem;
+  --font-size-xl:  2rem;
+  --font-size-2xl: 2.5rem;
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.5rem; --space-6: 2rem; --space-7: 2.5rem; --space-8: 3rem;
+  --max-width: 64rem;
+  --border-radius: 4px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+  color: var(--color-base-darkest);
+  background-color: var(--color-white);
+  margin: 0; padding: 0;
+}
+h1, h2, h3, h4 { font-weight: 700; line-height: 1.2; margin-top: var(--space-6); margin-bottom: var(--space-3); }
+h1 { font-size: var(--font-size-2xl); margin-top: 0; }
+h2 { font-size: var(--font-size-xl); border-bottom: 2px solid var(--color-base-lighter); padding-bottom: var(--space-2); }
+h3 { font-size: var(--font-size-lg); }
+p  { margin: 0 0 var(--space-4); }
+a  { color: var(--color-primary); }
+a:hover { color: var(--color-primary-dark); }
+code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--color-base-lightest);
+  border-radius: var(--border-radius);
+  padding: 0.1em 0.35em;
+}
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-5) var(--space-8); }
+.site-header {
+  background: var(--color-primary-darker);
+  color: var(--color-white);
+  padding: var(--space-6) 0;
+  border-bottom: 4px solid var(--color-accent-cool);
+  margin-bottom: var(--space-6);
+}
+.site-header .container { padding-bottom: 0; }
+.site-header h1 { color: var(--color-white); margin: 0 0 var(--space-2); }
+.site-header p { color: var(--color-base-lighter); font-size: var(--font-size-md); margin: 0; }
+.alert {
+  padding: var(--space-4) var(--space-5);
+  border-left: 4px solid;
+  border-radius: var(--border-radius);
+  margin-bottom: var(--space-5);
+  font-size: var(--font-size-md);
+}
+.alert h3 { margin-top: 0; font-size: var(--font-size-md); }
+.alert p:last-child { margin-bottom: 0; }
+.alert-info    { background: var(--color-info-lighter);    border-color: var(--color-info); }
+.alert-warning { background: var(--color-warning-lighter); border-color: var(--color-warning); }
+.alert-error   { background: var(--color-error-lighter);   border-color: var(--color-error); }
+.alert-success { background: var(--color-success-lighter); border-color: var(--color-success); }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-xs);
+  margin-bottom: var(--space-5);
+}
+th {
+  background: var(--color-primary-darker);
+  color: var(--color-white);
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+td { padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--color-base-lighter); vertical-align: top; }
+tr:nth-child(even) td { background: var(--color-base-lightest); }
+td.release { font-family: var(--font-mono); font-weight: 700; white-space: nowrap; color: var(--color-primary-dark); }
+
+/* Step indicator for upgrade path */
+.upgrade-path {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: stretch;
+  margin: var(--space-5) 0 var(--space-6);
+  padding: 0;
+  list-style: none;
+}
+.upgrade-path li {
+  flex: 1 1 9rem;
+  background: var(--color-primary-lighter);
+  border-top: 4px solid var(--color-primary);
+  border-radius: var(--border-radius);
+  padding: var(--space-3);
+  font-size: var(--font-size-xs);
+  position: relative;
+}
+.upgrade-path li strong { display: block; font-family: var(--font-mono); font-size: var(--font-size-md); color: var(--color-primary-darker); }
+.upgrade-path li.start { background: var(--color-error-lighter); border-top-color: var(--color-error); }
+.upgrade-path li.start strong { color: var(--color-secondary-dark); }
+.upgrade-path li.target { background: var(--color-success-lighter); border-top-color: var(--color-success); }
+.upgrade-path li.target strong { color: #1e6f2f; }
+
+/* Checklist */
+ol.checklist { counter-reset: step; list-style: none; padding-left: 0; }
+ol.checklist > li {
+  counter-increment: step;
+  position: relative;
+  padding: 0 0 var(--space-4) var(--space-8);
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-md);
+  border-left: 2px solid var(--color-base-lighter);
+  margin-left: 1.25rem;
+}
+ol.checklist > li::before {
+  content: counter(step);
+  position: absolute;
+  left: -1.25rem;
+  top: 0;
+  width: 2.5rem; height: 2.5rem;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+}
+ol.checklist > li:last-child { border-left-color: transparent; }
+
+ul { margin: 0 0 var(--space-4); padding-left: var(--space-5); }
+li { margin-bottom: var(--space-2); }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--space-3); margin-bottom: var(--space-5); }
+.fact-card {
+  background: var(--color-base-lightest);
+  border-radius: var(--border-radius);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-xs);
+}
+.fact-card .label { display: block; font-size: var(--font-size-3xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-base-dark); font-weight: 700; }
+.fact-card .value { font-family: var(--font-mono); font-size: var(--font-size-md); font-weight: 700; color: var(--color-primary-darker); }
+.tag {
+  display: inline-block;
+  font-size: var(--font-size-3xs);
+  font-weight: 700;
+  padding: 0.1em 0.6em;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  vertical-align: middle;
+}
+.tag-required { background: var(--color-error-lighter); color: var(--color-secondary-dark); }
+.tag-audit { background: var(--color-warning-lighter); color: var(--color-accent-warm-dark); }
+.tag-ok { background: var(--color-success-lighter); color: #1e6f2f; }
+.sources { font-size: var(--font-size-xs); color: var(--color-base-darker); }
+.sources li { margin-bottom: var(--space-1); }
+@media print { .site-header { -webkit-print-color-adjust: exact; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <h1>🏠 Home Assistant 2024.7 → 2026.7 Upgrade Plan</h1>
+    <p>Fixing Aqara Hub M3 Matter pairing &nbsp;•&nbsp; Prepared July 5, 2026 &nbsp;•&nbsp; Ziegler home</p>
+  </div>
+</header>
+
+<div class="container">
+
+<div class="alert alert-error">
+  <h3>🔎 Root cause — confirmed</h3>
+  <p>HA Core <strong>2024.7.0</strong> runs the Matter integration against <code>python-matter-server 6.2.2</code> — a <strong>Matter 1.2-era stack from mid-2024</strong>. The Aqara M3 (firmware 4.3.7+) commissions as a <strong>Matter 1.3+ bridge</strong>, which that server cannot handle. The failure signature is the well-documented <em>"Discovery timed out / Secure Pairing Failed"</em> (<a href="https://github.com/home-assistant/core/issues/134009">core #134009</a>). Matter itself works on this box — 9 devices / 71 entities (Eve, ThirdReality, Tapo) paired fine as simple end devices. This is a <strong>version problem, not a setup problem</strong>.</p>
+</div>
+
+<div class="alert alert-info">
+  <h3>🎯 Target: 2026.7.x (latest patch)</h3>
+  <p>The update dialog's "latest 2026.1.2" is a <strong>stale update entity</strong> — actual latest is <strong>2026.7.1</strong> (July 3, 2026). 2026.7 ships <strong>Matter Server 9.0</strong>, rewritten on matter.js with Matter 1.5.1 and dramatically better commissioning. Anything older still runs the end-of-life python-matter-server. <strong>2026.7 is the release that makes the M3 pair.</strong></p>
+</div>
+
+<h2>Environment (from Matter diagnostics JSON)</h2>
+<div class="facts">
+  <div class="fact-card"><span class="label">Install type</span><span class="value">Home Assistant OS</span></div>
+  <div class="fact-card"><span class="label">Core</span><span class="value">2024.7.0</span></div>
+  <div class="fact-card"><span class="label">Architecture</span><span class="value">aarch64 (64-bit ✓)</span></div>
+  <div class="fact-card"><span class="label">HAOS</span><span class="value">12.4 → need 18.x</span></div>
+  <div class="fact-card"><span class="label">Supervisor</span><span class="value">2026.01.1 (current)</span></div>
+  <div class="fact-card"><span class="label">Matter server</span><span class="value">6.2.2 (Matter 1.2)</span></div>
+  <div class="fact-card"><span class="label">Recorder DB</span><span class="value">SQLite (default)</span></div>
+  <div class="fact-card"><span class="label">Zigbee</span><span class="value">Zigbee2MQTT</span></div>
+</div>
+<p>Because the box is 64-bit aarch64, the 2025.12 removal of 32-bit architectures <strong>does not apply</strong> — no reflash needed. Custom components in play: <code>alexa_media 4.10.3</code>, <code>icloud3 3.0.5.2</code>, <code>hacs 2.0.5</code>, <code>cync_lights 1.0.1</code>.</p>
+
+<h2>Upgrade path — stepped, ≤6 releases per hop</h2>
+<p>Official guidance: HA keeps migration code for ~6 releases, so a 24-release jump must be stepped (<a href="https://www.home-assistant.io/more-info/unsupported/home_assistant_core_version/">docs</a>). Update <strong>HAOS first</strong> (Settings → System → Updates), then hop Core:</p>
+<ol class="upgrade-path">
+  <li class="start"><strong>2024.7.0</strong>today — backup + HAOS 18.x first</li>
+  <li><strong>2025.1.x</strong>backup encryption arrives — save the key!</li>
+  <li><strong>2025.7.x</strong>calendar <code>add_event</code> removed (not used ✓)</li>
+  <li><strong>2026.1.x</strong>old HACS breaks — update HACS first</li>
+  <li class="target"><strong>2026.7.x</strong>Matter Server 9.0 → pair the M3 🎉</li>
+</ol>
+<p>At <strong>every</strong> hop: full backup → update HACS + custom components → update Core → let the recorder schema migration finish (long first boot on a 2-year-old SQLite DB — <strong>do not power-cycle</strong>) → clear the Repairs dashboard → next hop. Keep free disk ≥ 2× database size.</p>
+
+<h2>Config changes needed in the repo</h2>
+<p>The whole YAML config was grepped against every breaking change in the span. Only two real hits:</p>
+<table>
+  <tr><th>Status</th><th>File</th><th>Change</th><th>Breaks at</th></tr>
+  <tr><td><span class="tag tag-required">Required</span></td><td><code>scenes.yaml</code></td><td>16 scene entries use mired <code>color_temp:</code> + <code>min_mireds</code>/<code>max_mireds</code>. Convert to <code>color_temp_kelvin</code> (kelvin = 1,000,000 ÷ mireds → 361 mi ≈ 2770 K, 370 mi ≈ 2703 K) and drop mired attributes.</td><td>2026.3</td></tr>
+  <tr><td><span class="tag tag-required">Required</span></td><td><code>automations.yaml:628</code></td><td>One legacy <code>data_template:</code> → rename to <code>data:</code>.</td><td>legacy</td></tr>
+  <tr><td><span class="tag tag-ok">Safe</span></td><td><code>automations.yaml</code>, <code>scripts.yaml</code></td><td>557 <code>service:</code> keys and 334 singular <code>platform:</code> trigger keys are deprecated but <strong>still valid in 2026.7</strong> — no rewrite required.</td><td>—</td></tr>
+  <tr><td><span class="tag tag-ok">Safe</span></td><td><code>configuration.yaml</code></td><td>Modern <code>template:</code> block already in use — unaffected by the 2026.6 removal of legacy <code>platform: template</code> sensors. No <code>mqtt.publish</code> template params, no <code>add_event</code>, no <code>hassio.*</code> actions found.</td><td>—</td></tr>
+</table>
+
+<h2>Gotchas checklist (in order)</h2>
+<ol class="checklist">
+  <li><strong>Full backup first.</strong> From 2025.1 onward backups are <strong>AES-encrypted by default</strong> — immediately save the emergency-kit encryption key or backups are unrecoverable. Automatic backups default to 04:45.</li>
+  <li><strong>Update HAOS 12.4 → 18.x</strong> before any Core hop (Supervisor stops offering updates on an OS older than the last 4 majors).</li>
+  <li><strong>HACS 2.0.5 → current before the 2026.1 hop</strong> — old HACS fails to load on 2026.1.2 (<a href="https://github.com/hacs/integration/issues/5044">hacs #5044</a>).</li>
+  <li><strong>Alexa Media Player 4.10.3 → ≥ 5.15.5</strong> (current 5.15.6; 5.15.5 fixes an HA 2026.7 issue). A 4.x AMP will not survive the jump. <strong>Expect a full Amazon re-login with 2FA</strong> — the school wake-up/departure announcements depend on it; verify after upgrade.</li>
+  <li><strong>iCloud3 3.0.5.2 → ≥ 3.5.1.</strong> Apple changed authentication in early 2026; old versions can't sign in at all. Expect Apple re-auth/2FA.</li>
+  <li><strong>Replace <code>cync_lights</code></strong> (breaks on 2025.3 color-mode enforcement) with the <strong>official Cync integration added in 2025.10</strong> at the 2026.1 hop; audit automations for changed Cync entity IDs.</li>
+  <li><strong>Update the Zigbee2MQTT add-on to current 2.x</strong> before the final hop — 2026.4 ignores <code>object_id</code> in MQTT discovery, and Z2M 2.0 has its own breaking changes (read its changelog then).</li>
+  <li><strong>Recorder migrations:</strong> long first boots per hop on SQLite; never interrupt mid-migration.</li>
+  <li><strong>Post-landing audits:</strong> template binary sensors returning <code>None</code> now read <code>unknown</code> not <code>off</code> (2025.8); mobile-app trackers report zone <em>friendly names</em> (2025.11) — check tracker-based automations; nested <code>variables</code> scoping changed (2025.3/.4); Google Calendar omits declined events (2024.11) — relevant to school-calendar automations; HomeKit Bridge naming precedence changed (2025.5) — spot-check Apple Home.</li>
+  <li><strong>Matter Server 9.0 migration (2026.7):</strong> auto-migrates on first start, existing 9 Matter devices are <em>not</em> re-commissioned, <strong>no rollback exists</strong>. Backup + disable the app watchdog for the first start; power-cycle any device that shows offline (mDNS re-announce).</li>
+  <li><strong>2026.7 automation editor</strong> defaults to purpose-specific triggers — UI-only change; classic YAML triggers unaffected.</li>
+</ol>
+
+<h2>Per-release breaking changes (relevant to this config)</h2>
+<table>
+  <tr><th>Release</th><th>What changed</th><th>Impact here</th></tr>
+  <tr><td class="release">2024.8</td><td><code>service:</code> → <code>action:</code> rename (backward-compatible)</td><td>None — old keys still work</td></tr>
+  <tr><td class="release">2024.10</td><td>Singular → plural <code>triggers:/conditions:/actions:</code> preferred</td><td>None — no removal timeline</td></tr>
+  <tr><td class="release">2024.11</td><td>Google Calendar omits declined events; HomeKit doorbell-sensor linking manual</td><td><span class="tag tag-audit">Audit</span> school-calendar automations</td></tr>
+  <tr><td class="release">2025.1</td><td>Backup overhaul: encrypted by default, scheduled, retention</td><td><span class="tag tag-required">Action</span> save encryption key</td></tr>
+  <tr><td class="release">2025.2</td><td><code>mqtt.publish</code> drops <code>topic_template</code>/<code>payload_template</code></td><td>None — not used ✓</td></tr>
+  <tr><td class="release">2025.3 / .4</td><td>Script/automation variable-scoping changes; MQTT JSON light legacy <code>color_mode</code> removed</td><td><span class="tag tag-audit">Audit</span> nested <code>variables</code>; kills old cync_lights</td></tr>
+  <tr><td class="release">2025.5</td><td>HomeKit Bridge: HA names take precedence for child accessories</td><td><span class="tag tag-audit">Audit</span> Apple Home names</td></tr>
+  <tr><td class="release">2025.7</td><td>Google Calendar <code>add_event</code> removed</td><td>None — not used ✓</td></tr>
+  <tr><td class="release">2025.8</td><td>Template binary sensor <code>None</code> → <code>unknown</code> (was <code>off</code>)</td><td><span class="tag tag-audit">Audit</span> template binary sensors</td></tr>
+  <tr><td class="release">2025.11</td><td>Mobile-app tracker zone updates use friendly names</td><td><span class="tag tag-audit">Audit</span> zone-comparison automations</td></tr>
+  <tr><td class="release">2025.12</td><td>32-bit + Core/Supervised installs removed</td><td>None — aarch64 HAOS ✓</td></tr>
+  <tr><td class="release">2026.1</td><td>Old HACS fails to load</td><td><span class="tag tag-required">Action</span> update HACS first</td></tr>
+  <tr><td class="release">2026.3</td><td>Mired <code>color_temp</code> removed from light actions/scenes</td><td><span class="tag tag-required">Action</span> fix 16 scenes → kelvin</td></tr>
+  <tr><td class="release">2026.4</td><td>MQTT discovery <code>object_id</code> ignored</td><td><span class="tag tag-required">Action</span> update Zigbee2MQTT to 2.x</td></tr>
+  <tr><td class="release">2026.5</td><td><code>hassio.*</code> actions raise on failure</td><td>None — not used ✓</td></tr>
+  <tr><td class="release">2026.6</td><td>Legacy <code>platform: template</code> sensors removed</td><td>None — modern <code>template:</code> block ✓</td></tr>
+  <tr><td class="release">2026.7</td><td><strong>Matter Server 9.0 (matter.js, Matter 1.5.1)</strong>; purpose-specific triggers default</td><td><span class="tag tag-ok">Goal</span> enables M3 pairing</td></tr>
+</table>
+
+<h2>Pairing the Aqara M3 (after landing on 2026.7)</h2>
+<ol class="checklist">
+  <li>In the Aqara app, update the M3 firmware to <strong>≥ v4.3.7</strong>.</li>
+  <li>Aqara app → Hub M3 device page → <strong>"Third-Party Matter Ecosystems" → Matter Pairing Code</strong>. This per-ecosystem code (not the printed QR) is required once the hub is already in Aqara's fabric.</li>
+  <li>HA → Settings → Devices &amp; Services → <strong>Add Integration → Matter</strong> → "No, it's new" → More options → Matter Accessory → paste the code.</li>
+  <li>Keep the M3 and HA on the same subnet/VLAN with mDNS and IPv6 link-local working.</li>
+  <li>Bridged Zigbee children (sensors, switches, plugs, locks, curtains) appear via Matter. The <strong>IR blaster and alarm/siren do NOT come through</strong>. Fallback if Matter misbehaves: pair the M3 via the <strong>HomeKit Device integration</strong> (exposes more, incl. the security system).</li>
+  <li>Leave existing Aqara devices on Zigbee2MQTT — moving any to the M3 changes device IDs and breaks the 187 <code>device_id:</code>-based automations.</li>
+</ol>
+
+<div class="alert alert-success">
+  <h3>✅ End state</h3>
+  <p>HA 2026.7.x + Matter Server 9.0.x + HAOS 18.x • M3 commissioned with bridged devices visible • existing 9 Matter devices carried over without re-pairing • Alexa announcements and iCloud3 re-authenticated • Repairs dashboard clean.</p>
+</div>
+
+<h2>Key sources</h2>
+<ul class="sources">
+  <li><a href="https://www.home-assistant.io/blog/2026/07/01/release-20267/">HA 2026.7 release notes (Matter Server 9.0)</a></li>
+  <li><a href="https://www.home-assistant.io/blog/2026/06/23/the-matter-upgrade-youve-been-waiting-for/">"The Matter upgrade you've been waiting for" — HA blog</a></li>
+  <li><a href="https://github.com/home-assistant/addons/blob/master/matter_server/MIGRATION_FAQ.md">Matter Server 9.0 migration FAQ</a></li>
+  <li><a href="https://www.home-assistant.io/more-info/unsupported/home_assistant_core_version/">Official guidance: upgrade in ≤6-release increments</a></li>
+  <li><a href="https://www.aqara.com/us/product/hub-m3-faq/">Aqara Hub M3 FAQ (firmware 4.3.7+, pairing procedure)</a></li>
+  <li><a href="https://github.com/home-assistant/core/issues/134009">core #134009 — M3 commissioning failure on old stack</a></li>
+  <li><a href="https://github.com/alandtse/alexa_media_player/releases">Alexa Media Player releases (5.15.5+ for HA 2026.7)</a></li>
+  <li><a href="https://github.com/gcobb321/icloud3/releases">iCloud3 releases (3.5.x Apple auth rework)</a></li>
+  <li><a href="https://www.home-assistant.io/blog/2025/01/03/release-20251/">HA 2025.1 release notes (backup encryption)</a></li>
+  <li><a href="https://www.home-assistant.io/blog/2025/05/22/deprecating-core-and-supervised-installation-methods-and-32-bit-systems/">32-bit deprecation announcement</a></li>
+</ul>
+
+</div>
+</body>
+</html>

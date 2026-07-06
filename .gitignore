@@ -4,6 +4,7 @@
 !automation.yaml
 !scripts.yaml
 !features/
+!features/*.html
 !*.yaml
 !*.md
 !docs/
@@ -11,3 +12,5 @@
 !.claude/settings.local.json
 secrets.yaml
 !*.sh
+!scripts/
+.mcp.json
