@@ -753,7 +753,7 @@ set_recessed_light:
                 entity_id: "{{ device }}"
               data:
                 brightness: 5
-                color_temp: 400
+                color_temp_kelvin: 2500
         - conditions:
             - condition: template
               value_template: "{{ style == 'bright' }}"
@@ -763,7 +763,7 @@ set_recessed_light:
                 entity_id: "{{ device }}"
               data:
                 brightness: 250
-                color_temp: 400
+                color_temp_kelvin: 2500
         - conditions:
             - condition: template
               value_template: "{{ style == 'red' }}"
