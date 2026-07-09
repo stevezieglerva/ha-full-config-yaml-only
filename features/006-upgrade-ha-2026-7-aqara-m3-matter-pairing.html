@@ -71,6 +71,19 @@ code {
   border-radius: var(--border-radius);
   padding: 0.1em 0.35em;
 }
+pre {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  background: var(--color-primary-darker);
+  color: var(--color-white);
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--color-accent-cool);
+  padding: var(--space-4) var(--space-5);
+  overflow-x: auto;
+  line-height: 1.6;
+  margin: 0 0 var(--space-5);
+}
+pre .cmt { color: #97d4ea; }
 .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-5) var(--space-8); }
 .site-header {
   background: var(--color-primary-darker);
@@ -232,12 +245,35 @@ li { margin-bottom: var(--space-2); }
 <p>Official guidance: HA keeps migration code for ~6 releases, so a 24-release jump must be stepped (<a href="https://www.home-assistant.io/more-info/unsupported/home_assistant_core_version/">docs</a>). Update <strong>HAOS first</strong> (Settings → System → Updates), then hop Core:</p>
 <ol class="upgrade-path">
   <li class="start"><strong>2024.7.0</strong>today — backup + HAOS 18.x first</li>
-  <li><strong>2025.1.x</strong>backup encryption arrives — save the key!</li>
-  <li><strong>2025.7.x</strong>calendar <code>add_event</code> removed (not used ✓)</li>
-  <li><strong>2026.1.x</strong>old HACS breaks — update HACS first</li>
-  <li class="target"><strong>2026.7.x</strong>Matter Server 9.0 → pair the M3 🎉</li>
+  <li><strong>2025.1.4</strong>backup encryption arrives — save the key!</li>
+  <li><strong>2025.7.4</strong>calendar <code>add_event</code> removed (not used ✓)</li>
+  <li><strong>2026.1.3</strong>old HACS breaks — update HACS first</li>
+  <li class="target"><strong>2026.7.1</strong>Matter Server 9.0 → pair the M3 🎉</li>
 </ol>
-<p>At <strong>every</strong> hop: full backup → update HACS + custom components → update Core → let the recorder schema migration finish (long first boot on a 2-year-old SQLite DB — <strong>do not power-cycle</strong>) → clear the Repairs dashboard → next hop. Keep free disk ≥ 2× database size.</p>
+<p>At <strong>every</strong> hop: full backup → update HACS + custom components → update Core → let the recorder schema migration finish (long first boot — <strong>do not power-cycle</strong>) → clear the Repairs dashboard → next hop. Keep free disk ≥ 2× database size.</p>
+
+<h2>Executing each hop — <code>ha</code> CLI (Terminal add-on)</h2>
+<p>The HA UI only ever offers the <em>latest</em> version, so intermediate hops are done from the Terminal add-on with the <code>ha</code> CLI. Exact stable tags verified against the core repo: <strong>2025.1.4 → 2025.7.4 → 2026.1.3 → 2026.7.1</strong>.</p>
+<pre><span class="cmt"># 0. One-time prep: update the OS first</span>
+ha os update                          <span class="cmt"># → HAOS 18.x</span>
+
+<span class="cmt"># For each hop (after updating HACS + AMP/iCloud3 in the UI):</span>
+ha backups new --name "pre-2025.1"    <span class="cmt"># full backup incl. add-on data</span>
+ha core update --version 2025.1.4 --backup
+
+<span class="cmt"># wait for restart + recorder migration, then verify:</span>
+ha core info                          <span class="cmt"># confirms running version</span>
+ha core logs | tail -50               <span class="cmt"># watch for migration errors</span>
+
+<span class="cmt"># repeat with --version 2025.7.4, 2026.1.3, then 2026.7.1</span></pre>
+<ul>
+  <li><strong><code>--backup</code></strong> makes a partial backup automatically, but it excludes add-on data (Zigbee2MQTT network, Matter server storage) — take the full <code>ha backups new</code> at least at the start of each hop.</li>
+  <li><strong>When the recorder migration runs:</strong> on the <em>first boot after each Core update</em>, immediately and automatically. The UI comes up but History/Logbook stay empty and the DB churns in the background; the <strong>2024.7 → 2025.1.4 hop is the heavyweight one</strong> (18 months of schema changes hit at once). Later hops are much quicker. Watch <code>ha core logs</code> for "migrating" messages; done = log goes quiet with no recorder errors.</li>
+  <li><strong>Don't start the next hop</strong> until logs are quiet and the Repairs dashboard is clean.</li>
+  <li><strong>Rollback reality:</strong> <code>ha core update --version &lt;older&gt;</code> exists, but once a recorder migration has run, an older Core may not read the newer DB schema — restoring the backup is the real rollback.</li>
+  <li><strong>Add-ons update separately:</strong> <code>ha addons update &lt;slug&gt;</code> or the UI. Do the Zigbee2MQTT 1.x → 2.x jump as its own step around the 2026.1 hop (own backup, read its changelog).</li>
+  <li>After landing on 2025.1.4: <strong>download the backup encryption key</strong> (Settings → System → Backups) before continuing.</li>
+</ul>
 
 <h2>Config changes needed in the repo</h2>
 <p>The whole YAML config was grepped against every breaking change in the span. Only two real hits:</p>
@@ -253,7 +289,7 @@ li { margin-bottom: var(--space-2); }
 <ol class="checklist">
   <li><strong>Full backup first.</strong> From 2025.1 onward backups are <strong>AES-encrypted by default</strong> — immediately save the emergency-kit encryption key or backups are unrecoverable. Automatic backups default to 04:45.</li>
   <li><strong>Update HAOS 12.4 → 18.x</strong> before any Core hop (Supervisor stops offering updates on an OS older than the last 4 majors).</li>
-  <li><strong>HACS 2.0.5 → current before the 2026.1 hop</strong> — old HACS fails to load on 2026.1.2 (<a href="https://github.com/hacs/integration/issues/5044">hacs #5044</a>).</li>
+  <li><strong>HACS 2.0.5 is already the latest release — no update needed.</strong> Even 2.0.5 had startup failures on exactly HA 2026.1.2 (<a href="https://github.com/hacs/integration/issues/5044">hacs #5044</a>); the hop path targets <strong>2026.1.3</strong> to sidestep it. Recovery if HACS ever fails to load: <code>wget -O - https://get.hacs.xyz | bash -</code> then restart Core.</li>
   <li><strong>Alexa Media Player 4.10.3 → ≥ 5.15.5</strong> (current 5.15.6; 5.15.5 fixes an HA 2026.7 issue). A 4.x AMP will not survive the jump. <strong>Expect a full Amazon re-login with 2FA</strong> — the school wake-up/departure announcements depend on it; verify after upgrade.</li>
   <li><strong>iCloud3 3.0.5.2 → ≥ 3.5.1.</strong> Apple changed authentication in early 2026; old versions can't sign in at all. Expect Apple re-auth/2FA.</li>
   <li><strong>Replace <code>cync_lights</code></strong> (breaks on 2025.3 color-mode enforcement) with the <strong>official Cync integration added in 2025.10</strong> at the 2026.1 hop; audit automations for changed Cync entity IDs.</li>
@@ -278,7 +314,7 @@ li { margin-bottom: var(--space-2); }
   <tr><td class="release">2025.8</td><td>Template binary sensor <code>None</code> → <code>unknown</code> (was <code>off</code>)</td><td><span class="tag tag-audit">Audit</span> template binary sensors</td></tr>
   <tr><td class="release">2025.11</td><td>Mobile-app tracker zone updates use friendly names</td><td><span class="tag tag-audit">Audit</span> zone-comparison automations</td></tr>
   <tr><td class="release">2025.12</td><td>32-bit + Core/Supervised installs removed</td><td>None — aarch64 HAOS ✓</td></tr>
-  <tr><td class="release">2026.1</td><td>Old HACS fails to load</td><td><span class="tag tag-required">Action</span> update HACS first</td></tr>
+  <tr><td class="release">2026.1</td><td>HACS startup failures on 2026.1.2 specifically</td><td><span class="tag tag-ok">Handled</span> hop targets 2026.1.3</td></tr>
   <tr><td class="release">2026.3</td><td>Mired <code>color_temp</code> removed from light actions/scenes</td><td><span class="tag tag-required">Action</span> fix 16 scenes → kelvin</td></tr>
   <tr><td class="release">2026.4</td><td>MQTT discovery <code>object_id</code> ignored</td><td><span class="tag tag-required">Action</span> update Zigbee2MQTT to 2.x</td></tr>
   <tr><td class="release">2026.5</td><td><code>hassio.*</code> actions raise on failure</td><td>None — not used ✓</td></tr>

@@ -34,7 +34,7 @@ Not needed (verified absent/safe): `mqtt.publish` `topic_template`/`payload_temp
 ## Breaking changes / gotchas checklist (ordered)
 1. **Backup first**; from 2025.1 on, backups are **encrypted by default — save the emergency-kit encryption key immediately** or backups are unrecoverable. Automatic backups default to 04:45.
 2. **HAOS 12.4 → 18.x** before Core hops.
-3. **HACS 2.0.5 must be updated before reaching 2026.1** (old HACS fails to load on 2026.1.2 — known issue #5044).
+3. **HACS 2.0.5 is already the latest release — no update needed.** Note: even 2.0.5 had startup failures on exactly HA 2026.1.2 (hacs #5044); hop to **2026.1.3** to sidestep. Recovery if HACS fails to load: re-run `wget -O - https://get.hacs.xyz | bash -` + restart Core.
 4. **Alexa Media Player 4.10.3 → ≥5.15.5** (5.15.5 fixes an HA 2026.7 blocking-call issue; current 5.15.6). A 4.x AMP will not survive the jump. **Expect full Amazon re-auth with 2FA** — school wake-up/departure announcements depend on this; verify after upgrade.
 5. **iCloud3 3.0.5.2 → ≥3.5.1** (Apple changed auth in early 2026; old versions can't sign in at all). Expect Apple re-auth/2FA.
 6. **cync_lights 1.0.1**: breaks on 2025.3 color-mode enforcement. Migrate to the **official `cync` integration (added 2025.10)** at the 2026.1 hop and remove the custom component; audit automations for Cync entity-ID changes.

@@ -4,15 +4,12 @@
     light.kitchen_sink_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode: color_temp
       brightness: 255
       color_temp_kelvin: 2770
-      color_temp: 361
       hs_color:
       - 28.248
       - 63.531
@@ -29,15 +26,12 @@
     light.butlers_pantry_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode: color_temp
       brightness: 255
       color_temp_kelvin: 2770
-      color_temp: 361
       hs_color:
       - 28.248
       - 63.531
@@ -54,15 +48,12 @@
     light.garage_back_door_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode: color_temp
       brightness: 255
       color_temp_kelvin: 2702
-      color_temp: 370
       hs_color:
       - 28.391
       - 65.659
@@ -79,15 +70,12 @@
     light.garage_tool_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode: color_temp
       brightness: 255
       color_temp_kelvin: 2702
-      color_temp: 370
       hs_color:
       - 28.391
       - 65.659
@@ -109,15 +97,12 @@
     light.kitchen_sink_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
@@ -127,15 +112,12 @@
     light.butlers_pantry_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
@@ -145,15 +127,12 @@
     light.office_lamp_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
@@ -168,15 +147,12 @@
     light.kitchen_sink_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode: color_temp
       brightness: 0
       color_temp_kelvin: 2770
-      color_temp: 361
       hs_color:
       - 28.248
       - 63.531
@@ -193,15 +169,12 @@
     light.butlers_pantry_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode: color_temp
       brightness: 0
       color_temp_kelvin: 2770
-      color_temp: 361
       hs_color:
       - 28.248
       - 63.531
@@ -218,15 +191,12 @@
     light.office_lamp_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
@@ -241,15 +211,12 @@
     light.kitchen_sink_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode: color_temp
       brightness: 255
       color_temp_kelvin: 2770
-      color_temp: 361
       hs_color:
       - 28.248
       - 63.531
@@ -266,15 +233,12 @@
     light.butlers_pantry_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode: color_temp
       brightness: 255
       color_temp_kelvin: 2770
-      color_temp: 361
       hs_color:
       - 28.248
       - 63.531
@@ -296,15 +260,12 @@
     light.garage_back_door_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode: color_temp
       brightness: 255
       color_temp_kelvin: 2702
-      color_temp: 370
       hs_color:
       - 28.391
       - 65.659
@@ -321,15 +282,12 @@
     light.garage_tool_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode: color_temp
       brightness: 255
       color_temp_kelvin: 2702
-      color_temp: 370
       hs_color:
       - 28.391
       - 65.659
@@ -351,15 +309,12 @@
     light.garage_back_door_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
@@ -369,15 +324,12 @@
     light.garage_tool_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
-      min_mireds: 154
-      max_mireds: 500
       supported_color_modes:
       - color_temp
       - xy
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
