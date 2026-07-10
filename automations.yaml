@@ -3471,24 +3471,19 @@
 - id: '1737313941297'
   alias: Shut down the house
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_boolean.shutting_down_house_for_night
     from: 'off'
     to: 'on'
-  condition: []
-  action:
-  - service: script.set_downstairs_lights
-    metadata: {}
+    trigger: state
+  conditions: []
+  actions:
+  - metadata: {}
     data:
       label: downstairs
       style: red
-  - service: media_player.media_pause
-    metadata: {}
-    data: {}
-    target:
-      entity_id: media_player.sony_xbr_55x850g
+    action: script.set_downstairs_lights
   - delay:
       hours: 0
       minutes: 5
@@ -3497,21 +3492,21 @@
   - condition: state
     entity_id: input_boolean.shutting_down_house_for_night
     state: 'on'
-  - service: script.set_downstairs_lights
-    metadata: {}
+  - metadata: {}
     data:
       label: downstairs
       style: dim
+    action: script.set_downstairs_lights
   - delay:
       hours: 0
       minutes: 0
       seconds: 5
       milliseconds: 0
-  - service: script.set_downstairs_lights
-    metadata: {}
+  - metadata: {}
     data:
       label: downstairs
       style: 'off'
+    action: script.set_downstairs_lights
   - type: turn_off
     device_id: a9d0cee5de7afb677a53b92ca828721d
     entity_id: a57b1117888d399ec157605bf0f4d8aa
@@ -3524,26 +3519,26 @@
     device_id: c879297a402a20b452c50410c40b72d2
     entity_id: 7cef3ced64efa588838c6c0d36d16d98
     domain: switch
-  - service: input_boolean.turn_off
-    metadata: {}
+  - metadata: {}
     data: {}
     target:
       entity_id: input_boolean.shutting_down_house_for_night
-  - service: input_boolean.turn_off
-    metadata: {}
+    action: input_boolean.turn_off
+  - metadata: {}
     data: {}
     target:
       entity_id: input_boolean.awake
-  - service: input_boolean.turn_on
-    metadata: {}
+    action: input_boolean.turn_off
+  - metadata: {}
     data: {}
     target:
       entity_id: input_boolean.sleeping
-  - service: input_boolean.turn_on
-    metadata: {}
+    action: input_boolean.turn_on
+  - metadata: {}
     data: {}
     target:
       entity_id: input_boolean.waiting_first_kitchen_morning
+    action: input_boolean.turn_on
   mode: single
 - id: '1737605004057'
   alias: Recurring water leak alarm
@@ -5953,7 +5948,7 @@
   description: ‘’
   trigger:
   - platform: time
-    at: 04:50:00
+    at: 04:45:15
   condition:
   - condition: time
     weekday:
@@ -5981,11 +5976,13 @@
   - service: input_boolean.turn_on
     target:
       entity_id: input_boolean.vswitch_announce_owen_swim_wake_up
+    data: {}
   - delay:
       seconds: 5
   - service: input_boolean.turn_off
     target:
       entity_id: input_boolean.vswitch_announce_owen_swim_wake_up
+    data: {}
   mode: single
 - id: '1719273830000'
   alias: Set Ecobee to Home mode - Tuesday return from swim meets
@@ -7517,8 +7514,8 @@
   - service: notify.mobile_app_iphone703
     data:
       message: "\U0001F514 Downstairs Ecobee mode changed: {{ trigger.from_state.state
-        }} \u2192 {{ trigger.to_state.state }}\nEcobee temp: {{ states('sensor.downstairs_ecobee_current_temperature')
-        }}\xB0F | Outside: {{ states('sensor.ktta_temperature') }}\xB0F"
+        }} → {{ trigger.to_state.state }}\nEcobee temp: {{ states('sensor.downstairs_ecobee_current_temperature')
+        }}°F | Outside: {{ states('sensor.ktta_temperature') }}°F"
   mode: single
 - id: '1712505600002'
   alias: "\U0001F514 Upstairs Ecobee HVAC Mode Changed"
@@ -7533,7 +7530,26 @@
   - service: notify.mobile_app_iphone703
     data:
       message: "\U0001F514 Upstairs Ecobee mode changed: {{ trigger.from_state.state
-        }} \u2192 {{ trigger.to_state.state }}\nEcobee temp: {{ state_attr('climate.upstairs_ecobee',
-        'current_temperature') }}\xB0F | Outside: {{ states('sensor.ktta_temperature')
-        }}\xB0F"
+        }} → {{ trigger.to_state.state }}\nEcobee temp: {{ state_attr('climate.upstairs_ecobee',
+        'current_temperature') }}°F | Outside: {{ states('sensor.ktta_temperature')
+        }}°F"
+  mode: single
+- id: '1783642442723'
+  alias: Test automation for Aqara devices
+  description: ''
+  triggers:
+  - trigger: door.opened
+    target:
+      entity_id: binary_sensor.aqara_door_and_window_sensor_door
+    options:
+      behavior: each
+      for: 00:00:00
+  - trigger: door.closed
+    target:
+      entity_id: binary_sensor.aqara_door_and_window_sensor_door_2
+    options:
+      behavior: each
+      for: 00:00:00
+  conditions: []
+  actions: []
   mode: single
