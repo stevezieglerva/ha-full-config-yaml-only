@@ -468,7 +468,7 @@ template:
           }}
       - name: "🚪 Any Door Open"
         state: >
-          {{ is_state('binary_sensor.deck_door_contact', 'on') or is_state('binary_sensor.back_door_contact', 'on') or is_state('binary_sensor.front_door_contact', 'on')or is_state('binary_sensor.deck_screen_door_contact', 'on') }}
+          {{ is_state('binary_sensor.deck_door_contact', 'on') or is_state('binary_sensor.dropzone_aqara_back_door_door', 'on') or is_state('binary_sensor.front_door_contact', 'on')or is_state('binary_sensor.deck_screen_door_contact', 'on') }}
       - name: "👚 Washer Running"
         state: >
           {% set avg = states('sensor.washer_current_avg') | float(0) %}
