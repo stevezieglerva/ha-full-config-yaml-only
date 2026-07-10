@@ -7540,13 +7540,13 @@
   triggers:
   - trigger: door.opened
     target:
-      entity_id: binary_sensor.aqara_door_and_window_sensor_door
+      entity_id: binary_sensor.dropzone_aqara_back_door_door
     options:
       behavior: each
       for: 00:00:00
   - trigger: door.closed
     target:
-      entity_id: binary_sensor.aqara_door_and_window_sensor_door_2
+      entity_id: binary_sensor.garage_aqara_garage_small_door
     options:
       behavior: each
       for: 00:00:00
