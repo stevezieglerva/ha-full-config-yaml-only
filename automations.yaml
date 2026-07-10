@@ -1145,11 +1145,10 @@
     device_id: 77b1c91800c080836f21f5086b6b1637
     entity_id: e9b79a0705db7c31f403d50ba412c0c0
     domain: binary_sensor
-  - type: opened
-    platform: device
-    device_id: 42b3221a9d1eb5af8681b7bc0e1f79fe
-    entity_id: fa80046087de8b5e333b3d305814448c
-    domain: binary_sensor
+  - platform: state
+    entity_id: binary_sensor.dropzone_aqara_back_door_door
+    from: 'off'
+    to: 'on'
   condition:
   - condition: or
     conditions:
@@ -2144,11 +2143,9 @@
   action:
   - choose:
     - conditions:
-      - type: is_open
-        condition: device
-        device_id: 42b3221a9d1eb5af8681b7bc0e1f79fe
-        entity_id: fa80046087de8b5e333b3d305814448c
-        domain: binary_sensor
+      - condition: state
+        entity_id: binary_sensor.dropzone_aqara_back_door_door
+        state: 'on'
       sequence:
       - service: input_boolean.turn_on
         metadata: {}
@@ -2194,11 +2191,9 @@
         target:
           entity_id: input_boolean.deck_screen_door_opened_recently
     - conditions:
-      - type: is_open
-        condition: device
-        device_id: 476a681cae7660e1792c6cf16230622d
-        entity_id: 638bc5477ed4445c2e292b10ccac7653
-        domain: binary_sensor
+      - condition: state
+        entity_id: binary_sensor.garage_aqara_garage_small_door
+        state: 'on'
       sequence:
       - service: input_boolean.turn_on
         metadata: {}
@@ -3600,11 +3595,10 @@
   alias: "\U0001F333 Backyard lights"
   description: ''
   trigger:
-  - type: opened
-    platform: device
-    device_id: 42b3221a9d1eb5af8681b7bc0e1f79fe
-    entity_id: fa80046087de8b5e333b3d305814448c
-    domain: binary_sensor
+  - platform: state
+    entity_id: binary_sensor.dropzone_aqara_back_door_door
+    from: 'off'
+    to: 'on'
   - type: opened
     platform: device
     device_id: 67ea44ea7a2992266ef085c35b5bb0b2
@@ -3620,11 +3614,10 @@
     device_id: b95c94a8b8cdad187c610f1f0b3fd356
     entity_id: 5aba52409b2df46871b28bd7c588c84f
     domain: light
-  - type: opened
-    platform: device
-    device_id: 476a681cae7660e1792c6cf16230622d
-    entity_id: 638bc5477ed4445c2e292b10ccac7653
-    domain: binary_sensor
+  - platform: state
+    entity_id: binary_sensor.garage_aqara_garage_small_door
+    from: 'off'
+    to: 'on'
   - platform: state
     entity_id:
     - input_boolean.steve_on_wifi
@@ -3804,7 +3797,7 @@
   description: ''
   trigger:
   - platform: state
-    entity_id: binary_sensor.back_door_contact
+    entity_id: binary_sensor.dropzone_aqara_back_door_door
     from: 'off'
     to: 'on'
   condition:
@@ -5036,11 +5029,10 @@
   alias: Increment garage door counter and last open dates
   description: ''
   trigger:
-  - type: opened
-    platform: device
-    device_id: 476a681cae7660e1792c6cf16230622d
-    entity_id: 638bc5477ed4445c2e292b10ccac7653
-    domain: binary_sensor
+  - platform: state
+    entity_id: binary_sensor.garage_aqara_garage_small_door
+    from: 'off'
+    to: 'on'
     id: small
   - type: opened
     platform: device
@@ -5204,11 +5196,10 @@
   alias: Reset garage door last open dates
   description: ''
   trigger:
-  - type: not_opened
-    platform: device
-    device_id: 476a681cae7660e1792c6cf16230622d
-    entity_id: 638bc5477ed4445c2e292b10ccac7653
-    domain: binary_sensor
+  - platform: state
+    entity_id: binary_sensor.garage_aqara_garage_small_door
+    from: 'on'
+    to: 'off'
     id: small
   - type: not_opened
     platform: device
@@ -5386,11 +5377,10 @@
   alias: "\U0001F6DC Start reset Wifi timer when garage door closed"
   description: ''
   trigger:
-  - type: not_opened
-    platform: device
-    device_id: 476a681cae7660e1792c6cf16230622d
-    entity_id: 638bc5477ed4445c2e292b10ccac7653
-    domain: binary_sensor
+  - platform: state
+    entity_id: binary_sensor.garage_aqara_garage_small_door
+    from: 'on'
+    to: 'off'
   - type: not_opened
     platform: device
     device_id: 46ff3e95b550709b0ef8cab15792561f

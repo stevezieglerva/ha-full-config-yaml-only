@@ -56,6 +56,15 @@ There are three smart home ecosystems: Home Assistant, Apple Home, and Alexa. So
 ### Alexa only devices
 - Ceiling fans with lights in: Master, Owen, William, and Charlotte rooms
 
+### Aqara Hub M3 (Matter bridge)
+The Zigbee (Zigbee2MQTT) network is saturated and won't accept new devices. An **Aqara Hub M3** bridges select Aqara sensors into HA via the **Matter** integration (added during the 2026.7 upgrade, feature 006). Sensors moved to the M3 get NEW Matter entity IDs and device_ids — device_id-based automations must be repointed when a sensor is re-homed.
+
+Currently on the M3 via Matter:
+- **Aqara Back Door** (Dropzone) — `binary_sensor.dropzone_aqara_back_door_door`; replaced old Zigbee `binary_sensor.back_door_contact`
+- **Aqara Garage Small** (Garage) — `binary_sensor.garage_aqara_garage_small_door`; replaced the old Zigbee garage-small sensor
+
+Still on Zigbee2MQTT (MQTT): Deck Door, Front Door, Deck Screen Door, Garage Door Large (Third Reality).
+
 ## School Schedules
 
 The system includes comprehensive school schedule tracking and automation features:
