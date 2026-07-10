@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home Network — Physical Topology</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📶</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@0,400;0,600;0,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#fff; --lightest:#f0f0f0; --lighter:#dfe1e2; --base:#565c65; --dark:#3d4551; --darkest:#1b1b1b;
+    --primary:#005ea2; --primary-darker:#162e51; --accent:#00bde3;
+    --green:#2e8540; --green-lt:#ecf3ec; --warning:#ffbe2e;
+    --font:'Public Sans',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--font);color:var(--darkest);background:var(--lightest);}
+  header{background:var(--primary-darker);color:#fff;border-bottom:4px solid var(--accent);padding:28px 24px;}
+  header h1{margin:0 0 6px;font-size:30px;}
+  header p{margin:0;color:#c5d3e8;font-size:18px;}
+  .container{max-width:1240px;margin:0 auto;padding:28px 20px;}
+  .diagram-wrap{overflow-x:auto;background:var(--white);border:1px solid var(--lighter);border-radius:8px;padding:12px;}
+  svg{display:block;min-width:980px;}
+  .legend{display:flex;flex-wrap:wrap;gap:16px 28px;margin:20px 0;font-size:15px;color:var(--dark);}
+  .legend span{display:inline-flex;align-items:center;gap:8px;}
+  .swatch{width:26px;height:0;border-top-width:3px;border-top-style:solid;}
+  .box{width:16px;height:16px;border-radius:3px;}
+  .note{background:#e7f6f8;border-left:6px solid var(--accent);border-radius:6px;padding:14px 16px;font-size:16px;color:var(--dark);margin-top:16px;}
+  .note strong{color:var(--darkest);}
+  text{font-family:var(--font);}
+</style>
+</head>
+<body>
+<header>
+  <div class="container" style="padding-top:0;padding-bottom:0;">
+    <h1>📶 Ziegler Home Network</h1>
+    <p>Physical topology — AT&amp;T fiber + Google Wifi mesh</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="legend">
+    <span><i class="swatch" style="border-top-color:var(--primary);"></i> Ethernet (wired)</span>
+    <span><i class="swatch" style="border-top-color:var(--green);border-top-style:dashed;"></i> Wireless backhaul</span>
+    <span><i class="box" style="background:var(--primary-darker);"></i> AT&amp;T equipment — SSID <b>asprings-att</b></span>
+    <span><i class="box" style="background:var(--green);"></i> Google Wifi node — SSID <b>asprings</b></span>
+    <span><i class="box" style="background:#fff;border:1.5px solid var(--base);"></i> Wall drop / endpoint</span>
+  </div>
+
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 1200 660" role="img" aria-label="Home network physical topology">
+
+      <!-- Google Wifi mesh zone -->
+      <rect x="40" y="250" width="540" height="380" rx="12" fill="#ecf3ec" stroke="#2e8540" stroke-width="2" stroke-dasharray="8 6"/>
+      <text x="60" y="278" fill="#1d5128" font-size="15" font-weight="700">Google Wifi mesh · SSID: asprings</text>
+
+      <!-- ===== connectors (under nodes) ===== -->
+      <g fill="none" stroke="#005ea2" stroke-width="2.5">
+        <!-- internet -> ATT -->
+        <path d="M600,74 L600,108"/>
+        <!-- ATT -> children -->
+        <path d="M560,186 L165,300"/>
+        <path d="M660,186 L840,300"/>
+        <path d="M660,186 L995,300"/>
+        <path d="M660,186 L1140,300"/>
+        <!-- #1 -> master drop -> #2 (wired backhaul) -->
+        <path d="M165,372 L165,430"/>
+        <path d="M165,486 L165,536"/>
+      </g>
+      <!-- wireless backhaul (dashed green) -->
+      <g fill="none" stroke="#2e8540" stroke-width="2.5" stroke-dasharray="7 5">
+        <path d="M270,336 L360,455"/>
+      </g>
+      <!-- connector labels -->
+      <g font-size="12" font-weight="600" fill="#1a4480">
+        <text x="330" y="238">Ethernet drops (wired)</text>
+        <text x="180" y="410">wired backhaul</text>
+      </g>
+      <text x="300" y="392" font-size="12" font-weight="600" fill="#1d5128" transform="rotate(53 300 392)">wireless backhaul</text>
+
+      <!-- ===== Internet ===== -->
+      <g>
+        <rect x="500" y="20" width="200" height="54" rx="10" fill="#565c65"/>
+        <text x="600" y="45" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">🌐 Internet</text>
+        <text x="600" y="64" text-anchor="middle" fill="#d7d9db" font-size="12">AT&amp;T fiber · closet</text>
+      </g>
+
+      <!-- ===== AT&T Fiber Router ===== -->
+      <g>
+        <rect x="470" y="108" width="260" height="78" rx="10" fill="#162e51" stroke="#00bde3" stroke-width="3"/>
+        <text x="600" y="138" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">📡 AT&amp;T Fiber Router</text>
+        <text x="600" y="159" text-anchor="middle" fill="#9fb8dc" font-size="12.5">closet · gateway + DHCP</text>
+        <text x="600" y="176" text-anchor="middle" fill="#9fb8dc" font-size="12.5">WiFi SSID: asprings-att</text>
+      </g>
+
+      <!-- ===== Google Wifi #1 (closet, wired primary) ===== -->
+      <g>
+        <rect x="60" y="300" width="210" height="72" rx="10" fill="#2e8540"/>
+        <text x="165" y="328" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Google Wifi #1</text>
+        <text x="165" y="347" text-anchor="middle" fill="#d6e8da" font-size="12">closet · wired to router</text>
+        <text x="165" y="363" text-anchor="middle" fill="#d6e8da" font-size="12">mesh primary</text>
+      </g>
+
+      <!-- ===== Master room drop ===== -->
+      <g>
+        <rect x="60" y="430" width="210" height="56" rx="10" fill="#fff" stroke="#565c65" stroke-width="1.5"/>
+        <text x="165" y="454" text-anchor="middle" fill="#1b1b1b" font-size="13.5" font-weight="600">🔌 Master room drop</text>
+        <text x="165" y="472" text-anchor="middle" fill="#565c65" font-size="12">structured cabling</text>
+      </g>
+
+      <!-- ===== Google Wifi #2 (master, wired backhaul) ===== -->
+      <g>
+        <rect x="60" y="536" width="210" height="66" rx="10" fill="#2e8540"/>
+        <text x="165" y="563" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Google Wifi #2</text>
+        <text x="165" y="582" text-anchor="middle" fill="#d6e8da" font-size="12">master · wired backhaul</text>
+      </g>
+
+      <!-- ===== Google Wifi #3 (wireless) ===== -->
+      <g>
+        <rect x="360" y="455" width="200" height="66" rx="10" fill="#2e8540"/>
+        <text x="460" y="482" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Google Wifi #3</text>
+        <text x="460" y="501" text-anchor="middle" fill="#d6e8da" font-size="12">wireless backhaul</text>
+      </g>
+
+      <!-- ===== AT&T wired drops (endpoints) ===== -->
+      <g>
+        <rect x="770" y="300" width="140" height="58" rx="10" fill="#fff" stroke="#565c65" stroke-width="1.5"/>
+        <text x="840" y="325" text-anchor="middle" fill="#1b1b1b" font-size="13.5" font-weight="600">🔌 Living room</text>
+        <text x="840" y="343" text-anchor="middle" fill="#565c65" font-size="12">wired drop</text>
+      </g>
+      <g>
+        <rect x="925" y="300" width="140" height="58" rx="10" fill="#fff" stroke="#565c65" stroke-width="1.5"/>
+        <text x="995" y="325" text-anchor="middle" fill="#1b1b1b" font-size="13.5" font-weight="600">🔌 Office</text>
+        <text x="995" y="343" text-anchor="middle" fill="#565c65" font-size="12">wired drop</text>
+      </g>
+      <g>
+        <rect x="1080" y="300" width="120" height="58" rx="10" fill="#fff" stroke="#565c65" stroke-width="1.5"/>
+        <text x="1140" y="325" text-anchor="middle" fill="#1b1b1b" font-size="13.5" font-weight="600">🔌 Playroom</text>
+        <text x="1140" y="343" text-anchor="middle" fill="#565c65" font-size="12">wired drop</text>
+      </g>
+
+    </svg>
+  </div>
+
+  <div class="note">
+    <strong>Path summary:</strong> Internet → <strong>AT&amp;T fiber router</strong> (closet, gateway &amp; DHCP,
+    broadcasts <code>asprings-att</code>). The router feeds four wired drops: <strong>Google Wifi #1</strong>
+    (closet, mesh primary) plus the Living room, Office, and Playroom drops. Google Wifi #1 backhauls over
+    structured cabling to the <strong>Master room drop</strong>, which feeds <strong>Google Wifi #2</strong>
+    (master). <strong>Google Wifi #3</strong> joins the mesh over <em>wireless</em> backhaul. The Google mesh
+    broadcasts <code>asprings</code>.
+  </div>
+  <div class="note" style="background:#faf3d1;border-left-color:#ffbe2e;">
+    <strong>Two WiFi networks coexist:</strong> <code>asprings-att</code> straight off the AT&amp;T router and
+    <code>asprings</code> off the Google mesh. Worth confirming which one your devices (HomePods, HA box, Matter
+    hub) actually sit on — Matter/mDNS wants everything on the same subnet/VLAN. Tell me any drop that has a
+    switch or extra gear hanging off it and I'll add it.
+  </div>
+
+</div>
+</body>
+</html>
