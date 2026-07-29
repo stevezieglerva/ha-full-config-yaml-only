@@ -1192,6 +1192,11 @@ input_boolean:
     initial: off
     icon: mdi:swim
 
+  vswitch_steve_wake_up_on_alexa:
+    name: "⏰ VSwitch Steve Wake Up on Alexa"
+    initial: off
+    icon: mdi:amazon-alexa
+
   alexa_maggie_monitor:
     name: Alexa Maggie Monitor
     initial: off
@@ -1586,20 +1591,20 @@ schedule:
   charlotte_school_schedule:
     name: "🩷📓 Charlotte School Schedule"
     monday:
-      - from: "07:05:00"
-        to: "07:30:00"
+      - from: "05:55:00"
+        to: "06:30:00"
     tuesday:
-      - from: "07:05:00"
-        to: "07:30:00"
+      - from: "05:55:00"
+        to: "06:30:00"
     wednesday:
-      - from: "07:05:00"
-        to: "07:30:00"
+      - from: "05:55:00"
+        to: "06:30:00"
     thursday:
-      - from: "07:05:00"
-        to: "07:30:00"
+      - from: "05:55:00"
+        to: "06:30:00"
     friday:
-      - from: "07:05:00"
-        to: "07:30:00"
+      - from: "05:55:00"
+        to: "06:30:00"
     icon: mdi:school
   owen_school_schedule:
     name: "🔵📓 Owen School Schedule"
