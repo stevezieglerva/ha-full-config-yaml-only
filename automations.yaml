@@ -1139,17 +1139,17 @@
 - id: '1729293256416'
   alias: Garage motion detected
   description: ''
-  trigger:
+  triggers:
   - type: occupied
-    platform: device
     device_id: 77b1c91800c080836f21f5086b6b1637
     entity_id: e9b79a0705db7c31f403d50ba412c0c0
     domain: binary_sensor
-  - platform: state
-    entity_id: binary_sensor.dropzone_aqara_back_door_door
+    trigger: device
+  - entity_id: binary_sensor.dropzone_aqara_back_door_door
     from: 'off'
     to: 'on'
-  condition:
+    trigger: state
+  conditions:
   - condition: or
     conditions:
     - condition: state
@@ -1158,12 +1158,13 @@
     - condition: numeric_state
       entity_id: sensor.garage_motion_backdoor_illuminance_lux
       below: 25
-  action:
-  - service: light.turn_on
-    metadata: {}
-    data: {}
+  actions:
+  - metadata: {}
+    data:
+      color_temp_kelvin: 2889
     target:
       area_id: garage
+    action: light.turn_on
   mode: single
 - id: '1729429198042'
   alias: "\U0001F4A6\U0001F374Dishwasher Timer Finished"
@@ -2281,34 +2282,34 @@
 - id: '1732740272360'
   alias: Vacation night lights on
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.night
     to: 'True'
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: input_select.house_mode
     state: "\U0001F3DD️ Vacation"
-  action:
-  - service: scene.turn_on
-    metadata: {}
+  actions:
+  - metadata: {}
     target:
       entity_id: scene.vacation_lights_on
-    enabled: false
-  - service: input_boolean.turn_on
-    metadata: {}
+    enabled: true
+    action: scene.turn_on
+  - metadata: {}
     data: {}
     target:
       entity_id: input_boolean.vswitch_vacation_night
-  - service: light.turn_on
-    metadata: {}
+    action: input_boolean.turn_on
+  - metadata: {}
     data: {}
     target:
       entity_id:
       - light.butlers_pantry_light
       - light.kitchen_sink_light
       - light.coat_closet_hall
+    action: light.turn_on
   - type: turn_on
     device_id: 8ca1474cea6a4122af672bd220ed9ce6
     entity_id: da6f242407f98532354fcdab4aedd601
@@ -2317,32 +2318,32 @@
 - id: '1732740416569'
   alias: Vacation night lights off
   description: ''
-  trigger:
-  - platform: time
-    at: '23:00:00'
-  condition:
+  triggers:
+  - at: '23:00:00'
+    trigger: time
+  conditions:
   - condition: state
     entity_id: input_select.house_mode
     state: "\U0001F3DD️ Vacation"
-  action:
-  - service: scene.turn_on
-    metadata: {}
+  actions:
+  - metadata: {}
     target:
       entity_id: scene.vacation_lights_off
-    enabled: false
-  - service: input_boolean.turn_off
-    metadata: {}
+    enabled: true
+    action: scene.turn_on
+  - metadata: {}
     data: {}
     target:
       entity_id: input_boolean.vswitch_vacation_night
-  - service: light.turn_off
-    metadata: {}
+    action: input_boolean.turn_off
+  - metadata: {}
     data: {}
     target:
       entity_id:
       - light.butlers_pantry_light
       - light.coat_closet_hall
       - light.kitchen_sink_light
+    action: light.turn_off
   mode: single
 - id: '1732742625815'
   alias: ‼️ Alarm triggered
@@ -7034,9 +7035,8 @@
 - id: '1756088697024'
   alias: Extra night light - Motion control
   description: Controls Charlotte's night light brightness based on motion detection
-  trigger:
+  triggers:
   - type: occupied
-    platform: device
     device_id: 1e1606390f508b7c47a5e337af23f999
     entity_id: c825c080b0125f16455144fa049bf048
     domain: binary_sensor
@@ -7045,34 +7045,42 @@
       hours: 0
       minutes: 0
       seconds: 2
+    trigger: device
   - type: not_occupied
-    platform: device
     device_id: 1e1606390f508b7c47a5e337af23f999
     entity_id: c825c080b0125f16455144fa049bf048
     domain: binary_sensor
     id: motion_cleared
     enabled: true
-  condition:
+    trigger: device
+  - trigger: occupancy.detected
+    target:
+      entity_id: binary_sensor.master_bathroom_motion_occupancy
+    options:
+      behavior: each
+      for: 00:00:00
+    id: motion_detected
+  conditions:
   - condition: state
     entity_id: sensor.night
     state: 'True'
-  action:
+  actions:
   - choose:
     - conditions:
       - condition: trigger
         id:
         - motion_detected
       sequence:
-      - service: light.turn_on
-        target:
+      - target:
           entity_id:
           - light.extra_night_light_light
         data:
           brightness: 64
-      - service: logbook.log
-        data:
+        action: light.turn_on
+      - data:
           name: Extra Night Light
           message: 'Motion detected: Light set to 100% brightness'
+        action: logbook.log
     - conditions:
       - condition: trigger
         id: motion_cleared
@@ -7082,15 +7090,15 @@
           minutes: 0
           seconds: 15
           milliseconds: 0
-      - service: light.turn_off
-        target:
+      - target:
           entity_id:
           - light.extra_night_light_light
         data: {}
-      - service: logbook.log
-        data:
+        action: light.turn_off
+      - data:
           name: Extra Night Light
           message: 'No motion for 3 minutes: Light returned to 10% brightness'
+        action: logbook.log
   mode: restart
 - id: '1756264906529'
   alias: "\U0001F4A4 William not awake yet"
