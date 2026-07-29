@@ -3561,7 +3561,7 @@
   description: ''
   trigger:
   - platform: time
-    at: 06:50:00
+    at: 05:50:00
   condition:
   - condition: or
     conditions:
@@ -7233,6 +7233,35 @@
     target:
       entity_id:
       - input_boolean.alexa_charlotte_wake_up
+  mode: single
+- id: '1785426900001'
+  alias: ⏰ Wake up Steve
+  description: Pulse Alexa VSwitch before Charlotte's school wake-up schedule starts
+  trigger:
+  - platform: time
+    at: 05:45:00
+  condition:
+  - condition: state
+    entity_id: sensor.charlotte_has_school_today
+    state: 'True'
+  action:
+  - service: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.vswitch_steve_wake_up_on_alexa
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - service: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.vswitch_steve_wake_up_on_alexa
   mode: single
 - id: '1764076454624'
   alias: "\U0001F384 VSwitch Indoor Christmas Lights - Control Actual Lights"
