@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aqara M3 Door Sensor — Config Change Report</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚪</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-white:#ffffff;
+    --color-base-lightest:#f0f0f0;
+    --color-base-lighter:#dfe1e2;
+    --color-base-light:#a9aeb1;
+    --color-base:#565c65;
+    --color-base-dark:#3d4551;
+    --color-base-darker:#2d2e2f;
+    --color-base-darkest:#1b1b1b;
+    --color-primary:#005ea2;
+    --color-primary-dark:#1a4480;
+    --color-primary-darker:#162e51;
+    --color-accent-cool:#00bde3;
+    --color-info-lighter:#e7f6f8;
+    --color-warning-lighter:#faf3d1;
+    --color-warning:#ffbe2e;
+    --color-error-lighter:#f4e3db;
+    --color-error:#d54309;
+    --color-success:#00a91c;
+    --color-success-lighter:#ecf3ec;
+    --font-sans:'Public Sans',system-ui,sans-serif;
+    --font-mono:'Roboto Mono',ui-monospace,monospace;
+    --fs-sm:15px; --fs-base:17px; --fs-lg:20px; --fs-xl:26px; --fs-2xl:34px;
+    --sp-1:8px; --sp-2:16px; --sp-3:24px; --sp-4:32px; --sp-5:48px;
+    --radius:6px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--font-sans);font-size:var(--fs-base);
+    line-height:1.55;color:var(--color-base-darkest);background:var(--color-base-lightest);}
+  header{background:var(--color-primary-darker);color:var(--color-white);
+    border-bottom:4px solid var(--color-accent-cool);padding:var(--sp-4) var(--sp-3);}
+  header .container{padding:0;}
+  header h1{margin:0 0 var(--sp-1);font-size:var(--fs-2xl);font-weight:700;}
+  header p{margin:0;color:#c5d3e8;font-size:var(--fs-lg);}
+  .container{max-width:1024px;margin:0 auto;padding:var(--sp-4) var(--sp-3);}
+  section{background:var(--color-white);border:1px solid var(--color-base-lighter);
+    border-radius:var(--radius);padding:var(--sp-3);margin-bottom:var(--sp-3);}
+  h2{font-size:var(--fs-xl);margin:0 0 var(--sp-2);border-bottom:2px solid var(--color-base-lighter);
+    padding-bottom:var(--sp-1);}
+  h3{font-size:var(--fs-lg);margin:var(--sp-3) 0 var(--sp-1);}
+  p{margin:0 0 var(--sp-2);}
+  code{font-family:var(--font-mono);font-size:.9em;background:var(--color-base-lightest);
+    padding:2px 6px;border-radius:4px;color:var(--color-primary-darker);}
+  .alert{border-left:6px solid;border-radius:var(--radius);padding:var(--sp-2);margin-bottom:var(--sp-2);}
+  .alert-info{background:var(--color-info-lighter);border-color:var(--color-accent-cool);}
+  .alert-warning{background:var(--color-warning-lighter);border-color:var(--color-warning);}
+  .alert-error{background:var(--color-error-lighter);border-color:var(--color-error);}
+  .alert-success{background:var(--color-success-lighter);border-color:var(--color-success);}
+  .alert strong{display:block;margin-bottom:4px;}
+  .table-wrap{overflow-x:auto;}
+  table{border-collapse:collapse;width:100%;font-size:var(--fs-sm);}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--color-base-lighter);vertical-align:top;}
+  th{background:var(--color-primary-darker);color:var(--color-white);font-weight:600;white-space:nowrap;}
+  tr:nth-child(even) td{background:var(--color-base-lightest);}
+  .id-chip{display:inline-block;font-family:var(--font-mono);font-size:12px;font-weight:600;
+    background:#f0e6f7;color:#54278f;padding:2px 8px;border-radius:12px;white-space:nowrap;}
+  .id-chip.matter{background:#e6f0f7;color:var(--color-primary-dark);}
+  pre{background:var(--color-base-darkest);color:#f0f0f0;font-family:var(--font-mono);
+    font-size:13px;line-height:1.5;padding:var(--sp-2);border-radius:var(--radius);overflow-x:auto;margin:0 0 var(--sp-2);}
+  pre .del{color:#ff8a80;} pre .add{color:#69f0ae;} pre .cmt{color:#90a4ae;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2);}
+  @media(max-width:680px){.grid2{grid-template-columns:1fr;}}
+  .kbd{font-family:var(--font-mono);font-size:13px;background:var(--color-base-lightest);
+    border:1px solid var(--color-base-lighter);border-radius:4px;padding:1px 6px;}
+  ol,ul{margin:0 0 var(--sp-2) var(--sp-3);} li{margin-bottom:6px;}
+  .small-only{color:var(--color-error);font-weight:600;}
+  footer{color:var(--color-base);font-size:var(--fs-sm);text-align:center;padding:var(--sp-3);}
+  .badge{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:12px;}
+  .badge-a{background:#e6f0f7;color:var(--color-primary-dark);}
+  .badge-b{background:#fbeee6;color:#8a3b12;}
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>🚪 Aqara M3 Door Sensor — Config Change Report</h1>
+    <p>Repointing Home Assistant config from old Zigbee sensors to the new Matter-bridged Aqara sensors</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <section>
+    <h2>Context</h2>
+    <p>The Zigbee (Zigbee2MQTT) network is saturated and won't accept new devices. An
+      <strong>Aqara Hub M3</strong> now bridges two re-homed door sensors into Home Assistant via
+      <strong>Matter</strong>. The physical sensors were replaced, so they arrive with
+      <em>new</em> entity IDs and device IDs. You're keeping the new Aqara names, so the config
+      must be repointed. Follow-on to feature 006 (HA 2026.7 upgrade), which flagged that
+      <code>device_id</code>-based automations break on a Matter re-home.</p>
+    <div class="alert alert-info">
+      <strong>Scope</strong>
+      10 edits total — <span class="badge badge-a">A · Back Door · 5</span>
+      <span class="badge badge-b">B · Garage Small · 5</span> — plus optional CLAUDE.md doc &amp; cleanup.
+      All edits are yours to make manually.
+    </div>
+    <div class="alert alert-info">
+      <strong>Line numbers refreshed for commit 277656e</strong>
+      That commit re-saved parts of <code>automations.yaml</code> through the HA UI
+      (<code>trigger:</code>→<code>triggers:</code>, <code>service:</code>→<code>action:</code>, unicode fixes),
+      shifting some lines. The 10 target blocks below were <em>not</em> reformatted — they still use the
+      classic <code>platform: device</code> schema — and the line numbers here match the pulled file.
+    </div>
+  </section>
+
+  <section>
+    <h2>Step 0 — Confirm the new entity IDs first</h2>
+    <p>HA named both new sensors after the generic model <em>"Aqara Door and Window Sensor"</em>, so
+      the two entities are <code>_door</code> and <code>_door_2</code> — <strong>not</strong> the earlier
+      guessed <code>aqara_back_door_door</code>. Confirmed from your commit <code>277656e</code>
+      ("aqara devices with hub").</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>New device</th><th>Area</th><th>Actual Matter entity ID</th><th>Replaces (old)</th></tr></thead>
+        <tbody>
+          <tr><td>Aqara Back Door <em>or</em> Garage Small</td><td>Dropzone / Garage</td>
+            <td><span class="id-chip matter">binary_sensor.aqara_door_and_window_sensor_door</span></td>
+            <td><span class="id-chip">binary_sensor.back_door_contact</span> (back door)</td></tr>
+          <tr><td>the other one</td><td>Dropzone / Garage</td>
+            <td><span class="id-chip matter">binary_sensor.aqara_door_and_window_sensor_door_2</span></td>
+            <td><em>garage small — device-based only, no entity_id string</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert alert-warning">
+      <strong>⚠️ Determine which is which first</strong>
+      Both entities share the generic model name, so you can't tell Back Door from Garage Small by the
+      slug. Use your "Test automation for Aqara devices" (<code>automations.yaml:7541-7551</code>):
+      physically open each door and watch the logbook/trace to see whether <code>_door</code> or
+      <code>_door_2</code> fires — then map them below. Delete that test automation once mapped.
+      Also confirm Aqara Back Door isn't stuck <strong>Unavailable</strong> (it was flapping in the screenshot).
+    </div>
+    <div class="alert alert-error">
+      <strong>Old identifiers being removed</strong>
+      Back door — device_id <code>42b3221a9d1eb5af8681b7bc0e1f79fe</code>, registry UUID <code>fa80046087de8b5e333b3d305814448c</code>.<br>
+      Garage small — device_id <code>476a681cae7660e1792c6cf16230622d</code>, registry UUID <code>638bc5477ed4445c2e292b10ccac7653</code>.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="badge badge-a">A</span> &nbsp;Back Door — 5 edits</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>File : line</th><th>Automation / context</th><th>Change</th></tr></thead>
+        <tbody>
+          <tr><td>A1</td><td><code>configuration.yaml:471</code></td><td>"🚪 Any Door Open" template sensor</td>
+            <td>Swap <code>binary_sensor.back_door_contact</code> → back-door entity in the <code>is_state()</code> call</td></tr>
+          <tr><td>A2</td><td><code>automations.yaml:3805-3808</code></td><td>"🚪 Log First Back Door Open Time After 5 AM" — state trigger (entity at 3807)</td>
+            <td>Change <code>entity_id</code> → back-door entity (keep <code>from:'off' / to:'on'</code>)</td></tr>
+          <tr><td>A3</td><td><code>automations.yaml:1148-1152</code></td><td>"Garage motion detected" — device trigger <code>opened</code> (device_id at 1150)</td>
+            <td>Convert device block → state trigger (see recipe)</td></tr>
+          <tr><td>A4</td><td><code>automations.yaml:2147-2151</code></td><td>"🎶 Door open" — device condition <code>is_open</code> (device_id at 2149; turns on <code>back_door_opened_recently</code>)</td>
+            <td>Convert → <code>condition: state / state:'on'</code></td></tr>
+          <tr><td>A5</td><td><code>automations.yaml:3603-3607</code></td><td>"🌳 Backyard lights" — device trigger <code>opened</code> (device_id at 3605)</td>
+            <td>Convert device block → state trigger</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert alert-success"><strong>Helpers — no change</strong>
+      <code>input_boolean.back_door_opened_recently</code> and <code>input_datetime.back_door_first_opened</code>
+      are driven by the automations above; they just fire off the new entity.</div>
+  </section>
+
+  <section>
+    <h2><span class="badge badge-b">B</span> &nbsp;Garage Small — 5 edits <span style="font-weight:400;font-size:var(--fs-sm);">(all in <code>automations.yaml</code>, all device-based)</span></h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Line</th><th>Automation / context</th><th>Type</th><th>Change</th></tr></thead>
+        <tbody>
+          <tr><td>B1</td><td>2196-2201</td><td>"🎶 Door open" — condition (device_id at 2199; turns on <code>garage_door_small_opened_recently</code>)</td><td><code>is_open</code></td><td>→ <code>condition: state / state:'on'</code></td></tr>
+          <tr><td>B2</td><td>3623-3627</td><td>"🌳 Backyard lights" — trigger (device_id at 3625)</td><td><code>opened</code></td><td>→ state trigger (off→on)</td></tr>
+          <tr><td>B3</td><td>5039-5044</td><td>"Increment garage door counter and last open dates" — trigger (device_id at 5041)</td><td><code>opened</code></td><td>→ state trigger, <span class="small-only">keep <code>id: small</code></span></td></tr>
+          <tr><td>B4</td><td>5207-5212</td><td>"Reset garage door last open dates" — trigger (device_id at 5209)</td><td><code>not_opened</code></td><td>→ state trigger (on→off), <span class="small-only">keep <code>id: small</code></span></td></tr>
+          <tr><td>B5</td><td>5389-5393</td><td>"🚿 Start reset Wifi timer when garage door closed" — trigger (device_id at 5391)</td><td><code>not_opened</code></td><td>→ state trigger (on→off)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert alert-warning"><strong>⚠️ Small vs Large</strong>
+      In B2–B5 the old small device_id sits right next to the <strong>LARGE</strong>-door trigger
+      (<code>46ff3e95…</code>, <code>id: large</code>). <span class="small-only">Only change the small line(s) — leave the large door alone.</span></div>
+    <div class="alert alert-success"><strong>Helpers / template — no change</strong>
+      <code>garage_door_small_opened_recently</code>, <code>counter.garage_door_small_opened</code>,
+      <code>input_datetime.garage_door_small_last_opened</code>, and the "🚘 Garage Door Small Open Duration"
+      template sensor (<code>configuration.yaml:582-597</code>).</div>
+    <div class="alert alert-info"><strong>Pre-existing quirk (optional fix)</strong>
+      <code>garage_door_small_opened_recently</code> is turned ON (line 2207) but never reset OFF — the
+      reset automation (~2653-2702) covers front/deck/back/deck_screen but not garage small. Not caused
+      by this swap; fix while you're in there if you like.</div>
+  </section>
+
+  <section>
+    <h2>Conversion recipe — device block → state</h2>
+    <p>Replace each <code>platform: device</code> block with the matching state form. Keep any
+      <code>id:</code> that was present.</p>
+    <div class="grid2">
+      <div>
+        <h3><code>type: opened</code> trigger</h3>
+        <pre><span class="del">- type: opened
+  platform: device
+  device_id: 476a681c…
+  entity_id: 638bc547…
+  domain: binary_sensor</span>
+<span class="add">- platform: state
+  entity_id: &lt;NEW_ENTITY&gt;
+  from: 'off'
+  to: 'on'</span>
+  <span class="cmt"># id: small  # keep if present</span></pre>
+      </div>
+      <div>
+        <h3><code>type: not_opened</code> trigger</h3>
+        <pre><span class="del">- type: not_opened
+  platform: device
+  device_id: 476a681c…
+  …</span>
+<span class="add">- platform: state
+  entity_id: &lt;NEW_ENTITY&gt;
+  from: 'on'
+  to: 'off'</span>
+  <span class="cmt"># id: small  # keep if present</span></pre>
+      </div>
+    </div>
+    <h3><code>type: is_open</code> condition</h3>
+    <pre><span class="del">- type: is_open
+  condition: device
+  device_id: 476a681c…
+  entity_id: 638bc547…
+  domain: binary_sensor</span>
+<span class="add">- condition: state
+  entity_id: &lt;NEW_ENTITY&gt;
+  state: 'on'</span></pre>
+    <div class="alert alert-info"><strong>Unavailable-safe</strong>
+      Explicit <code>from</code>/<code>to</code> on triggers won't misfire when the Matter entity drops to
+      <code>unavailable</code>; a <code>state: 'on'</code> condition correctly reads unavailable as "not open."</div>
+    <div class="alert alert-info"><strong>Schema note</strong>
+      These blocks still use classic <code>platform: state</code> / <code>condition: state</code>, which
+      remains valid in 2026.7. If you prefer to match the newer style HA wrote in commit 277656e, the
+      modern keys are <code>trigger: state</code> (under <code>triggers:</code>) and <code>action:</code>
+      — both forms work; don't mix keys within one block.</div>
+  </section>
+
+  <section>
+    <h2><span class="badge badge-a">C</span> &nbsp;CLAUDE.md documentation</h2>
+    <p>Add under the <strong>## Ecosystems</strong> section of the project <code>CLAUDE.md</code>:</p>
+    <pre><span class="cmt">### Aqara Hub M3 (Matter bridge)</span>
+The Zigbee (Zigbee2MQTT) network is saturated and won't accept new
+devices. An **Aqara Hub M3** bridges select Aqara sensors into HA via
+the **Matter** integration (added during the 2026.7 upgrade, feature
+006). Sensors moved to the M3 get NEW Matter entity IDs and device_ids —
+device_id-based automations must be repointed when a sensor is re-homed.
+
+Currently on the M3 via Matter:
+- **Aqara Back Door** (Dropzone) — replaced old `binary_sensor.back_door_contact`
+- **Aqara Garage Small** (Garage) — replaced the old Zigbee garage-small sensor
+
+Still on Zigbee2MQTT: Deck Door, Front Door, Deck Screen Door,
+Garage Door Large (Third Reality).</pre>
+  </section>
+
+  <section>
+    <h2><span class="badge badge-b">D</span> &nbsp;Cleanup &amp; Verification</h2>
+    <h3>Old device cleanup (optional, HA UI)</h3>
+    <ul>
+      <li>After repointing, the old Zigbee back-door and garage-small devices read <em>unavailable</em> — delete them in Z2M/MQTT to declutter.</li>
+      <li><code>binary_sensor.back_door_contact</code> becomes orphaned once A1 &amp; A2 are done — safe to remove.</li>
+    </ul>
+    <h3>Verify</h3>
+    <ol>
+      <li>Reload automations + template entities (or restart HA).</li>
+      <li>Run the repo YAML validator: <code>python scripts/test_yaml_keys.py</code>.</li>
+      <li>Physically open/close each new sensor and confirm:
+        <ul>
+          <li>"🚪 Any Door Open" flips state</li>
+          <li>Back-door first-open log fires after 5 AM</li>
+          <li>Garage counter increments (<code>id: small</code> branch) &amp; last-opened datetime updates</li>
+          <li>Wi-Fi-reset timer starts on close</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+</div>
+<footer>Generated for the ha-full-config-yaml-only repo · door-sensor Matter re-home · follow-on to feature 006</footer>
+</body>
+</html>

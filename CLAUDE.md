@@ -115,3 +115,31 @@ The system includes comprehensive school schedule tracking and automation featur
 # Tests
 - Home Assistant uses a custom version of yaml and traditional Yaml parsing will not work for tests
 - Run the test_yaml_keys.py script to validate YAML key-value pairs.
+
+# Networking
+
+## Ethernet wired
+- From AT&T fiber router 
+
+## Wireless
+- asprings-att: WiFi from the AT&T fiber router 
+- asprings: Google Wifi mesh
+
+# Routes
+Internet (closet) -> ATT router (closet)
+ATT router (closet) -> Google Wifi #1 (closet)
+Google Wifi #1 (closet) -> backhauled Master room drop
+Master room drop -> Master Switch (master)
+Master Switch -> Google Wifi #2 (master)
+Google Wifi #2 -> Circle VPN (master)
+ATT router (closet) -> Living room drop
+ATT router (closer) -> Office room drop
+ATT router (closer) -> Playroom room drop
+
+Google Wifi #3 (wireless)
+
+Playroom room drop -> Playroom Switch (playroom)
+Playroom Switch -> Aqara M3 (playroom)
+
+
+

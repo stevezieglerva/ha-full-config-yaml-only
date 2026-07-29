@@ -5,6 +5,7 @@
 !scripts.yaml
 !features/
 !features/*.html
+!*.html
 !*.yaml
 !*.md
 !docs/

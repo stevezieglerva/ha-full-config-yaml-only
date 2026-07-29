@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Home Network — Topology</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@0,400;0,600;0,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#fff; --lightest:#f0f0f0; --lighter:#dfe1e2; --base:#565c65; --dark:#3d4551; --darkest:#1b1b1b;
+    --primary:#005ea2; --primary-dark:#1a4480; --primary-darker:#162e51;
+    --accent:#00bde3; --warning:#ffbe2e; --warning-lt:#faf3d1; --error:#d54309; --success:#00a91c;
+    --font:'Public Sans',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--font);color:var(--darkest);background:var(--lightest);}
+  header{background:var(--primary-darker);color:#fff;border-bottom:4px solid var(--accent);padding:28px 24px;}
+  header h1{margin:0 0 6px;font-size:30px;}
+  header p{margin:0;color:#c5d3e8;font-size:18px;}
+  .container{max-width:1280px;margin:0 auto;padding:28px 20px;}
+  .diagram-wrap{overflow-x:auto;background:var(--white);border:1px solid var(--lighter);border-radius:8px;padding:12px;}
+  svg{display:block;min-width:1000px;}
+  .legend{display:flex;flex-wrap:wrap;gap:16px 28px;margin:20px 0;font-size:15px;color:var(--dark);}
+  .legend span{display:inline-flex;align-items:center;gap:8px;}
+  .swatch{width:26px;height:0;border-top-width:3px;border-top-style:solid;}
+  .note{background:#e7f6f8;border-left:6px solid var(--accent);border-radius:6px;padding:14px 16px;font-size:16px;color:var(--dark);margin-top:16px;}
+  .note strong{color:var(--darkest);}
+  /* SVG text */
+  text{font-family:var(--font);}
+  .t-title{font-weight:700;}
+  .t-sub{font-weight:400;}
+  .t-item{font-weight:400;}
+</style>
+</head>
+<body>
+<header>
+  <div class="container" style="padding-top:0;padding-bottom:0;">
+    <h1>🏠 Ziegler Smart-Home Network</h1>
+    <p>Home Assistant as the hub · three ecosystems · Zigbee, Matter &amp; cloud transports</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="legend">
+    <span><i class="swatch" style="border-top-color:var(--primary);"></i> Local radio / bridge link</span>
+    <span><i class="swatch" style="border-top-color:var(--base);border-top-style:dashed;"></i> Ecosystem peer (shares state via input_booleans)</span>
+    <span><i class="swatch" style="border-top-color:var(--warning);border-top-width:12px;border-radius:2px;"></i> ⚠ Saturated / at capacity</span>
+    <span><i class="swatch" style="border-top-color:var(--error);border-top-width:12px;border-radius:2px;"></i> Retired device</span>
+  </div>
+
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 1240 600" role="img" aria-label="Smart home network topology">
+      <!-- ===== connectors (drawn first, under boxes) ===== -->
+      <g fill="none" stroke="#005ea2" stroke-width="2.5">
+        <!-- HA -> transports -->
+        <path d="M565,108 L185,200"/>
+        <path d="M565,108 L500,200"/>
+        <path d="M565,108 L825,200"/>
+        <!-- zigbee -> devices -->
+        <path d="M185,246 L185,300"/>
+        <!-- matter -> m3 -> bridged -->
+        <path d="M500,246 L500,290"/>
+        <path d="M500,334 L500,364"/>
+        <!-- matter -> native (left elbow) -->
+        <path d="M430,235 L360,235 L360,500 L390,500"/>
+        <!-- cloud header -> child -->
+        <path d="M825,246 L825,290"/>
+        <!-- alexa -> ceiling fans -->
+        <path d="M1110,94 L1110,200"/>
+      </g>
+      <!-- ecosystem peer links (dashed) -->
+      <g fill="none" stroke="#565c65" stroke-width="2.5" stroke-dasharray="7 5">
+        <path d="M230,67 L440,68"/>
+        <path d="M690,68 L1010,67"/>
+      </g>
+      <!-- connector labels -->
+      <g font-size="12" fill="#1a4480" font-weight="600">
+        <text x="330" y="160">MQTT</text>
+        <text x="512" y="160">Matter</text>
+        <text x="700" y="158">Cloud / LAN</text>
+        <text x="748" y="60" fill="#565c65">shares state · input_boolean vswitches</text>
+        <text x="250" y="60" fill="#565c65">HomeKit Bridge</text>
+      </g>
+
+      <!-- ===== ECOSYSTEM TIER ===== -->
+      <!-- Apple Home -->
+      <g>
+        <rect x="30" y="40" width="200" height="54" rx="8" fill="#3d4551"/>
+        <text class="t-title" x="130" y="64" text-anchor="middle" fill="#fff" font-size="15"> Apple Home</text>
+        <text class="t-sub" x="130" y="82" text-anchor="middle" fill="#c9ccd1" font-size="12">HomeKit ecosystem</text>
+      </g>
+      <!-- Home Assistant (hub) -->
+      <g>
+        <rect x="440" y="28" width="250" height="80" rx="10" fill="#162e51" stroke="#00bde3" stroke-width="3"/>
+        <text class="t-title" x="565" y="58" text-anchor="middle" fill="#fff" font-size="20">Home Assistant</text>
+        <text class="t-sub" x="565" y="80" text-anchor="middle" fill="#9fb8dc" font-size="12.5">HAOS · Core 2026.7 · aarch64</text>
+        <text class="t-sub" x="565" y="97" text-anchor="middle" fill="#9fb8dc" font-size="12.5">the automation hub</text>
+      </g>
+      <!-- Amazon Alexa -->
+      <g>
+        <rect x="1010" y="40" width="200" height="54" rx="8" fill="#3d4551"/>
+        <text class="t-title" x="1110" y="64" text-anchor="middle" fill="#fff" font-size="15">Amazon Alexa</text>
+        <text class="t-sub" x="1110" y="82" text-anchor="middle" fill="#c9ccd1" font-size="12">via Alexa Media Player</text>
+      </g>
+
+      <!-- ===== TRANSPORT TIER ===== -->
+      <!-- Zigbee2MQTT (saturated) -->
+      <g>
+        <rect x="40" y="200" width="290" height="46" rx="8" fill="#faf3d1" stroke="#ffbe2e" stroke-width="2.5"/>
+        <text class="t-title" x="185" y="222" text-anchor="middle" fill="#71400a" font-size="14">Zigbee2MQTT add-on</text>
+        <text class="t-sub" x="185" y="238" text-anchor="middle" fill="#8a5a0a" font-size="11.5">⚠ network saturated — no new devices</text>
+      </g>
+      <!-- Matter -->
+      <g>
+        <rect x="390" y="200" width="220" height="46" rx="8" fill="#005ea2"/>
+        <text class="t-title" x="500" y="222" text-anchor="middle" fill="#fff" font-size="14">Matter</text>
+        <text class="t-sub" x="500" y="238" text-anchor="middle" fill="#cfe3f5" font-size="11.5">Matter Server 9.0</text>
+      </g>
+      <!-- Cloud integrations header -->
+      <g>
+        <rect x="700" y="200" width="250" height="46" rx="8" fill="#005ea2"/>
+        <text class="t-title" x="825" y="228" text-anchor="middle" fill="#fff" font-size="14">Cloud / LAN integrations</text>
+      </g>
+
+      <!-- ===== DEVICE TIER ===== -->
+      <!-- Zigbee devices -->
+      <g>
+        <rect x="40" y="300" width="290" height="248" rx="8" fill="#fff" stroke="#a9aeb1" stroke-width="1.5"/>
+        <rect x="40" y="300" width="290" height="28" rx="8" fill="#dfe1e2"/>
+        <text class="t-title" x="56" y="319" fill="#1b1b1b" font-size="13.5">Zigbee devices (via MQTT)</text>
+        <g font-size="13" fill="#1b1b1b">
+          <text x="56" y="350">🚪 Deck Door · Deck</text>
+          <text x="56" y="374">🚪 Front Door · Foyer</text>
+          <text x="56" y="398">🚪 Deck Screen Door · Deck</text>
+          <text x="56" y="422">🚪 Garage Door Large · Third Reality</text>
+          <text x="56" y="446">🌡 Garage motion · illuminance</text>
+          <text x="56" y="470" fill="#565c65" font-size="11.5">…plus lights, plugs &amp; other sensors</text>
+        </g>
+        <line x1="56" y1="484" x2="314" y2="484" stroke="#dfe1e2" stroke-width="1.5"/>
+        <text x="56" y="504" fill="#d54309" font-size="12.5" font-weight="600">✗ Back Door, Garage Small — retired</text>
+        <text x="56" y="522" fill="#d54309" font-size="11.5">moved to Aqara M3 (Matter) →</text>
+        <text x="56" y="539" fill="#565c65" font-size="11">old Zigbee entities now decommissioned</text>
+      </g>
+      <!-- Aqara Hub M3 -->
+      <g>
+        <rect x="390" y="290" width="220" height="44" rx="8" fill="#00bde3"/>
+        <text class="t-title" x="500" y="311" text-anchor="middle" fill="#08313a" font-size="13.5">Aqara Hub M3</text>
+        <text class="t-sub" x="500" y="327" text-anchor="middle" fill="#0a4653" font-size="11">Zigbee→Matter bridge</text>
+      </g>
+      <!-- Bridged devices -->
+      <g>
+        <rect x="390" y="364" width="220" height="88" rx="8" fill="#fff" stroke="#a9aeb1" stroke-width="1.5"/>
+        <rect x="390" y="364" width="220" height="26" rx="8" fill="#dfe1e2"/>
+        <text class="t-title" x="404" y="382" fill="#1b1b1b" font-size="12.5">Bridged (Matter)</text>
+        <text x="404" y="410" font-size="12.5" fill="#1b1b1b">🚪 Aqara Back Door · Dropzone</text>
+        <text x="404" y="432" font-size="12.5" fill="#1b1b1b">🚪 Aqara Garage Small · Garage</text>
+      </g>
+      <!-- Native Matter -->
+      <g>
+        <rect x="390" y="470" width="220" height="62" rx="8" fill="#fff" stroke="#a9aeb1" stroke-width="1.5"/>
+        <rect x="390" y="470" width="220" height="26" rx="8" fill="#dfe1e2"/>
+        <text class="t-title" x="404" y="488" fill="#1b1b1b" font-size="12.5">Native Matter devices</text>
+        <text x="404" y="514" font-size="12" fill="#1b1b1b">Eve · ThirdReality · Tapo</text>
+        <text x="404" y="529" font-size="11" fill="#565c65">≈ 9 devices / 71 entities</text>
+      </g>
+      <!-- Cloud child -->
+      <g>
+        <rect x="700" y="290" width="250" height="248" rx="8" fill="#fff" stroke="#a9aeb1" stroke-width="1.5"/>
+        <rect x="700" y="290" width="250" height="28" rx="8" fill="#dfe1e2"/>
+        <text class="t-title" x="716" y="309" fill="#1b1b1b" font-size="13.5">Cloud / LAN services</text>
+        <g font-size="12.5" fill="#1b1b1b">
+          <text x="716" y="342">🌡 Ecobee — up &amp; down HVAC</text>
+          <text x="716" y="368">📍 iCloud3 — iPhone presence</text>
+          <text x="716" y="394">💡 Cync — smart lights</text>
+          <text x="716" y="420">🔊 Alexa Media — TTS announce</text>
+          <text x="716" y="446">📺 Sony Bravia — TV</text>
+          <text x="716" y="472">🎵 HomePods — media players</text>
+          <text x="716" y="504" fill="#565c65" font-size="11">school announcements &amp; alerts</text>
+          <text x="716" y="521" fill="#565c65" font-size="11">ride on these integrations</text>
+        </g>
+      </g>
+      <!-- Alexa-only ceiling fans -->
+      <g>
+        <rect x="1005" y="200" width="210" height="150" rx="8" fill="#fff" stroke="#a9aeb1" stroke-width="1.5"/>
+        <rect x="1005" y="200" width="210" height="28" rx="8" fill="#dfe1e2"/>
+        <text class="t-title" x="1020" y="219" fill="#1b1b1b" font-size="13.5">Alexa-only devices</text>
+        <text x="1020" y="250" font-size="12.5" fill="#1b1b1b">Ceiling fan + light:</text>
+        <g font-size="12.5" fill="#1b1b1b">
+          <text x="1034" y="276">🟦 Master</text>
+          <text x="1034" y="300">🟦 Owen</text>
+          <text x="1034" y="324">🟩 William</text>
+          <text x="1034" y="344">🩷 Charlotte</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <div class="note">
+    <strong>How it reads:</strong> Home Assistant is the brain. Devices reach it over three transports —
+    the <strong>Zigbee2MQTT</strong> mesh (now saturated, which is why the M3 was added), the
+    <strong>Matter</strong> stack (native Matter gear plus the <strong>Aqara Hub M3</strong> bridging
+    re-homed Aqara sensors), and <strong>cloud/LAN</strong> integrations. <strong>Apple Home</strong> and
+    <strong>Alexa</strong> are peer ecosystems that share state with HA through <code>input_boolean</code>
+    virtual switches; Alexa also directly owns the ceiling-fan lights HA can't see.
+  </div>
+  <div class="note" style="background:#faf3d1;border-left-color:#ffbe2e;">
+    <strong>Accuracy note:</strong> device lists are drawn from this session's device screenshots, the
+    feature-006 upgrade diagnostics, and the automations config — not a live registry dump. Native-Matter
+    counts and the Zigbee "other sensors/lights" are approximate. Tell me what to add or correct and I'll redraw.
+  </div>
+
+</div>
+</body>
+</html>
