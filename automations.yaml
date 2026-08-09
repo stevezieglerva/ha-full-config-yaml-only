@@ -7263,6 +7263,31 @@
       entity_id:
       - input_boolean.vswitch_steve_wake_up_on_alexa
   mode: single
+- id: charlotte_almost_time_to_leave
+  alias: 🩷🚪 Charlotte Almost Time to Leave
+  description: Pulse the Alexa VSwitch ten minutes before Charlotte's school departure time
+  trigger:
+  - platform: time
+    at: '06:20:00'
+  condition:
+  - condition: state
+    entity_id: sensor.charlotte_has_school_today
+    state: 'True'
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.vswitch_charlotte_almost_time_to_leave
+    data: {}
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.vswitch_charlotte_almost_time_to_leave
+    data: {}
+  mode: single
 - id: '1764076454624'
   alias: "\U0001F384 VSwitch Indoor Christmas Lights - Control Actual Lights"
   description: Controls the actual outdoor Christmas lights based on the virtual switch

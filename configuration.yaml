@@ -1353,6 +1353,11 @@ input_boolean:
     initial: off
     icon: mdi:exit-run
 
+  vswitch_charlotte_almost_time_to_leave:
+    name: "🩷🚪 VSwitch Charlotte Almost Time to Leave"
+    initial: off
+    icon: mdi:exit-run
+
   alexa_owen_time_to_leave:
     name: 🔵🚪 Owen Time to Leave Announcement
     initial: off
