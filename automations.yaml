@@ -6849,27 +6849,90 @@
       entity_id: binary_sensor.office_lamp_light_off_at_switch
   mode: single
 - id: '1755364533742'
-  alias: Nightly master bathroom fan
-  description: ''
+  alias: Master bathroom fan outlet schedule
+  description: Runs the fan from midnight to 2 AM, keeps it off from 2 AM to 6 AM, then follows recent upstairs motion.
   trigger:
   - platform: time
-    at: '23:45:00'
+    at: '00:00:00'
+    id: midnight
+  - platform: time
+    at: '02:00:00'
+    id: two-am
+  - platform: time
+    at: '06:00:00'
+    id: six-am
+  - platform: state
+    entity_id: input_boolean.recent_upstairs_motion
+    from: 'off'
+    to: 'on'
+    id: motion
+  - platform: state
+    entity_id: input_boolean.recent_upstairs_motion
+    from: 'on'
+    to: 'off'
+    id: no-motion
   condition: []
   action:
-  - type: turn_on
-    device_id: 1270cc0ff83d07446858eb388339b38b
-    entity_id: 65d9be250ff0d6342c1e9aff462cb072
-    domain: switch
-  - delay:
-      hours: 0
-      minutes: 45
-      seconds: 0
-      milliseconds: 0
-  - type: turn_off
-    device_id: 1270cc0ff83d07446858eb388339b38b
-    entity_id: 65d9be250ff0d6342c1e9aff462cb072
-    domain: switch
-  mode: single
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: midnight
+      sequence:
+      - type: turn_on
+        device_id: 1270cc0ff83d07446858eb388339b38b
+        entity_id: 65d9be250ff0d6342c1e9aff462cb072
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id: two-am
+      sequence:
+      - type: turn_off
+        device_id: 1270cc0ff83d07446858eb388339b38b
+        entity_id: 65d9be250ff0d6342c1e9aff462cb072
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id: six-am
+      - condition: state
+        entity_id: input_boolean.recent_upstairs_motion
+        state: 'on'
+      sequence:
+      - type: turn_on
+        device_id: 1270cc0ff83d07446858eb388339b38b
+        entity_id: 65d9be250ff0d6342c1e9aff462cb072
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id: six-am
+      - condition: state
+        entity_id: input_boolean.recent_upstairs_motion
+        state: 'off'
+      sequence:
+      - type: turn_off
+        device_id: 1270cc0ff83d07446858eb388339b38b
+        entity_id: 65d9be250ff0d6342c1e9aff462cb072
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id: motion
+      - condition: time
+        after: '06:00:00'
+      sequence:
+      - type: turn_on
+        device_id: 1270cc0ff83d07446858eb388339b38b
+        entity_id: 65d9be250ff0d6342c1e9aff462cb072
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id: no-motion
+      - condition: time
+        after: '06:00:00'
+      sequence:
+      - type: turn_off
+        device_id: 1270cc0ff83d07446858eb388339b38b
+        entity_id: 65d9be250ff0d6342c1e9aff462cb072
+        domain: switch
+  mode: restart
 - id: '1755373382684'
   alias: Playroom Lamp
   description: ''
