@@ -3558,38 +3558,38 @@
 - id: '1737830942554'
   alias: "\U0001F4D3 Set Alexa School Announcements"
   description: ''
-  trigger:
-  - platform: time
-    at: 05:55:00
-  condition:
+  triggers:
+  - at: 06:00:00
+    trigger: time
+  conditions:
   - condition: or
     conditions:
     - condition: state
       entity_id: sensor.charlotte_has_school_today
       state: 'True'
-  action:
-  - service: input_boolean.turn_on
-    metadata: {}
+  actions:
+  - metadata: {}
     data: {}
     target:
       entity_id: input_boolean.alexa_make_school_wake_announcements
+    action: input_boolean.turn_on
   - delay:
       hours: 0
       minutes: 15
       seconds: 0
       milliseconds: 0
-  - service: input_boolean.turn_off
-    target:
+  - target:
       entity_id:
       - input_boolean.alexa_make_school_departure_announcements
     data: {}
-  - service: input_boolean.turn_off
-    metadata: {}
+    action: input_boolean.turn_off
+  - metadata: {}
     data: {}
     target:
       entity_id:
       - input_boolean.alexa_make_school_wake_announcements
       - input_boolean.alexa_make_school_departure_announcements
+    action: input_boolean.turn_off
   mode: single
 - id: '1737892048242'
   alias: "\U0001F333 Backyard lights"
@@ -7262,11 +7262,12 @@
       - input_boolean.vswitch_steve_wake_up_on_alexa
   mode: single
 - id: charlotte_almost_time_to_leave
-  alias: 🩷🚪 Charlotte Almost Time to Leave
-  description: Pulse the Alexa VSwitch ten minutes before Charlotte's school departure time
+  alias: "\U0001FA77\U0001F6AA Charlotte Almost Time to Leave"
+  description: Pulse the Alexa VSwitch ten minutes before Charlotte's school departure
+    time
   trigger:
   - platform: time
-    at: '06:20:00'
+    at: 06:20:00
   condition:
   - condition: state
     entity_id: sensor.charlotte_has_school_today
