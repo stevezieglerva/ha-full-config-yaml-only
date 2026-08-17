@@ -1041,37 +1041,34 @@
 - id: '1729125593991'
   alias: Office light off when empty
   description: ''
-  trigger:
+  triggers:
   - type: not_occupied
-    platform: device
     device_id: 541858278f8e0f3bfab5b64b39701cbe
     entity_id: 35849acbafd284cc880dae68ccd797e5
     domain: binary_sensor
-  condition:
+    trigger: device
+  conditions:
   - condition: state
     entity_id: input_select.house_mode
     state: "\U0001F6B6Home"
-  action:
-  - service: script.set_office_lights
-    metadata: {}
+  actions:
+  - metadata: {}
     data:
       style: 'off'
-  - condition: state
-    entity_id: sensor.night
-    state: 'False'
+    action: script.set_office_lights
   - delay:
       hours: 0
       minutes: 0
       seconds: 5
       milliseconds: 0
-  - service: input_boolean.turn_off
-    metadata: {}
+  - metadata: {}
     data: {}
     target:
       entity_id: input_boolean.apple_home_office_fan
-  - service: switch.turn_off
-    target:
+    action: input_boolean.turn_off
+  - target:
       device_id: 429b4031f1808f388df166b194a09674
+    action: switch.turn_off
   mode: single
 - id: '1729290615685'
   alias: "\U0001F4A6\U0001F374Start Dishwasher Timer"
@@ -6850,16 +6847,17 @@
   mode: single
 - id: '1755364533742'
   alias: Master bathroom fan outlet schedule
-  description: Runs the fan from midnight to 2 AM, keeps it off from 2 AM to 6 AM, then follows recent upstairs motion.
+  description: Runs the fan from midnight to 2 AM, keeps it off from 2 AM to 6 AM,
+    then follows recent upstairs motion.
   trigger:
   - platform: time
-    at: '00:00:00'
+    at: 00:00:00
     id: midnight
   - platform: time
-    at: '02:00:00'
+    at: 02:00:00
     id: two-am
   - platform: time
-    at: '06:00:00'
+    at: 06:00:00
     id: six-am
   - platform: state
     entity_id: input_boolean.recent_upstairs_motion
@@ -6916,7 +6914,7 @@
       - condition: trigger
         id: motion
       - condition: time
-        after: '06:00:00'
+        after: 06:00:00
       sequence:
       - type: turn_on
         device_id: 1270cc0ff83d07446858eb388339b38b
@@ -6926,7 +6924,7 @@
       - condition: trigger
         id: no-motion
       - condition: time
-        after: '06:00:00'
+        after: 06:00:00
       sequence:
       - type: turn_off
         device_id: 1270cc0ff83d07446858eb388339b38b
