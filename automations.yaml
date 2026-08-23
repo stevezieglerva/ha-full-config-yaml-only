@@ -5868,9 +5868,8 @@
 - id: '1750617185063'
   alias: Turn on office fan when office occupied
   description: ''
-  trigger:
+  triggers:
   - type: occupied
-    platform: device
     device_id: 541858278f8e0f3bfab5b64b39701cbe
     entity_id: 35849acbafd284cc880dae68ccd797e5
     domain: binary_sensor
@@ -5878,22 +5877,20 @@
       hours: 0
       minutes: 1
       seconds: 0
-  condition:
+    trigger: device
+  conditions:
   - condition: numeric_state
     entity_id: input_number.daily_high
     above: 80
-  - condition: numeric_state
-    entity_id: sensor.downstairs_ecobee_current_temperature
-    above: 72
-  action:
-  - service: input_boolean.turn_on
-    metadata: {}
+  actions:
+  - metadata: {}
     data: {}
     target:
       entity_id: input_boolean.apple_home_office_fan
-  - service: switch.turn_on
-    target:
+    action: input_boolean.turn_on
+  - target:
       device_id: 429b4031f1808f388df166b194a09674
+    action: switch.turn_on
   mode: single
 - id: '1743930000002'
   alias: Reset Daily Max Heat Index
@@ -6849,28 +6846,28 @@
   alias: Master bathroom fan outlet schedule
   description: Runs the fan from midnight to 2 AM, keeps it off from 2 AM to 6 AM,
     then follows recent upstairs motion.
-  trigger:
-  - platform: time
-    at: 00:00:00
+  triggers:
+  - at: 00:00:00
     id: midnight
-  - platform: time
-    at: 02:00:00
+    trigger: time
+  - at: 02:00:00
     id: two-am
-  - platform: time
-    at: 06:00:00
+    trigger: time
+  - at: 06:00:00
     id: six-am
-  - platform: state
-    entity_id: input_boolean.recent_upstairs_motion
+    trigger: time
+  - entity_id: input_boolean.recent_upstairs_motion
     from: 'off'
     to: 'on'
     id: motion
-  - platform: state
-    entity_id: input_boolean.recent_upstairs_motion
+    trigger: state
+  - entity_id: input_boolean.recent_upstairs_motion
     from: 'on'
     to: 'off'
     id: no-motion
-  condition: []
-  action:
+    trigger: state
+  conditions: []
+  actions:
   - choose:
     - conditions:
       - condition: trigger
@@ -6880,6 +6877,11 @@
         device_id: 1270cc0ff83d07446858eb388339b38b
         entity_id: 65d9be250ff0d6342c1e9aff462cb072
         domain: switch
+      - action: switch.turn_on
+        metadata: {}
+        target:
+          entity_id: switch.master_bathroom_master_bathroom_fan
+        data: {}
     - conditions:
       - condition: trigger
         id: two-am
@@ -6888,6 +6890,11 @@
         device_id: 1270cc0ff83d07446858eb388339b38b
         entity_id: 65d9be250ff0d6342c1e9aff462cb072
         domain: switch
+      - action: switch.turn_off
+        metadata: {}
+        target:
+          entity_id: switch.master_bathroom_master_bathroom_fan
+        data: {}
     - conditions:
       - condition: trigger
         id: six-am
@@ -6899,6 +6906,11 @@
         device_id: 1270cc0ff83d07446858eb388339b38b
         entity_id: 65d9be250ff0d6342c1e9aff462cb072
         domain: switch
+      - action: switch.turn_on
+        metadata: {}
+        target:
+          entity_id: switch.master_bathroom_master_bathroom_fan
+        data: {}
     - conditions:
       - condition: trigger
         id: six-am
@@ -6910,6 +6922,11 @@
         device_id: 1270cc0ff83d07446858eb388339b38b
         entity_id: 65d9be250ff0d6342c1e9aff462cb072
         domain: switch
+      - action: switch.turn_off
+        metadata: {}
+        target:
+          entity_id: switch.master_bathroom_master_bathroom_fan
+        data: {}
     - conditions:
       - condition: trigger
         id: motion
@@ -6920,6 +6937,11 @@
         device_id: 1270cc0ff83d07446858eb388339b38b
         entity_id: 65d9be250ff0d6342c1e9aff462cb072
         domain: switch
+      - action: switch.turn_on
+        metadata: {}
+        target:
+          entity_id: switch.master_bathroom_master_bathroom_fan
+        data: {}
     - conditions:
       - condition: trigger
         id: no-motion
@@ -6930,6 +6952,11 @@
         device_id: 1270cc0ff83d07446858eb388339b38b
         entity_id: 65d9be250ff0d6342c1e9aff462cb072
         domain: switch
+      - action: switch.turn_off
+        metadata: {}
+        target:
+          entity_id: switch.master_bathroom_master_bathroom_fan
+        data: {}
   mode: restart
 - id: '1755373382684'
   alias: Playroom Lamp
