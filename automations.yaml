@@ -6844,7 +6844,7 @@
   mode: single
 - id: '1755364533742'
   alias: Master bathroom fan outlet schedule
-  description: Runs the fan from midnight to 2 AM, keeps it off from 2 AM to 6 AM,
+  description: Runs the fan from midnight to 2 AM, keeps it off from 2 AM to 3 PM,
     then follows recent upstairs motion.
   triggers:
   - at: 00:00:00
@@ -6855,6 +6855,9 @@
     trigger: time
   - at: 06:00:00
     id: six-am
+    trigger: time
+  - at: '15:00:00'
+    id: three-pm
     trigger: time
   - entity_id: input_boolean.recent_upstairs_motion
     from: 'off'
@@ -6898,6 +6901,19 @@
     - conditions:
       - condition: trigger
         id: six-am
+      sequence:
+      - type: turn_off
+        device_id: 1270cc0ff83d07446858eb388339b38b
+        entity_id: 65d9be250ff0d6342c1e9aff462cb072
+        domain: switch
+      - action: switch.turn_off
+        metadata: {}
+        target:
+          entity_id: switch.master_bathroom_master_bathroom_fan
+        data: {}
+    - conditions:
+      - condition: trigger
+        id: three-pm
       - condition: state
         entity_id: input_boolean.recent_upstairs_motion
         state: 'on'
@@ -6913,7 +6929,7 @@
         data: {}
     - conditions:
       - condition: trigger
-        id: six-am
+        id: three-pm
       - condition: state
         entity_id: input_boolean.recent_upstairs_motion
         state: 'off'
@@ -6931,7 +6947,7 @@
       - condition: trigger
         id: motion
       - condition: time
-        after: 06:00:00
+        after: '15:00:00'
       sequence:
       - type: turn_on
         device_id: 1270cc0ff83d07446858eb388339b38b
@@ -6946,7 +6962,7 @@
       - condition: trigger
         id: no-motion
       - condition: time
-        after: 06:00:00
+        after: '15:00:00'
       sequence:
       - type: turn_off
         device_id: 1270cc0ff83d07446858eb388339b38b
