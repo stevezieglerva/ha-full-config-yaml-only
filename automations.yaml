@@ -5676,10 +5676,14 @@
     domain: binary_sensor
     id: bathroom
   condition:
-  - condition: state
-    entity_id: schedule.kids_awake
-    state: 'on'
-    enabled: true
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: schedule.kids_awake
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.upstairs_room_motion_alerts
+      state: 'on'
   action:
   - choose:
     - conditions:

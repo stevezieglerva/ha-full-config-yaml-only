@@ -1182,6 +1182,11 @@ input_boolean:
     initial: off
     icon: mdi:dog
 
+  upstairs_room_motion_alerts:
+    name: 🔔 Upstairs Room Motion Alerts
+    initial: off
+    icon: mdi:motion-sensor
+
   vswitch_alexa_launch_fully_kiosk_bravia_65:
     name: VSwitch Alexa Launch Fully Kiosk Bravia 65
     initial: off
