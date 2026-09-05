@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="OpenAI GPT-5.6 and GPT-6 Astra credit consumption table">
+  <title>GPT-5.6 Credit Consumption</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚡%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #005ea2;
+      --color-primary-dark: #1a4480;
+      --color-primary-darker: #162e51;
+      --color-primary-lighter: #d9e8f6;
+      --color-accent-cool: #00bde3;
+      --color-accent-cool-lighter: #e1f3f8;
+      --color-base-darkest: #1b1b1b;
+      --color-base-darker: #3d4551;
+      --color-base-lightest: #f0f0f0;
+      --color-white: #ffffff;
+      --font-sans: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-size-sm: 1rem;
+      --font-size-md: 1.06rem;
+      --font-size-xl: 2rem;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --max-width: 64rem;
+      --border-radius: 0.25rem;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--color-base-darkest);
+      background: var(--color-base-lightest);
+      font-family: var(--font-sans);
+      font-size: var(--font-size-sm);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--color-primary-darker);
+      border-bottom: 0.25rem solid var(--color-accent-cool);
+      color: var(--color-white);
+      padding: var(--space-5) 0;
+    }
+
+    .container {
+      width: min(100% - (2 * var(--space-5)), var(--max-width));
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: var(--font-size-xl);
+      line-height: 1.2;
+    }
+
+    main { padding: var(--space-6) 0; }
+
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--color-white);
+      border: 0.0625rem solid var(--color-primary-lighter);
+      border-radius: var(--border-radius);
+      box-shadow: 0 0.25rem 0.75rem rgb(27 27 27 / 12%);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 45rem;
+    }
+
+    caption {
+      padding: var(--space-4) var(--space-5);
+      color: var(--color-base-darker);
+      font-size: var(--font-size-md);
+      font-weight: 600;
+      text-align: left;
+    }
+
+    th, td {
+      padding: var(--space-3) var(--space-4);
+      border-top: 0.0625rem solid var(--color-primary-lighter);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--color-primary);
+      color: var(--color-white);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    tbody tr:nth-child(even) { background: var(--color-accent-cool-lighter); }
+    tbody tr:hover { background: var(--color-primary-lighter); }
+
+    .numeric { text-align: right; white-space: nowrap; }
+    .model { font-weight: 700; white-space: nowrap; }
+
+    footer {
+      color: var(--color-base-darker);
+      font-size: var(--font-size-sm);
+      padding-bottom: var(--space-6);
+    }
+
+    a {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    a:focus-visible {
+      outline: 0.1875rem solid var(--color-accent-cool);
+      outline-offset: 0.125rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>GPT-5.6 Credit Consumption</h1>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="table-wrap">
+        <table>
+          <caption>ChatGPT/Codex credit rates and estimated Plus usage</caption>
+          <thead>
+            <tr>
+              <th scope="col">Model</th>
+              <th scope="col">Best for</th>
+              <th scope="col" class="numeric">Input credits / 1M</th>
+              <th scope="col" class="numeric">Cached input</th>
+              <th scope="col" class="numeric">Output credits / 1M</th>
+              <th scope="col" class="numeric">Plus messages / 5 hours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="model">GPT-6 Astra</td>
+              <td>Hardest reasoning and end-to-end work</td>
+              <td class="numeric">250</td>
+              <td class="numeric">25</td>
+              <td class="numeric">1,250</td>
+              <td class="numeric">5–45</td>
+            </tr>
+            <tr>
+              <td class="model">GPT-5.6 Sol <code>(gpt-5.6)</code></td>
+              <td>Complex reasoning and advanced coding</td>
+              <td class="numeric">100</td>
+              <td class="numeric">10</td>
+              <td class="numeric">500</td>
+              <td class="numeric">10–100</td>
+            </tr>
+            <tr>
+              <td class="model">GPT-5.6 Terra</td>
+              <td>Everyday production and analysis</td>
+              <td class="numeric">50</td>
+              <td class="numeric">5</td>
+              <td class="numeric">300</td>
+              <td class="numeric">25–200</td>
+            </tr>
+            <tr>
+              <td class="model">GPT-5.6 Luna</td>
+              <td>Fast, high-volume, lightweight work</td>
+              <td class="numeric">5</td>
+              <td class="numeric">0.5</td>
+              <td class="numeric">30</td>
+              <td class="numeric">250–2,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      Rates are per one million tokens. Actual usage varies with context, files, tools, retrieval, and reasoning. Fast mode uses 2.5× credits for Astra and GPT-5.6. See the <a href="https://learn.chatgpt.com/docs/pricing">official OpenAI pricing documentation</a>.
+    </div>
+  </footer>
+</body>
+</html>
