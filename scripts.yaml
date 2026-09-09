@@ -54,6 +54,17 @@ smart_night_light:
           max: 300
           unit_of_measurement: seconds
   sequence:
+    - condition: template
+      value_template: >-
+        {{ not (
+          light_entity in [
+            'light.charlotte_night_light_light',
+            'light.extra_night_light_light'
+          ]
+          and is_state('sensor.charlotte_has_school_today', 'True')
+          and now().strftime('%H:%M') >= '06:00'
+          and now().strftime('%H:%M') <= '06:30'
+        ) }}
     - service: logbook.log
       data:
         name: "Smart Night Light"
@@ -90,6 +101,17 @@ smart_night_light:
           sequence:
             - delay:
                 seconds: "{{ timeout }}"
+            - condition: template
+              value_template: >-
+                {{ not (
+                  light_entity in [
+                    'light.charlotte_night_light_light',
+                    'light.extra_night_light_light'
+                  ]
+                  and is_state('sensor.charlotte_has_school_today', 'True')
+                  and now().strftime('%H:%M') >= '06:00'
+                  and now().strftime('%H:%M') <= '06:30'
+                ) }}
             - service: light.turn_on
               target:
                 entity_id: "{{ light_entity }}"

@@ -6545,6 +6545,13 @@
   - condition: state
     entity_id: light.charlotte_night_light_light
     state: 'on'
+  - condition: template
+    value_template: >-
+      {{ not (
+        is_state('sensor.charlotte_has_school_today', 'True')
+        and now().strftime('%H:%M') >= '06:00'
+        and now().strftime('%H:%M') <= '06:30'
+      ) }}
   action:
   - choose:
     - conditions:
@@ -6566,6 +6573,13 @@
       sequence:
       - delay:
           minutes: 3
+      - condition: template
+        value_template: >-
+          {{ not (
+            is_state('sensor.charlotte_has_school_today', 'True')
+            and now().strftime('%H:%M') >= '06:00'
+            and now().strftime('%H:%M') <= '06:30'
+          ) }}
       - service: light.turn_on
         target:
           entity_id: light.charlotte_night_light_light
@@ -6582,7 +6596,14 @@
   trigger:
   - platform: state
     entity_id: sensor.night
-  condition: []
+  condition:
+  - condition: template
+    value_template: >-
+      {{ not (
+        is_state('sensor.charlotte_has_school_today', 'True')
+        and now().strftime('%H:%M') >= '06:00'
+        and now().strftime('%H:%M') <= '06:30'
+      ) }}
   action:
   - choose:
     - conditions:
@@ -7088,7 +7109,14 @@
   trigger:
   - platform: state
     entity_id: sensor.night
-  condition: []
+  condition:
+  - condition: template
+    value_template: >-
+      {{ not (
+        is_state('sensor.charlotte_has_school_today', 'True')
+        and now().strftime('%H:%M') >= '06:00'
+        and now().strftime('%H:%M') <= '06:30'
+      ) }}
   action:
   - choose:
     - conditions:
@@ -7154,6 +7182,13 @@
   - condition: state
     entity_id: sensor.night
     state: 'True'
+  - condition: template
+    value_template: >-
+      {{ not (
+        is_state('sensor.charlotte_has_school_today', 'True')
+        and now().strftime('%H:%M') >= '06:00'
+        and now().strftime('%H:%M') <= '06:30'
+      ) }}
   actions:
   - choose:
     - conditions:
@@ -7180,6 +7215,13 @@
           minutes: 0
           seconds: 15
           milliseconds: 0
+      - condition: template
+        value_template: >-
+          {{ not (
+            is_state('sensor.charlotte_has_school_today', 'True')
+            and now().strftime('%H:%M') >= '06:00'
+            and now().strftime('%H:%M') <= '06:30'
+          ) }}
       - target:
           entity_id:
           - light.extra_night_light_light
@@ -7329,7 +7371,7 @@
   description: Pulse Alexa VSwitch before Charlotte's school wake-up schedule starts
   trigger:
   - platform: time
-    at: 05:50:00
+    at: 05:59:00
   condition:
   - condition: state
     entity_id: sensor.charlotte_has_school_today
@@ -7359,7 +7401,7 @@
     time
   trigger:
   - platform: time
-    at: 06:20:00
+    at: 06:30:00
   condition:
   - condition: state
     entity_id: sensor.charlotte_has_school_today
@@ -7379,6 +7421,83 @@
       entity_id: input_boolean.vswitch_charlotte_almost_time_to_leave
     data: {}
   mode: single
+- id: charlotte_school_morning_lights
+  alias: "\U0001F338 Charlotte School Morning Lights"
+  description: Sets Charlotte's morning lights to green, yellow, and red before turning them off at departure time
+  trigger:
+  - platform: time
+    at: 06:00:00
+    id: green
+  - platform: time
+    at: 06:05:00
+    id: yellow
+  - platform: time
+    at: 06:10:00
+    id: red
+  - platform: time
+    at: 06:30:00
+    id: off
+  condition:
+  - condition: state
+    entity_id: sensor.charlotte_has_school_today
+    state: 'True'
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: green
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.charlotte_night_light_light
+          - light.extra_night_light_light
+        data:
+          brightness_pct: 100
+          rgb_color:
+          - 0
+          - 255
+          - 0
+    - conditions:
+      - condition: trigger
+        id: yellow
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.charlotte_night_light_light
+          - light.extra_night_light_light
+        data:
+          brightness_pct: 100
+          rgb_color:
+          - 255
+          - 255
+          - 0
+    - conditions:
+      - condition: trigger
+        id: red
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.charlotte_night_light_light
+          - light.extra_night_light_light
+        data:
+          brightness_pct: 100
+          rgb_color:
+          - 255
+          - 0
+          - 0
+    - conditions:
+      - condition: trigger
+        id: off
+      sequence:
+      - service: light.turn_off
+        target:
+          entity_id:
+          - light.charlotte_night_light_light
+          - light.extra_night_light_light
+  mode: restart
 - id: '1764076454624'
   alias: "\U0001F384 VSwitch Indoor Christmas Lights - Control Actual Lights"
   description: Controls the actual outdoor Christmas lights based on the virtual switch
