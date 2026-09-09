@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Commit a0737c7 — File Changes</title>
+  <style>
+    :root { color-scheme: dark; --bg:#0b1020; --panel:#151d32; --muted:#9aa8c2; --green:#55d68a; --blue:#6da8ff; --amber:#f3bd58; --red:#ff7c8b; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; display:grid; place-items:center; padding:28px; background:radial-gradient(circle at 50% 0%, #1b2b50, var(--bg) 58%); color:#edf3ff; font:16px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    main { width:min(900px,100%); }
+    h1 { margin:0 0 8px; font-size:clamp(26px,5vw,44px); letter-spacing:-.03em; }
+    .lede { margin:0 0 28px; color:var(--muted); }
+    .summary { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:26px 0; }
+    .stat { padding:18px; border:1px solid #2d3b5c; border-radius:16px; background:linear-gradient(145deg,#192441,var(--panel)); }
+    .stat strong { display:block; margin-top:4px; font-size:24px; }
+    .label { color:var(--muted); text-transform:uppercase; font-size:12px; letter-spacing:.12em; }
+    .branch { margin-top:8px; font-size:24px; font-weight:700; }
+    .files { display:grid; gap:16px; }
+    .file { overflow:hidden; border:1px solid #2d3b5c; border-radius:16px; background:var(--panel); box-shadow:0 14px 35px #0004; }
+    .file-head { display:flex; justify-content:space-between; gap:12px; align-items:center; padding:16px 18px; border-bottom:1px solid #2d3b5c; }
+    .file-name { color:var(--blue); font:700 18px ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .count { color:var(--green); font:600 13px ui-monospace,SFMono-Regular,Menlo,monospace; }
+    pre { margin:0; padding:16px 18px; overflow:auto; color:#dbe5fb; font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .add { display:block; color:#b8f2cb; background:#123324; }
+    .del { display:block; color:#ffc4cb; background:#3b1b24; }
+    .note { margin-top:22px; padding:18px 20px; border-left:4px solid var(--amber); border-radius:10px; background:#211d13; color:#f9e7ba; }
+    .note strong { color:#fff3cf; }
+    .legend { display:flex; flex-wrap:wrap; gap:18px; margin-top:22px; color:var(--muted); font-size:14px; }
+    .dot { display:inline-block; width:10px; height:10px; margin-right:7px; border-radius:50%; background:var(--green); }
+    .dot.amber { background:var(--amber); }
+    @media (max-width:650px) { .summary { grid-template-columns:1fr; } .file-head { align-items:flex-start; flex-direction:column; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Commit <code>a0737c7</code> — file changes</h1>
+    <p class="lede">Charlotte’s school-morning light sequence and the safeguards that keep motion automations from overwriting it.</p>
+    <section class="summary" aria-label="Change summary">
+      <div class="stat"><div class="label">Files changed</div><strong>2</strong></div>
+      <div class="stat"><div class="label">Lines added</div><strong style="color:var(--green)">145</strong></div>
+      <div class="stat"><div class="label">Lines removed</div><strong style="color:var(--red)">4</strong></div>
+    </section>
+    <section class="files">
+      <article class="file">
+        <div class="file-head"><div class="file-name">automations.yaml</div><div class="count">+123 / −4</div></div>
+        <pre><span class="del">-    at: 05:50:00</span><span class="add">+    at: 05:59:00        # Steve wake-up VSwitch</span><span class="del">-    at: 06:20:00</span><span class="add">+    at: 06:30:00        # Charlotte almost-leave VSwitch</span>
+<span class="add">+  charlotte_school_morning_lights:</span><span class="add">+    06:00  → both lights green</span><span class="add">+    06:05  → both lights yellow</span><span class="add">+    06:10  → both lights red</span><span class="add">+    06:30  → turn both lights off</span>
+<span class="add">+  Morning motion/night-mode automations are blocked during</span><span class="add">+  06:00–06:30 on Charlotte school days.</span></pre>
+      </article>
+      <article class="file">
+        <div class="file-head"><div class="file-name">scripts.yaml</div><div class="count">+22 / −0</div></div>
+        <pre><span class="add">+ smart_night_light:</span><span class="add">+   Skip Charlotte’s two lights during the protected</span><span class="add">+   06:00–06:30 school-morning window.</span><span class="add">+</span><span class="add">+   The guard is checked again after delayed motion</span><span class="add">+   actions, so a pre-6:00 motion event cannot overwrite</span><span class="add">+   the green/yellow/red sequence.</span></pre>
+      </article>
+    </section>
+    <div class="note"><strong>Result:</strong> the commit is on both <code>main</code> and <code>origin/main</code>; these are the exact committed file changes.</div>
+  </main>
+</body>
+</html>

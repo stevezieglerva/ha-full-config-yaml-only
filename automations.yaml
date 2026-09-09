@@ -7436,7 +7436,7 @@
     id: red
   - platform: time
     at: 06:30:00
-    id: off
+    id: 'off'
   condition:
   - condition: state
     entity_id: sensor.charlotte_has_school_today
@@ -7490,7 +7490,7 @@
           - 0
     - conditions:
       - condition: trigger
-        id: off
+        id: 'off'
       sequence:
       - service: light.turn_off
         target:
