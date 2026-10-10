@@ -7891,12 +7891,12 @@
       entity_id: input_boolean.vswitch_deck_light_red
     data: {}
   mode: single
-- id: 'deck_holiday_january_white_1900'
+- id: 'deck_holiday_january_white_0000'
   alias: ⚪ Deck holiday light white pulse
   description: Pulse the white deck holiday light VSwitch on January 15
   trigger:
   - platform: time
-    at: '19:00:00'
+    at: '00:00:00'
   condition:
   - condition: template
     value_template: "{{ now().month == 1 and now().day == 15 }}"
@@ -7912,12 +7912,12 @@
       entity_id: input_boolean.vswitch_deck_light_white
     data: {}
   mode: single
-- id: 'deck_holiday_march_green_0000'
+- id: 'deck_holiday_march_green_1900'
   alias: 🟢 Deck holiday light green pulse
   description: Pulse the green deck holiday light VSwitch on March 17
   trigger:
   - platform: time
-    at: '00:00:00'
+    at: '19:00:00'
   condition:
   - condition: template
     value_template: "{{ now().month == 3 and now().day == 17 }}"
