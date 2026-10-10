@@ -7808,7 +7808,7 @@
   actions: []
   mode: single
 - id: 'deck_holiday_october_orange_1900'
-  alias: 🟠 Deck holiday light orange pulse
+  alias: 🎃 Halloween deck light orange pulse
   description: Pulse the orange deck holiday light VSwitch each evening in October
   trigger:
   - platform: time
@@ -7829,7 +7829,7 @@
     data: {}
   mode: single
 - id: 'deck_holiday_october_purple_2200'
-  alias: 🟣 Deck holiday light purple pulse
+  alias: 🎃 Halloween deck light purple pulse
   description: Pulse the purple deck holiday light VSwitch each evening in October
   trigger:
   - platform: time
@@ -7850,7 +7850,7 @@
     data: {}
   mode: single
 - id: 'deck_holiday_december_green_1900'
-  alias: 🟢 Deck holiday light green pulse
+  alias: 🎄 Christmas deck light green pulse
   description: Pulse the green deck holiday light VSwitch each evening in December
   trigger:
   - platform: time
@@ -7871,7 +7871,7 @@
     data: {}
   mode: single
 - id: 'deck_holiday_december_red_2200'
-  alias: 🔴 Deck holiday light red pulse
+  alias: 🎄 Christmas deck light red pulse
   description: Pulse the red deck holiday light VSwitch each evening in December
   trigger:
   - platform: time
@@ -7892,7 +7892,7 @@
     data: {}
   mode: single
 - id: 'deck_holiday_january_white_0000'
-  alias: ⚪ Deck holiday light white pulse
+  alias: 🎄 Post-Christmas deck light white reset
   description: Pulse the white deck holiday light VSwitch on January 15
   trigger:
   - platform: time
@@ -7913,7 +7913,7 @@
     data: {}
   mode: single
 - id: 'deck_holiday_march_green_1900'
-  alias: 🟢 Deck holiday light green pulse
+  alias: 🍀 St. Patrick's Day deck light green pulse
   description: Pulse the green deck holiday light VSwitch on March 17
   trigger:
   - platform: time
@@ -7934,7 +7934,7 @@
     data: {}
   mode: single
 - id: 'deck_holiday_march_white_0000'
-  alias: ⚪ Deck holiday light white pulse
+  alias: 🍀 St. Patrick's Day next-day deck light white reset
   description: Pulse the white deck holiday light VSwitch on March 18
   trigger:
   - platform: time
@@ -7955,7 +7955,7 @@
     data: {}
   mode: single
 - id: 'deck_holiday_july_blue_2100'
-  alias: 🔵 Deck holiday light blue pulse
+  alias: 🇺🇸 Independence Day deck light blue pulse
   description: Pulse the blue deck holiday light VSwitch from July 1 through July 4
   trigger:
   - platform: time
@@ -7976,7 +7976,7 @@
     data: {}
   mode: single
 - id: 'deck_holiday_july_red_2230'
-  alias: 🔴 Deck holiday light red pulse
+  alias: 🇺🇸 Independence Day deck light red pulse
   description: Pulse the red deck holiday light VSwitch from July 1 through July 4
   trigger:
   - platform: time
