@@ -16,11 +16,35 @@ This is a Home Assistant configuration repository containing:
 
 ## GitHub Project
 - Repository: `stevezieglerva/ha-full-config-yaml-only`
-- Project: [ha-full-config Factory](https://github.com/users/stevezieglerva/projects/8/views/2) (owner `stevezieglerva`, project number `8`)
+- Project: [home-assistant Factory](https://github.com/users/stevezieglerva/projects/8/views/2) (owner `stevezieglerva`, project number `8`)
+- GitHub project context: `context/github-project.md`
 - Workflow status field: `Status`
 - Status options: `Todo`, `Elaborate`, `Ready For Agent`, `In Progress`, `Reviewing`, `Deployed`, `Done`
 - Work type field: `Work Type`; options: `Feature`, `Task`
-- Use the project status for workflow state. Available repository labels: `bug`, `documentation`, `duplicate`, `enhancement`, `good first issue`, `help wanted`, `invalid`, `question`, `wontfix`.
+- Use the project status for workflow state. Available repository labels: `area:holiday-lights`, `bug`, `documentation`, `duplicate`, `enhancement`, `epic`, `good first issue`, `help wanted`, `invalid`, `priority/P0`, `priority/P1`, `priority/P2`, `question`, `ready-for-agent`, `wontfix`.
+
+## Factory Skills
+- Tracker: `GitHub Issues + GitHub Projects`
+- Repository: `https://github.com/stevezieglerva/ha-full-config-yaml-only`
+- GitHub project context: `context/github-project.md`
+- GitHub CLI account: `stevezieglerva`
+- Factory parent issue type: `Feature`
+- Factory child issue type: `Task`
+- Factory epic status: `Elaborate`
+- Factory todo status: `Todo`
+- Factory ready status: `Ready For Agent`
+- Factory in-progress status: `In Progress`
+- Factory review status: `Reviewing`
+- Factory deployed status: `Deployed`
+- Factory done status: `Done`
+- Factory priority label: `priority/P1`
+- Factory ready label: `ready-for-agent`
+- Factory epic label: `epic`
+- Factory native issue types: `false`
+- Factory status field: `Status`
+- Factory work type field: `Work Type`
+- Ticket title convention: concise action phrase with no required prefix
+- Area labels: `area:holiday-lights`
 
 ## Project Structure
 - `configuration.yaml` - Main Home Assistant configuration
