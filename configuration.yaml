@@ -1142,6 +1142,26 @@ input_boolean:
     initial: off
     icon: mdi:string-lights
 
+  vswitch_deck_light_orange:
+    name: "🟠 VSwitch Deck Light Orange"
+    initial: off
+    icon: mdi:string-lights
+
+  vswitch_deck_light_purple:
+    name: "🟣 VSwitch Deck Light Purple"
+    initial: off
+    icon: mdi:string-lights
+
+  vswitch_deck_light_green:
+    name: "🟢 VSwitch Deck Light Green"
+    initial: off
+    icon: mdi:string-lights
+
+  vswitch_deck_light_red:
+    name: "🔴 VSwitch Deck Light Red"
+    initial: off
+    icon: mdi:string-lights
+
   vswitch_vacation_night:
     name: "🏝️ VSwitch Vacation Night"
     initial: off
