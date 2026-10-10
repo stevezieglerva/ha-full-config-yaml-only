@@ -14,6 +14,14 @@ This is a Home Assistant configuration repository containing:
 - No specific build or test commands identified yet
 - Standard Home Assistant configuration validation can be done through the HA interface
 
+## GitHub Project
+- Repository: `stevezieglerva/ha-full-config-yaml-only`
+- Project: [ha-full-config Factory](https://github.com/users/stevezieglerva/projects/8/views/2) (owner `stevezieglerva`, project number `8`)
+- Workflow status field: `Status`
+- Status options: `Todo`, `Elaborate`, `Ready For Agent`, `In Progress`, `Reviewing`, `Deployed`, `Done`
+- Work type field: `Work Type`; options: `Feature`, `Task`
+- Use the project status for workflow state. Available repository labels: `bug`, `documentation`, `duplicate`, `enhancement`, `good first issue`, `help wanted`, `invalid`, `question`, `wontfix`.
+
 ## Project Structure
 - `configuration.yaml` - Main Home Assistant configuration
 - `automations.yaml` - Automated tasks and triggers
