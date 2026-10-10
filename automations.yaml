@@ -7891,3 +7891,108 @@
       entity_id: input_boolean.vswitch_deck_light_red
     data: {}
   mode: single
+- id: 'deck_holiday_january_white_0000'
+  alias: ⚪ Deck holiday light white pulse
+  description: Pulse the white deck holiday light VSwitch on January 15
+  trigger:
+  - platform: time
+    at: '00:00:00'
+  condition:
+  - condition: template
+    value_template: "{{ now().month == 1 and now().day == 15 }}"
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.vswitch_deck_light_white
+    data: {}
+  - delay:
+      minutes: 1
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.vswitch_deck_light_white
+    data: {}
+  mode: single
+- id: 'deck_holiday_march_green_0000'
+  alias: 🟢 Deck holiday light green pulse
+  description: Pulse the green deck holiday light VSwitch on March 17
+  trigger:
+  - platform: time
+    at: '00:00:00'
+  condition:
+  - condition: template
+    value_template: "{{ now().month == 3 and now().day == 17 }}"
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.vswitch_deck_light_green
+    data: {}
+  - delay:
+      minutes: 1
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.vswitch_deck_light_green
+    data: {}
+  mode: single
+- id: 'deck_holiday_march_white_0000'
+  alias: ⚪ Deck holiday light white pulse
+  description: Pulse the white deck holiday light VSwitch on March 18
+  trigger:
+  - platform: time
+    at: '00:00:00'
+  condition:
+  - condition: template
+    value_template: "{{ now().month == 3 and now().day == 18 }}"
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.vswitch_deck_light_white
+    data: {}
+  - delay:
+      minutes: 1
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.vswitch_deck_light_white
+    data: {}
+  mode: single
+- id: 'deck_holiday_july_blue_2100'
+  alias: 🔵 Deck holiday light blue pulse
+  description: Pulse the blue deck holiday light VSwitch from July 1 through July 4
+  trigger:
+  - platform: time
+    at: '21:00:00'
+  condition:
+  - condition: template
+    value_template: "{{ now().month == 7 and 1 <= now().day <= 4 }}"
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.vswitch_deck_light_blue
+    data: {}
+  - delay:
+      minutes: 1
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.vswitch_deck_light_blue
+    data: {}
+  mode: single
+- id: 'deck_holiday_july_red_2230'
+  alias: 🔴 Deck holiday light red pulse
+  description: Pulse the red deck holiday light VSwitch from July 1 through July 4
+  trigger:
+  - platform: time
+    at: '22:30:00'
+  condition:
+  - condition: template
+    value_template: "{{ now().month == 7 and 1 <= now().day <= 4 }}"
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.vswitch_deck_light_red
+    data: {}
+  - delay:
+      minutes: 1
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.vswitch_deck_light_red
+    data: {}
+  mode: single
