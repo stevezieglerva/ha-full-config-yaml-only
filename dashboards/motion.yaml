@@ -31,12 +31,6 @@ views:
               - entity: sensor.minutes_since_garage_motion
               - entity: sensor.minutes_since_office_motion
 
-          - type: entities
-            title: Presence
-            show_header_toggle: false
-            entities:
-              - entity: input_boolean.steve_on_wifi
-
       - type: grid
         cards:
           - type: entities

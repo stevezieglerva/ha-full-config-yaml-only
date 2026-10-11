@@ -713,7 +713,7 @@ template:
             {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
             {% set now_naive = now().replace(tzinfo=None) %}
             {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
-            {% if mins <= 10 %}
+            {% if mins <= 5 %}
               mdi:check-bold
             {% else %}
               mdi:clock-outline
@@ -739,7 +739,7 @@ template:
             {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
             {% set now_naive = now().replace(tzinfo=None) %}
             {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
-            {% if mins <= 10 %}
+            {% if mins <= 5 %}
               mdi:check-bold
             {% else %}
               mdi:clock-outline
@@ -765,7 +765,7 @@ template:
             {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
             {% set now_naive = now().replace(tzinfo=None) %}
             {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
-            {% if mins <= 10 %}
+            {% if mins <= 5 %}
               mdi:check-bold
             {% else %}
               mdi:clock-outline
@@ -791,7 +791,7 @@ template:
             {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
             {% set now_naive = now().replace(tzinfo=None) %}
             {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
-            {% if mins <= 10 %}
+            {% if mins <= 5 %}
               mdi:check-bold
             {% else %}
               mdi:clock-outline
@@ -817,7 +817,7 @@ template:
             {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
             {% set now_naive = now().replace(tzinfo=None) %}
             {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
-            {% if mins <= 10 %}
+            {% if mins <= 5 %}
               mdi:check-bold
             {% else %}
               mdi:clock-outline
@@ -856,7 +856,7 @@ template:
             {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
             {% set now_naive = now().replace(tzinfo=None) %}
             {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
-            {% if mins <= 10 %}
+            {% if mins <= 5 %}
               mdi:check-bold
             {% else %}
               mdi:clock-outline
@@ -882,7 +882,7 @@ template:
             {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
             {% set now_naive = now().replace(tzinfo=None) %}
             {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
-            {% if mins <= 10 %}
+            {% if mins <= 5 %}
               mdi:check-bold
             {% else %}
               mdi:clock-outline
@@ -908,7 +908,7 @@ template:
             {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
             {% set now_naive = now().replace(tzinfo=None) %}
             {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
-            {% if mins <= 10 %}
+            {% if mins <= 5 %}
               mdi:check-bold
             {% else %}
               mdi:clock-outline
@@ -934,7 +934,7 @@ template:
             {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
             {% set now_naive = now().replace(tzinfo=None) %}
             {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
-            {% if mins <= 10 %}
+            {% if mins <= 5 %}
               mdi:check-bold
             {% else %}
               mdi:clock-outline
@@ -960,7 +960,7 @@ template:
             {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
             {% set now_naive = now().replace(tzinfo=None) %}
             {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
-            {% if mins <= 10 %}
+            {% if mins <= 5 %}
               mdi:check-bold
             {% else %}
               mdi:clock-outline
@@ -986,7 +986,7 @@ template:
             {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
             {% set now_naive = now().replace(tzinfo=None) %}
             {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
-            {% if mins <= 10 %}
+            {% if mins <= 5 %}
               mdi:check-bold
             {% else %}
               mdi:clock-outline
@@ -1012,7 +1012,7 @@ template:
             {% set last_dt = strptime(last_motion, "%Y-%m-%d %H:%M:%S") %}
             {% set now_naive = now().replace(tzinfo=None) %}
             {% set mins = ((now_naive - last_dt).total_seconds() / 60) | int %}
-            {% if mins <= 10 %}
+            {% if mins <= 5 %}
               mdi:check-bold
             {% else %}
               mdi:clock-outline
