@@ -9,6 +9,7 @@
 !*.yaml
 !*.md
 !docs/
+!docs/adr/
 !*.py
 !.claude/settings.local.json
 secrets.yaml

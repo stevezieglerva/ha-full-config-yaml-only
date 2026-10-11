@@ -30,7 +30,7 @@ trap 'rm -f "$TEMP_REPORT"' EXIT
 
 Generated (UTC): $(date -u '+%Y-%m-%d %H:%M:%S')
 
-This report lists registry entries related to the garage, master bedroom or bathroom, motion/occupancy, illuminance/lux, back doors, and the named night lights. It does not include unique IDs, device IDs, network addresses, or current entity states.
+This report lists registry entries related to the garage, master bedroom or bathroom, motion/occupancy, illuminance/lux, back doors, and the named night lights. It omits unique IDs, device IDs, connection identifiers, and current entity states. Entity IDs and display/device names are included verbatim and may contain local network information.
 
 | Entity ID | Display name | Area | Device | Manufacturer | Model | Integration | Disabled by |
 | --- | --- | --- | --- | --- | --- | --- | --- |
