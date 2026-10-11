@@ -18,6 +18,6 @@ The report includes entity IDs, display names, areas, device names, manufacturer
 - The script requires `jq` in the Terminal & SSH add-on and read access to the three registry files.
 - It reads Home Assistant's internal registry JSON files, whose format may change across Home Assistant versions.
 - The filter is intentionally broad: motion and illuminance matches outside the named rooms can appear in the report.
-- Automation entities may appear by ID and name, but the registry does not contain automation triggers or actions. Use screenshots or another user-run export to provide those details.
+- Automation entities may appear by ID and name, but the registry does not contain automation triggers or actions. Use `scripts/ha_automation_report.sh` to export matching definitions from `automations.yaml` as text; screenshots are not needed for these definitions.
 - Entity IDs and display/device names are included verbatim and may contain local network information. Review and redact reports before future uploads.
 - The Markdown report is a point-in-time snapshot. Regenerate it when current registry information is needed.
