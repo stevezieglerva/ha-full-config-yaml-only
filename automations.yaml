@@ -1136,11 +1136,10 @@
   alias: Garage motion detected
   description: ''
   triggers:
-  - type: occupied
-    device_id: 77b1c91800c080836f21f5086b6b1637
-    entity_id: e9b79a0705db7c31f403d50ba412c0c0
-    domain: binary_sensor
-    trigger: device
+  - trigger: state
+    entity_id: binary_sensor.garage_night_motion
+    from: 'off'
+    to: 'on'
   - entity_id: binary_sensor.dropzone_aqara_back_door_door
     from: 'off'
     to: 'on'
@@ -1198,11 +1197,12 @@
   alias: Garage no motion
   description: ''
   trigger:
-  - type: not_occupied
-    platform: device
-    device_id: 77b1c91800c080836f21f5086b6b1637
-    entity_id: e9b79a0705db7c31f403d50ba412c0c0
-    domain: binary_sensor
+  - platform: state
+    entity_id: binary_sensor.garage_night_motion
+    from: 'on'
+    to: 'off'
+    for:
+      seconds: 60
   condition: []
   action:
   - service: light.turn_off
@@ -5459,6 +5459,18 @@
     id: bedroom
   - platform: state
     entity_id:
+    - binary_sensor.master_bedroom_night_light_w_n3_occupancy
+    - binary_sensor.extra_night_light_occupancy
+    from: 'off'
+    to: 'on'
+    id: bedroom
+  - platform: state
+    entity_id: binary_sensor.master_bathroom_night_light_w_n4_occupancy
+    from: 'off'
+    to: 'on'
+    id: bathroom
+  - platform: state
+    entity_id:
     - binary_sensor.office_motion_sensor_occupancy
     from: 'off'
     to: 'on'
@@ -5478,6 +5490,8 @@
   - platform: state
     entity_id:
     - binary_sensor.garage_motion_backdoor_occupancy
+    - binary_sensor.garage_night_light_w_n1_occupancy
+    - binary_sensor.garage_night_light_w_n2_occupancy
     from: 'off'
     to: 'on'
     id: garage
@@ -7094,125 +7108,66 @@
         entity_id: 3731527d3962678fca89a29b86bf14e4
         domain: switch
   mode: single
-- id: '1756087189405'
-  alias: Extra night light
-  description: Controls Charlotte's night light based on night sensor state
-  trigger:
-  - platform: state
-    entity_id: sensor.night
-  condition:
-  - condition: template
-    value_template: "{{ not (\n  is_state('sensor.charlotte_has_school_today', 'True')\n
-      \ and now().strftime('%H:%M') >= '06:00'\n  and now().strftime('%H:%M') <= '06:30'\n)
-      }}"
-  action:
-  - choose:
-    - conditions:
-      - condition: state
-        entity_id: sensor.night
-        state: 'True'
-      sequence:
-      - service: light.turn_on
-        metadata: {}
-        data:
-          brightness_pct: 10
-          kelvin: 5363
-        target:
-          entity_id: light.extra_night_light_light
-      - service: logbook.log
-        data:
-          name: Extra Night Light
-          message: 'Night mode ON: Light set to 10% brightness'
-    - conditions:
-      - condition: state
-        entity_id: sensor.night
-        state: 'False'
-      sequence:
-      - service: light.turn_off
-        target:
-          entity_id:
-          - light.extra_night_light_light
-        data: {}
-      - service: logbook.log
-        data:
-          name: Charlotte's Night Light
-          message: 'Night mode OFF: Light turned off'
-  mode: single
-- id: '1756088697024'
-  alias: Extra night light - Motion control
-  description: Controls Charlotte's night light brightness based on motion detection
+- id: night_motion_suite_lights
+  alias: Master suite night lights
+  description: Controls N3, N4, and Extra night lights from combined motion
   triggers:
-  - type: occupied
-    device_id: 1e1606390f508b7c47a5e337af23f999
-    entity_id: c825c080b0125f16455144fa049bf048
-    domain: binary_sensor
+  - platform: state
+    entity_id: binary_sensor.bedroom_night_motion
+    from: 'off'
+    to: 'on'
     id: motion_detected
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 2
-    trigger: device
-  - type: not_occupied
-    device_id: 1e1606390f508b7c47a5e337af23f999
-    entity_id: c825c080b0125f16455144fa049bf048
-    domain: binary_sensor
+  - platform: state
+    entity_id: binary_sensor.bedroom_night_motion
+    from: 'on'
+    to: 'off'
+    for: '00:00:15'
     id: motion_cleared
-    enabled: true
-    trigger: device
-  - trigger: occupancy.detected
-    target:
-      entity_id: binary_sensor.master_bathroom_motion_occupancy
-    options:
-      behavior: each
-      for: 00:00:00
-    id: motion_detected
-  conditions:
-  - condition: state
-    entity_id: sensor.night
-    state: 'True'
-  - condition: template
-    value_template: "{{ not (\n  is_state('sensor.charlotte_has_school_today', 'True')\n
-      \ and now().strftime('%H:%M') >= '06:00'\n  and now().strftime('%H:%M') <= '06:30'\n)
-      }}"
+  conditions: []
   actions:
   - choose:
     - conditions:
       - condition: trigger
-        id:
-        - motion_detected
+        id: motion_detected
       sequence:
-      - target:
-          entity_id:
-          - light.extra_night_light_light
-        data:
-          brightness: 64
-        action: light.turn_on
-      - data:
-          name: Extra Night Light
-          message: 'Motion detected: Light set to 100% brightness'
-        action: logbook.log
+      - if:
+        - condition: numeric_state
+          entity_id: sensor.master_bedroom_night_light_w_n3_illuminance
+          below: 25
+        then:
+        - action: light.turn_on
+          target:
+            entity_id: light.master_bedroom_night_light_w_n3
+      - if:
+        - condition: numeric_state
+          entity_id: sensor.master_bathroom_night_light_w_n4_illuminance
+          below: 25
+        then:
+        - action: light.turn_on
+          target:
+            entity_id: light.master_bathroom_night_light_w_n4
+      - if:
+        - condition: numeric_state
+          entity_id: sensor.extra_night_light_illuminance
+          below: 25
+        - condition: template
+          value_template: "{{ not (is_state('sensor.charlotte_has_school_today', 'True') and now().strftime('%H:%M') >= '06:00' and now().strftime('%H:%M') <= '06:30') }}"
+        then:
+        - action: light.turn_on
+          target:
+            entity_id: light.extra_night_light_light
+          data:
+            brightness: 64
     - conditions:
       - condition: trigger
         id: motion_cleared
       sequence:
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 15
-          milliseconds: 0
-      - condition: template
-        value_template: "{{ not (\n  is_state('sensor.charlotte_has_school_today',
-          'True')\n  and now().strftime('%H:%M') >= '06:00'\n  and now().strftime('%H:%M')
-          <= '06:30'\n) }}"
-      - target:
+      - action: light.turn_off
+        target:
           entity_id:
+          - light.master_bedroom_night_light_w_n3
+          - light.master_bathroom_night_light_w_n4
           - light.extra_night_light_light
-        data: {}
-        action: light.turn_off
-      - data:
-          name: Extra Night Light
-          message: 'No motion for 3 minutes: Light returned to 10% brightness'
-        action: logbook.log
   mode: restart
 - id: '1756264906529'
   alias: "\U0001F4A4 William not awake yet"
@@ -7995,47 +7950,5 @@
   - service: input_boolean.turn_off
     target:
       entity_id: input_boolean.vswitch_deck_light_red
-    data: {}
-  mode: single
-- id: '1791691014819'
-  alias: N3 light on
-  description: ''
-  triggers:
-  - trigger: occupancy.detected
-    target:
-      entity_id: binary_sensor.smart_night_light_w_occupancy_2
-    options:
-      behavior: each
-      for: 00:00:00
-  conditions: []
-  actions:
-  - action: light.turn_on
-    metadata: {}
-    target:
-      entity_id: light.smart_night_light_w_2
-    data: {}
-  mode: single
-- id: '1791692340944'
-  alias: N3 off
-  description: ''
-  triggers:
-  - trigger: sun.dawn
-    options:
-      type: civil
-  - trigger: occupancy.cleared
-    target:
-      entity_id: binary_sensor.smart_night_light_w_occupancy
-    options:
-      behavior: each
-      for:
-        hours: 0
-        minutes: 0
-        seconds: 30
-  conditions: []
-  actions:
-  - action: light.turn_off
-    metadata: {}
-    target:
-      entity_id: light.smart_night_light_w
     data: {}
   mode: single
