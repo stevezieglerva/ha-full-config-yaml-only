@@ -1,0 +1,259 @@
+title: Lights
+views:
+  - title: Lights
+    path: lights
+    icon: mdi:lightbulb-group
+    type: sections
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Downstairs
+
+          - type: heading
+            heading: Kitchen
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: tile
+                entity: light.kitchen_sink_light
+                name: Sink
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - type: tile
+                entity: light.butlers_pantry_light
+                name: Butler's Pantry
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+
+          - type: heading
+            heading: Pantry
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: tile
+                entity: light.pantry_night_light_light_3
+                name: Night Light
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+
+          - type: heading
+            heading: Coat Closet
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: tile
+                entity: light.coat_closet_hall
+                name: Hall
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+
+          - type: heading
+            heading: Garage
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: tile
+                entity: light.garage_tool_light
+                name: Tool
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - type: tile
+                entity: light.garage_back_door_light
+                name: Back Door
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - type: tile
+                entity: light.garage_night_light_w_n1
+                name: Night Light 1
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - type: tile
+                entity: light.garage_night_light_w_n2
+                name: Night Light 2
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+
+          - type: heading
+            heading: Office
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: tile
+                entity: light.office_lamp_light
+                name: Lamp
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - type: tile
+                entity: switch.office_light_switch
+                name: Office Light
+                vertical: true
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+
+          - type: heading
+            heading: Driveway
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: tile
+                entity: light.driveway_1_light
+                name: Driveway
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+
+          - type: heading
+            heading: Upstairs
+
+          - type: heading
+            heading: Charlotte Room
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: tile
+                entity: light.charlotte_night_light_light
+                name: Night Light
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+
+          - type: heading
+            heading: Owen Room
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: tile
+                entity: light.owen_night_light_light_2
+                name: Night Light
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+
+          - type: heading
+            heading: William Room
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: tile
+                entity: light.william_night_light_light
+                name: Night Light
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+
+          - type: heading
+            heading: Master Bedroom
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: tile
+                entity: light.extra_night_light_light
+                name: Extra Night Light
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+              - type: tile
+                entity: light.master_bedroom_night_light_w_n3
+                name: Night Light
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
+
+          - type: heading
+            heading: Master Bathroom
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: tile
+                entity: light.master_bathroom_night_light_w_n4
+                name: Night Light
+                vertical: true
+                features:
+                  - type: light-brightness
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: more-info
