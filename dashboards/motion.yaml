@@ -42,3 +42,29 @@ views:
             show_header_toggle: false
             entities:
               - entity: input_boolean.steve_on_wifi
+
+      - type: grid
+        cards:
+          - type: entities
+            title: All Motion Sensors
+            show_header_toggle: false
+            entities:
+              - entity: binary_sensor.charlotte_night_light_occupancy
+              - entity: binary_sensor.dropzone_motion_occupancy
+              - entity: binary_sensor.extra_night_light_occupancy
+              - entity: binary_sensor.garage_motion_backdoor_occupancy
+              - entity: binary_sensor.kitchen_motion_occupancy
+              - entity: binary_sensor.living_room_motion_occupancy
+              - entity: binary_sensor.master_bathroom_motion_occupancy
+              - entity: binary_sensor.master_bedroom_motion_occupancy
+              - entity: binary_sensor.garage_night_light_w_n1_occupancy
+              - entity: binary_sensor.garage_night_light_w_n2_occupancy
+              - entity: binary_sensor.master_bedroom_night_light_w_n3_occupancy
+              - entity: binary_sensor.master_bathroom_night_light_w_n4_occupancy
+              - entity: binary_sensor.office_motion_sensor_occupancy
+              - entity: binary_sensor.owen_night_light_occupancy_2
+              - entity: binary_sensor.pantry_night_light_occupancy
+              - entity: binary_sensor.pantry_night_light_occupancy_2
+              - entity: binary_sensor.pantry_night_light_occupancy_3
+              - entity: binary_sensor.playroom_motion_occupancy
+              - entity: binary_sensor.william_night_light_occupancy
