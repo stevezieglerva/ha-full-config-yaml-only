@@ -1,0 +1,44 @@
+title: Motion
+views:
+  - title: Motion
+    path: motion
+    icon: mdi:motion-sensor
+    type: sections
+    max_columns: 2
+    sections:
+      - type: grid
+        cards:
+          - type: entities
+            title: House Mode
+            show_header_toggle: false
+            entities:
+              - entity: input_select.house_mode
+
+          - type: entities
+            title: Upstairs Motion
+            show_header_toggle: false
+            entities:
+              - entity: sensor.minutes_since_master_bedroom_motion
+              - entity: sensor.minutes_since_master_bathroom_motion
+              - entity: sensor.minutes_since_owen_motion
+              - entity: sensor.minutes_since_william_motion
+              - entity: sensor.minutes_since_charlotte_motion
+
+      - type: grid
+        cards:
+          - type: entities
+            title: Downstairs Motion
+            show_header_toggle: false
+            entities:
+              - entity: sensor.minutes_since_kitchen_motion
+              - entity: sensor.minutes_since_living_room_motion
+              - entity: sensor.minutes_since_dropzone_motion
+              - entity: sensor.minutes_since_pantry_motion
+              - entity: sensor.minutes_since_garage_motion
+              - entity: sensor.minutes_since_office_motion
+
+          - type: entities
+            title: Presence
+            show_header_toggle: false
+            entities:
+              - entity: input_boolean.steve_on_wifi

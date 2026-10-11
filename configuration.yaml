@@ -1,6 +1,15 @@
 # Loads default set of integrations. Do not remove.
 default_config:
 
+lovelace:
+  dashboards:
+    house-motion:
+      mode: yaml
+      title: Motion
+      icon: mdi:motion-sensor
+      show_in_sidebar: true
+      filename: dashboards/motion.yaml
+
 # Load frontend themes from the themes folder
 frontend:
   themes: !include_dir_merge_named themes
@@ -294,6 +303,26 @@ template:
             false
           {% endif %}
         device_class: safety
+
+      - name: "Bedroom Night Motion"
+        unique_id: bedroom_night_motion
+        default_entity_id: binary_sensor.bedroom_night_motion
+        state: >-
+          {{ states('binary_sensor.master_bedroom_motion_occupancy') == 'on'
+             or states('binary_sensor.master_bathroom_motion_occupancy') == 'on'
+             or states('binary_sensor.master_bedroom_night_light_w_n3_occupancy') == 'on'
+             or states('binary_sensor.master_bathroom_night_light_w_n4_occupancy') == 'on'
+             or states('binary_sensor.extra_night_light_occupancy') == 'on' }}
+        device_class: occupancy
+
+      - name: "Garage Night Motion"
+        unique_id: garage_night_motion
+        default_entity_id: binary_sensor.garage_night_motion
+        state: >-
+          {{ states('binary_sensor.garage_motion_backdoor_occupancy') == 'on'
+             or states('binary_sensor.garage_night_light_w_n1_occupancy') == 'on'
+             or states('binary_sensor.garage_night_light_w_n2_occupancy') == 'on' }}
+        device_class: occupancy
 
       # Smart light off at switch detection binary sensors
       - name: "💡❌ Butler's Pantry Light Off at Switch"

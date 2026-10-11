@@ -104,6 +104,15 @@ Currently on the M3 via Matter:
 
 Still on Zigbee2MQTT (MQTT): Deck Door, Front Door, Deck Screen Door, Garage Door Large (Third Reality).
 
+### Night motion lighting
+
+- Master Bedroom and Master Bathroom motion detectors, together with occupancy sensing in their night lights, drive the master-suite night lights. Lights respond to motion when their local area is dark and turn off after activity has cleared. Extra Night Light keeps its school-morning exception.
+- Garage motion sensing combines the room detector with occupancy sensing from both Garage night lights so movement anywhere in the Garage can keep its lights on. The Dropzone back-door contact remains an independent trigger.
+- Garage lighting keeps its existing night/darkness behavior and turns off after the Garage has been clear for a short period.
+- Night-light motion contributes to the existing room-specific recent-motion indicators. Bedroom and Bathroom remain separate in the Motion dashboard; there is no combined master-suite row.
+- The waking-hours master-bedroom ceiling-light routine is separate and unchanged.
+- Detailed entity mappings and tracked automation definitions are in `scripts/ha_entity_area_report.md` and `scripts/ha_automation_report.md`.
+
 ## School Schedules
 
 The system includes comprehensive school schedule tracking and automation features:

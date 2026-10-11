@@ -5,6 +5,7 @@
 !scripts.yaml
 !features/
 !features/*.html
+!dashboards/
 !*.html
 !*.yaml
 !*.md
