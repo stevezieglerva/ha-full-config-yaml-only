@@ -106,22 +106,12 @@ Still on Zigbee2MQTT (MQTT): Deck Door, Front Door, Deck Screen Door, Garage Doo
 
 ### Night motion lighting
 
-- Master Bedroom sources: `binary_sensor.master_bedroom_motion_occupancy`; Bedroom N3 `binary_sensor.master_bedroom_night_light_w_n3_occupancy`, `light.master_bedroom_night_light_w_n3`, and `sensor.master_bedroom_night_light_w_n3_illuminance`; Extra Night Light `binary_sensor.extra_night_light_occupancy`, `light.extra_night_light_light`, and `sensor.extra_night_light_illuminance`.
-- Master Bathroom sources: `binary_sensor.master_bathroom_motion_occupancy`; Bathroom N4 `binary_sensor.master_bathroom_night_light_w_n4_occupancy`, `light.master_bathroom_night_light_w_n4`, and `sensor.master_bathroom_night_light_w_n4_illuminance`.
-- Garage sources: `binary_sensor.garage_motion_backdoor_occupancy` and `sensor.garage_motion_backdoor_illuminance_lux`; Garage N1 `binary_sensor.garage_night_light_w_n1_occupancy`, `light.garage_night_light_w_n1`, and `sensor.garage_night_light_w_n1_illuminance`; Garage N2 `binary_sensor.garage_night_light_w_n2_occupancy`, `light.garage_night_light_w_n2`, and `sensor.garage_night_light_w_n2_illuminance`.
-- The N1–N4 and Extra devices are ThirdReality Matter night lights. N1/N2 are in Garage, N3/Extra are in Master Bedroom, and N4 is in Master Bathroom. Room motion and light occupancy sensors are grouped by their matching room above. The separate `binary_sensor.dropzone_aqara_back_door_door` is in Dropzone.
-- `binary_sensor.bedroom_night_motion` combines both room motion sensors and N3, N4, and Extra occupancy. `binary_sensor.garage_night_motion` combines the Garage PIR and N1/N2 occupancy; it excludes the back-door contact.
-- Suite lights activate on combined motion when their own illuminance is below 25 lx. Extra retains brightness 64 and its 06:00–06:30 Charlotte school-day activation guard. All three turn off after 15 seconds of clear aggregate motion; the former all-night Extra baseline is removed. The waking-hours ceiling-light routine is unchanged.
-- Garage lighting uses the aggregate with the existing night-or-PIR-lux-below-25 gate and 2889 K, then turns off after 60 seconds of aggregate clear. The back-door trigger stays separate with no door-only timer.
-- Recency tracking records Bedroom PIR/N3/Extra, Bathroom PIR/N4, and Garage PIR/N1/N2 into their existing separate timestamps. The Motion dashboard keeps separate Bedroom and Bathroom rows, House Mode, Downstairs, and Presence; it has no combined suite row. Waking-hours ceiling-light automation is unchanged.
-- `automation.smart_night_light_garage` is outside this implementation by user direction; no definition for it is present in the tracked `automations.yaml`.
-
-Baseline behavior from `main:automations.yaml` before this change (tracked YAML source, not a claim about current HA runtime state):
-
-- Garage automation `1729293256416` (`Garage motion detected`) triggered on the Garage PIR or Dropzone back-door opening. If `sensor.night` was `True` or Garage PIR illuminance was below 25 lx, it turned on the Garage area at 2889 K. Automation `1729456902606` (`Garage no motion`) turned the Garage area off as soon as that PIR reported clear; it had no delay.
-- Extra baseline automation `1756087189405` turned Extra on to 10% at 5363 K when `sensor.night` became `True`, and off when it became `False`; it skipped actions during Charlotte's school-day 06:00–06:30 window. Motion automation `1756088697024` turned Extra on to brightness 64 after two seconds of Extra occupancy or immediately on Master Bathroom PIR motion. It required `sensor.night == True`, applied the same school-day guard, and turned Extra off after 15 seconds of clear Extra occupancy. Its log text said “3 minutes,” but the configured delay was 15 seconds.
-- The two N3 automations (`1791691014819` / `N3 light on` and `1791692340944` / `N3 off`) referenced the older `smart_night_light_w*` entity IDs rather than the current Matter N3 IDs. The on rule responded to occupancy and turned on the old N3 light; the off rule turned the old N3 light off at civil dawn or after 30 seconds of occupancy clear.
-- The generated `scripts/ha_automation_report.md` preserves the matching `automations.yaml` definitions alongside automation registry names. The registry-name list alone does not expose an automation's current state or YAML definition.
+- Master Bedroom and Master Bathroom motion detectors, together with occupancy sensing in their night lights, drive the master-suite night lights. Lights respond to motion when their local area is dark and turn off after activity has cleared. Extra Night Light keeps its school-morning exception.
+- Garage motion sensing combines the room detector with occupancy sensing from both Garage night lights so movement anywhere in the Garage can keep its lights on. The Dropzone back-door contact remains an independent trigger.
+- Garage lighting keeps its existing night/darkness behavior and turns off after the Garage has been clear for a short period.
+- Night-light motion contributes to the existing room-specific recent-motion indicators. Bedroom and Bathroom remain separate in the Motion dashboard; there is no combined master-suite row.
+- The waking-hours master-bedroom ceiling-light routine is separate and unchanged.
+- Detailed entity mappings and tracked automation definitions are in `scripts/ha_entity_area_report.md` and `scripts/ha_automation_report.md`.
 
 ## School Schedules
 
