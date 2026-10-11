@@ -1050,10 +1050,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "extra_night_light_occupancy Elapsed Occupancy"
@@ -1086,10 +1086,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "master_bathroom_motion_occupancy Elapsed Occupancy"
@@ -1122,10 +1122,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "master_bedroom_motion_occupancy Elapsed Occupancy"
@@ -1158,10 +1158,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "master_bedroom_night_light_w_n3_occupancy Elapsed Occupancy"
@@ -1194,10 +1194,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "master_bathroom_night_light_w_n4_occupancy Elapsed Occupancy"
@@ -1230,10 +1230,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "owen_night_light_occupancy_2 Elapsed Occupancy"
@@ -1266,10 +1266,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "william_night_light_occupancy Elapsed Occupancy"
@@ -1302,10 +1302,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "dropzone_motion_occupancy Elapsed Occupancy"
@@ -1338,10 +1338,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "garage_motion_backdoor_occupancy Elapsed Occupancy"
@@ -1374,10 +1374,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "kitchen_motion_occupancy Elapsed Occupancy"
@@ -1410,10 +1410,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "living_room_motion_occupancy Elapsed Occupancy"
@@ -1446,10 +1446,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "garage_night_light_w_n2_occupancy Elapsed Occupancy"
@@ -1482,10 +1482,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "office_motion_sensor_occupancy Elapsed Occupancy"
@@ -1518,10 +1518,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "pantry_night_light_occupancy Elapsed Occupancy"
@@ -1554,10 +1554,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "pantry_night_light_occupancy_2 Elapsed Occupancy"
@@ -1590,10 +1590,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "pantry_night_light_occupancy_3 Elapsed Occupancy"
@@ -1626,10 +1626,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       - name: "playroom_motion_occupancy Elapsed Occupancy"
@@ -1662,10 +1662,10 @@ template:
             {% if minutes < 5 %}
               mdi:timer
             {% else %}
-              mdi:home-off-outline
+              mdi:home-outline
             {% endif %}
           {% else %}
-            mdi:home-off-outline
+            mdi:home-outline
           {% endif %}
 
       # Where's Maggie location sensors
