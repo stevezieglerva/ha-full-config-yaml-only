@@ -66,8 +66,6 @@ views:
                 name: Kitchen Motion Occupancy
               - entity: sensor.living_room_motion_occupancy_elapsed_occupancy
                 name: Living Room Motion Occupancy
-              - entity: sensor.garage_night_light_w_n1_occupancy_elapsed_occupancy
-                name: Night Light-W N1 Occupancy
               - entity: sensor.garage_night_light_w_n2_occupancy_elapsed_occupancy
                 name: Night Light-W N2 Occupancy
               - entity: sensor.office_motion_sensor_occupancy_elapsed_occupancy
