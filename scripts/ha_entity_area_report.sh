@@ -36,7 +36,7 @@ This report lists registry entries related to the garage, master bedroom or bath
 | --- | --- | --- | --- | --- | --- | --- | --- |
 EOF
 
-  jq -r \
+  jq -n -r \
     --slurpfile entities "$ENTITY_REGISTRY" \
     --slurpfile devices "$DEVICE_REGISTRY" \
     --slurpfile areas "$AREA_REGISTRY" \
