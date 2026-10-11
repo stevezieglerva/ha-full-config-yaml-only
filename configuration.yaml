@@ -326,7 +326,6 @@ template:
         default_entity_id: binary_sensor.garage_night_motion
         state: >-
           {{ states('binary_sensor.garage_motion_backdoor_occupancy') == 'on'
-             or states('binary_sensor.garage_night_light_w_n1_occupancy') == 'on'
              or states('binary_sensor.garage_night_light_w_n2_occupancy') == 'on' }}
         device_class: occupancy
 
@@ -1453,42 +1452,6 @@ template:
             mdi:motion-sensor-off
           {% endif %}
 
-      - name: "garage_night_light_w_n1_occupancy Elapsed Occupancy"
-        unique_id: motion_dashboard_garage_night_light_w_n1_occupancy_elapsed
-        default_entity_id: sensor.garage_night_light_w_n1_occupancy_elapsed_occupancy
-        state: >
-          {% set current = states('binary_sensor.garage_night_light_w_n1_occupancy') %}
-          {% set last = states('input_datetime.garage_night_light_w_n1_occupancy_last_occupied') %}
-          {% if current == 'on' %}
-            Occupied
-          {% elif last in ['unknown', 'unavailable', 'none'] %}
-            Clear
-          {% else %}
-            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
-            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              {{ minutes }} min ago
-            {% else %}
-              Clear
-            {% endif %}
-          {% endif %}
-        icon: >
-          {% set current = states('binary_sensor.garage_night_light_w_n1_occupancy') %}
-          {% set last = states('input_datetime.garage_night_light_w_n1_occupancy_last_occupied') %}
-          {% if current == 'on' %}
-            mdi:motion-sensor
-          {% elif last not in ['unknown', 'unavailable', 'none'] %}
-            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
-            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
-            {% else %}
-              mdi:motion-sensor-off
-            {% endif %}
-          {% else %}
-            mdi:motion-sensor-off
-          {% endif %}
-
       - name: "garage_night_light_w_n2_occupancy Elapsed Occupancy"
         unique_id: motion_dashboard_garage_night_light_w_n2_occupancy_elapsed
         default_entity_id: sensor.garage_night_light_w_n2_occupancy_elapsed_occupancy
@@ -2359,10 +2322,6 @@ input_datetime:
     has_time: true
   living_room_motion_occupancy_last_occupied:
     name: Living Room Motion Occupancy Last Occupied
-    has_date: true
-    has_time: true
-  garage_night_light_w_n1_occupancy_last_occupied:
-    name: Night Light-W N1 Occupancy Last Occupied
     has_date: true
     has_time: true
   garage_night_light_w_n2_occupancy_last_occupied:

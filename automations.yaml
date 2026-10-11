@@ -5490,7 +5490,6 @@
   - platform: state
     entity_id:
     - binary_sensor.garage_motion_backdoor_occupancy
-    - binary_sensor.garage_night_light_w_n1_occupancy
     - binary_sensor.garage_night_light_w_n2_occupancy
     from: 'off'
     to: 'on'
@@ -7910,11 +7909,6 @@
     from: 'off'
     to: 'on'
     id: living_room_motion_occupancy
-  - platform: state
-    entity_id: binary_sensor.garage_night_light_w_n1_occupancy
-    from: 'off'
-    to: 'on'
-    id: garage_night_light_w_n1_occupancy
   - platform: state
     entity_id: binary_sensor.garage_night_light_w_n2_occupancy
     from: 'off'
