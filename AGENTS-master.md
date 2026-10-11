@@ -15,9 +15,10 @@ This is a Home Assistant configuration repository containing:
 - Standard Home Assistant configuration validation can be done through the HA interface
 
 ## Home Assistant Access and Deployment
-- Codex has no direct access to the Home Assistant server, UI, API, or runtime entity/device/area registry. Steve may provide screenshots or run read-only reports on the server and commit/push the output files to this repository for Codex to pull and inspect.
-- For Home Assistant implementation work, modify only YAML configuration files that Steve will pull onto the Home Assistant server. Do not deploy changes or claim live validation.
-- Do not infer live entity IDs, areas, device mappings, or UI/integration automation behavior from repository YAML alone. If screenshots or committed reports do not establish required details, pause and ask Steve for the missing evidence. Do not request or include credentials, tokens, or unrelated private identifiers in reports.
+- The working checkout and the Home Assistant server's config checkout continuously synchronize with this repository's `origin`. Treat the local `automations.yaml` as the current tracked automation definition; do not ask Steve to export definitions already present here or assume he must manually pull changes.
+- Codex has no direct access to the Home Assistant server, UI, API, or live entity/device/area registry. Ask Steve for a read-only text report only when current runtime state or registry evidence is needed; screenshots are optional.
+- For Home Assistant implementation work, modify only YAML configuration files that affect Home Assistant. A push to `origin` may quickly synchronize YAML to the server, so review changes as potentially deployable. Do not claim the configuration was loaded or live-validated without Steve's confirmation.
+- Use the current repository YAML to understand configured automation triggers, conditions, and actions. Do not infer live entity IDs, areas, device mappings, runtime state, or whether configuration is loaded from YAML alone. If required live evidence is missing, ask Steve for a read-only text report. Do not request or include credentials, tokens, or unrelated private identifiers in reports.
 - Update supporting documentation or agent context only when Steve explicitly requests it.
 
 ## GitHub Project
