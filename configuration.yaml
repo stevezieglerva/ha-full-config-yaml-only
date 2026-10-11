@@ -989,7 +989,7 @@ template:
             mdi:clock-outline
           {% endif %}
 
-      - name: "🛋 Minutes Since Living Room Motion"
+      - name: "🛋️ Minutes Since Living Room Motion"
         unit_of_measurement: "min"
         state: >
           {% set last_motion = states('input_datetime.living_room_most_recent_motion') %}
