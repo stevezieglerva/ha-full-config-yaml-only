@@ -14,6 +14,12 @@ This is a Home Assistant configuration repository containing:
 - No specific build or test commands identified yet
 - Standard Home Assistant configuration validation can be done through the HA interface
 
+## Home Assistant Access and Deployment
+- Codex has no direct access to the Home Assistant server, UI, API, or runtime entity/device/area registry. Steve can provide screenshots; treat those screenshots as the only source for live Home Assistant state.
+- For Home Assistant implementation work, modify only YAML configuration files that Steve will pull onto the Home Assistant server. Do not deploy changes or claim live validation.
+- Do not infer live entity IDs, areas, device mappings, or UI/integration automation behavior from repository YAML alone. If screenshots do not establish required details, pause and ask Steve for the missing evidence.
+- Update supporting documentation or agent context only when Steve explicitly requests it.
+
 ## GitHub Project
 - Repository: `stevezieglerva/ha-full-config-yaml-only`
 - Project: [home-assistant Factory](https://github.com/users/stevezieglerva/projects/8/views/2) (owner `stevezieglerva`, project number `8`)
