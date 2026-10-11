@@ -10,12 +10,11 @@
 !*.html
 !*.yaml
 !*.md
-
 !docs/
 !docs/adr/
 !*.py
 !.claude/settings.local.json
 secrets.yaml
 !*.sh
-!scripts/*.*
+!scripts
 .mcp.json
