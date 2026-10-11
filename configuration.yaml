@@ -1047,13 +1047,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "extra_night_light_occupancy Elapsed Occupancy"
@@ -1083,13 +1083,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "master_bathroom_motion_occupancy Elapsed Occupancy"
@@ -1119,13 +1119,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "master_bedroom_motion_occupancy Elapsed Occupancy"
@@ -1155,13 +1155,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "master_bedroom_night_light_w_n3_occupancy Elapsed Occupancy"
@@ -1191,13 +1191,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "master_bathroom_night_light_w_n4_occupancy Elapsed Occupancy"
@@ -1227,13 +1227,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "owen_night_light_occupancy_2 Elapsed Occupancy"
@@ -1263,13 +1263,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "william_night_light_occupancy Elapsed Occupancy"
@@ -1299,13 +1299,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "dropzone_motion_occupancy Elapsed Occupancy"
@@ -1335,13 +1335,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "garage_motion_backdoor_occupancy Elapsed Occupancy"
@@ -1371,13 +1371,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "kitchen_motion_occupancy Elapsed Occupancy"
@@ -1407,13 +1407,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "living_room_motion_occupancy Elapsed Occupancy"
@@ -1443,13 +1443,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "garage_night_light_w_n2_occupancy Elapsed Occupancy"
@@ -1479,13 +1479,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "office_motion_sensor_occupancy Elapsed Occupancy"
@@ -1515,13 +1515,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "pantry_night_light_occupancy Elapsed Occupancy"
@@ -1551,13 +1551,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "pantry_night_light_occupancy_2 Elapsed Occupancy"
@@ -1587,13 +1587,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "pantry_night_light_occupancy_3 Elapsed Occupancy"
@@ -1623,13 +1623,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       - name: "playroom_motion_occupancy Elapsed Occupancy"
@@ -1659,13 +1659,13 @@ template:
           {% elif last not in ['unknown', 'unavailable', 'none'] %}
             {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
             {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
-            {% if minutes <= 5 %}
-              mdi:history
+            {% if minutes < 5 %}
+              mdi:timer
             {% else %}
-              mdi:motion-sensor-off
+              mdi:home-off-outline
             {% endif %}
           {% else %}
-            mdi:motion-sensor-off
+            mdi:home-off-outline
           {% endif %}
 
       # Where's Maggie location sensors
