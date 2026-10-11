@@ -1021,6 +1021,690 @@ template:
             mdi:clock-outline
           {% endif %}
 
+      - name: "charlotte_night_light_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_charlotte_night_light_occupancy_elapsed
+        default_entity_id: sensor.charlotte_night_light_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.charlotte_night_light_occupancy') %}
+          {% set last = states('input_datetime.charlotte_night_light_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.charlotte_night_light_occupancy') %}
+          {% set last = states('input_datetime.charlotte_night_light_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "extra_night_light_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_extra_night_light_occupancy_elapsed
+        default_entity_id: sensor.extra_night_light_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.extra_night_light_occupancy') %}
+          {% set last = states('input_datetime.extra_night_light_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.extra_night_light_occupancy') %}
+          {% set last = states('input_datetime.extra_night_light_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "master_bathroom_motion_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_master_bathroom_motion_occupancy_elapsed
+        default_entity_id: sensor.master_bathroom_motion_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.master_bathroom_motion_occupancy') %}
+          {% set last = states('input_datetime.master_bathroom_motion_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.master_bathroom_motion_occupancy') %}
+          {% set last = states('input_datetime.master_bathroom_motion_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "master_bedroom_motion_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_master_bedroom_motion_occupancy_elapsed
+        default_entity_id: sensor.master_bedroom_motion_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.master_bedroom_motion_occupancy') %}
+          {% set last = states('input_datetime.master_bedroom_motion_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.master_bedroom_motion_occupancy') %}
+          {% set last = states('input_datetime.master_bedroom_motion_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "master_bedroom_night_light_w_n3_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_master_bedroom_night_light_w_n3_occupancy_elapsed
+        default_entity_id: sensor.master_bedroom_night_light_w_n3_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.master_bedroom_night_light_w_n3_occupancy') %}
+          {% set last = states('input_datetime.master_bedroom_night_light_w_n3_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.master_bedroom_night_light_w_n3_occupancy') %}
+          {% set last = states('input_datetime.master_bedroom_night_light_w_n3_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "master_bathroom_night_light_w_n4_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_master_bathroom_night_light_w_n4_occupancy_elapsed
+        default_entity_id: sensor.master_bathroom_night_light_w_n4_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.master_bathroom_night_light_w_n4_occupancy') %}
+          {% set last = states('input_datetime.master_bathroom_night_light_w_n4_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.master_bathroom_night_light_w_n4_occupancy') %}
+          {% set last = states('input_datetime.master_bathroom_night_light_w_n4_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "owen_night_light_occupancy_2 Elapsed Occupancy"
+        unique_id: motion_dashboard_owen_night_light_occupancy_2_elapsed
+        default_entity_id: sensor.owen_night_light_occupancy_2_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.owen_night_light_occupancy_2') %}
+          {% set last = states('input_datetime.owen_night_light_occupancy_2_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.owen_night_light_occupancy_2') %}
+          {% set last = states('input_datetime.owen_night_light_occupancy_2_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "william_night_light_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_william_night_light_occupancy_elapsed
+        default_entity_id: sensor.william_night_light_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.william_night_light_occupancy') %}
+          {% set last = states('input_datetime.william_night_light_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.william_night_light_occupancy') %}
+          {% set last = states('input_datetime.william_night_light_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "dropzone_motion_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_dropzone_motion_occupancy_elapsed
+        default_entity_id: sensor.dropzone_motion_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.dropzone_motion_occupancy') %}
+          {% set last = states('input_datetime.dropzone_motion_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.dropzone_motion_occupancy') %}
+          {% set last = states('input_datetime.dropzone_motion_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "garage_motion_backdoor_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_garage_motion_backdoor_occupancy_elapsed
+        default_entity_id: sensor.garage_motion_backdoor_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.garage_motion_backdoor_occupancy') %}
+          {% set last = states('input_datetime.garage_motion_backdoor_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.garage_motion_backdoor_occupancy') %}
+          {% set last = states('input_datetime.garage_motion_backdoor_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "kitchen_motion_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_kitchen_motion_occupancy_elapsed
+        default_entity_id: sensor.kitchen_motion_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.kitchen_motion_occupancy') %}
+          {% set last = states('input_datetime.kitchen_motion_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.kitchen_motion_occupancy') %}
+          {% set last = states('input_datetime.kitchen_motion_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "living_room_motion_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_living_room_motion_occupancy_elapsed
+        default_entity_id: sensor.living_room_motion_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.living_room_motion_occupancy') %}
+          {% set last = states('input_datetime.living_room_motion_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.living_room_motion_occupancy') %}
+          {% set last = states('input_datetime.living_room_motion_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "garage_night_light_w_n1_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_garage_night_light_w_n1_occupancy_elapsed
+        default_entity_id: sensor.garage_night_light_w_n1_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.garage_night_light_w_n1_occupancy') %}
+          {% set last = states('input_datetime.garage_night_light_w_n1_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.garage_night_light_w_n1_occupancy') %}
+          {% set last = states('input_datetime.garage_night_light_w_n1_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "garage_night_light_w_n2_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_garage_night_light_w_n2_occupancy_elapsed
+        default_entity_id: sensor.garage_night_light_w_n2_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.garage_night_light_w_n2_occupancy') %}
+          {% set last = states('input_datetime.garage_night_light_w_n2_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.garage_night_light_w_n2_occupancy') %}
+          {% set last = states('input_datetime.garage_night_light_w_n2_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "office_motion_sensor_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_office_motion_sensor_occupancy_elapsed
+        default_entity_id: sensor.office_motion_sensor_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.office_motion_sensor_occupancy') %}
+          {% set last = states('input_datetime.office_motion_sensor_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.office_motion_sensor_occupancy') %}
+          {% set last = states('input_datetime.office_motion_sensor_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "pantry_night_light_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_pantry_night_light_occupancy_elapsed
+        default_entity_id: sensor.pantry_night_light_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.pantry_night_light_occupancy') %}
+          {% set last = states('input_datetime.pantry_night_light_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.pantry_night_light_occupancy') %}
+          {% set last = states('input_datetime.pantry_night_light_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "pantry_night_light_occupancy_2 Elapsed Occupancy"
+        unique_id: motion_dashboard_pantry_night_light_occupancy_2_elapsed
+        default_entity_id: sensor.pantry_night_light_occupancy_2_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.pantry_night_light_occupancy_2') %}
+          {% set last = states('input_datetime.pantry_night_light_occupancy_2_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.pantry_night_light_occupancy_2') %}
+          {% set last = states('input_datetime.pantry_night_light_occupancy_2_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "pantry_night_light_occupancy_3 Elapsed Occupancy"
+        unique_id: motion_dashboard_pantry_night_light_occupancy_3_elapsed
+        default_entity_id: sensor.pantry_night_light_occupancy_3_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.pantry_night_light_occupancy_3') %}
+          {% set last = states('input_datetime.pantry_night_light_occupancy_3_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.pantry_night_light_occupancy_3') %}
+          {% set last = states('input_datetime.pantry_night_light_occupancy_3_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
+      - name: "playroom_motion_occupancy Elapsed Occupancy"
+        unique_id: motion_dashboard_playroom_motion_occupancy_elapsed
+        default_entity_id: sensor.playroom_motion_occupancy_elapsed_occupancy
+        state: >
+          {% set current = states('binary_sensor.playroom_motion_occupancy') %}
+          {% set last = states('input_datetime.playroom_motion_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            Occupied
+          {% elif last in ['unknown', 'unavailable', 'none'] %}
+            Clear
+          {% else %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              {{ minutes }} min ago
+            {% else %}
+              Clear
+            {% endif %}
+          {% endif %}
+        icon: >
+          {% set current = states('binary_sensor.playroom_motion_occupancy') %}
+          {% set last = states('input_datetime.playroom_motion_occupancy_last_occupied') %}
+          {% if current == 'on' %}
+            mdi:motion-sensor
+          {% elif last not in ['unknown', 'unavailable', 'none'] %}
+            {% set last_dt = strptime(last, "%Y-%m-%d %H:%M:%S") %}
+            {% set minutes = ((now().replace(tzinfo=None) - last_dt).total_seconds() / 60) | int %}
+            {% if minutes <= 5 %}
+              mdi:history
+            {% else %}
+              mdi:motion-sensor-off
+            {% endif %}
+          {% else %}
+            mdi:motion-sensor-off
+          {% endif %}
+
       # Where's Maggie location sensors
       - name: "🐕 Maggie's Most Recent Location"
         state: >
@@ -1628,6 +2312,82 @@ input_datetime:
     has_time: true
   first_downstairs_motion_tv:
     name: First Downstairs Motion TV
+    has_time: true
+  charlotte_night_light_occupancy_last_occupied:
+    name: Charlotte Night Light Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  extra_night_light_occupancy_last_occupied:
+    name: Extra Night Light Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  master_bathroom_motion_occupancy_last_occupied:
+    name: Master Bathroom Motion Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  master_bedroom_motion_occupancy_last_occupied:
+    name: Master Bedroom Motion Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  master_bedroom_night_light_w_n3_occupancy_last_occupied:
+    name: Night Light-W N3 Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  master_bathroom_night_light_w_n4_occupancy_last_occupied:
+    name: Night Light-W N4 Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  owen_night_light_occupancy_2_last_occupied:
+    name: Owen Night Light Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  william_night_light_occupancy_last_occupied:
+    name: William Night Light Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  dropzone_motion_occupancy_last_occupied:
+    name: Dropzone Motion Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  garage_motion_backdoor_occupancy_last_occupied:
+    name: Garage Motion Backdoor Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  kitchen_motion_occupancy_last_occupied:
+    name: Kitchen Motion Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  living_room_motion_occupancy_last_occupied:
+    name: Living Room Motion Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  garage_night_light_w_n1_occupancy_last_occupied:
+    name: Night Light-W N1 Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  garage_night_light_w_n2_occupancy_last_occupied:
+    name: Night Light-W N2 Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  office_motion_sensor_occupancy_last_occupied:
+    name: Office-motion-sensor Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  pantry_night_light_occupancy_last_occupied:
+    name: Pantry Night Light Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  pantry_night_light_occupancy_2_last_occupied:
+    name: Pantry Night Light Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  pantry_night_light_occupancy_3_last_occupied:
+    name: Pantry Night Light Occupancy Last Occupied
+    has_date: true
+    has_time: true
+  playroom_motion_occupancy_last_occupied:
+    name: Playroom Motion Occupancy Last Occupied
+    has_date: true
     has_time: true
 
 tts:

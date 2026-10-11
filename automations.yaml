@@ -7846,6 +7846,113 @@
       entity_id: input_boolean.vswitch_deck_light_red
     data: {}
   mode: single
+- id: record_motion_dashboard_last_occupied
+  alias: Record motion dashboard last occupied
+  description: Record the last occupied event for each motion dashboard sensor
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.charlotte_night_light_occupancy
+    from: 'off'
+    to: 'on'
+    id: charlotte_night_light_occupancy
+  - platform: state
+    entity_id: binary_sensor.extra_night_light_occupancy
+    from: 'off'
+    to: 'on'
+    id: extra_night_light_occupancy
+  - platform: state
+    entity_id: binary_sensor.master_bathroom_motion_occupancy
+    from: 'off'
+    to: 'on'
+    id: master_bathroom_motion_occupancy
+  - platform: state
+    entity_id: binary_sensor.master_bedroom_motion_occupancy
+    from: 'off'
+    to: 'on'
+    id: master_bedroom_motion_occupancy
+  - platform: state
+    entity_id: binary_sensor.master_bedroom_night_light_w_n3_occupancy
+    from: 'off'
+    to: 'on'
+    id: master_bedroom_night_light_w_n3_occupancy
+  - platform: state
+    entity_id: binary_sensor.master_bathroom_night_light_w_n4_occupancy
+    from: 'off'
+    to: 'on'
+    id: master_bathroom_night_light_w_n4_occupancy
+  - platform: state
+    entity_id: binary_sensor.owen_night_light_occupancy_2
+    from: 'off'
+    to: 'on'
+    id: owen_night_light_occupancy_2
+  - platform: state
+    entity_id: binary_sensor.william_night_light_occupancy
+    from: 'off'
+    to: 'on'
+    id: william_night_light_occupancy
+  - platform: state
+    entity_id: binary_sensor.dropzone_motion_occupancy
+    from: 'off'
+    to: 'on'
+    id: dropzone_motion_occupancy
+  - platform: state
+    entity_id: binary_sensor.garage_motion_backdoor_occupancy
+    from: 'off'
+    to: 'on'
+    id: garage_motion_backdoor_occupancy
+  - platform: state
+    entity_id: binary_sensor.kitchen_motion_occupancy
+    from: 'off'
+    to: 'on'
+    id: kitchen_motion_occupancy
+  - platform: state
+    entity_id: binary_sensor.living_room_motion_occupancy
+    from: 'off'
+    to: 'on'
+    id: living_room_motion_occupancy
+  - platform: state
+    entity_id: binary_sensor.garage_night_light_w_n1_occupancy
+    from: 'off'
+    to: 'on'
+    id: garage_night_light_w_n1_occupancy
+  - platform: state
+    entity_id: binary_sensor.garage_night_light_w_n2_occupancy
+    from: 'off'
+    to: 'on'
+    id: garage_night_light_w_n2_occupancy
+  - platform: state
+    entity_id: binary_sensor.office_motion_sensor_occupancy
+    from: 'off'
+    to: 'on'
+    id: office_motion_sensor_occupancy
+  - platform: state
+    entity_id: binary_sensor.pantry_night_light_occupancy
+    from: 'off'
+    to: 'on'
+    id: pantry_night_light_occupancy
+  - platform: state
+    entity_id: binary_sensor.pantry_night_light_occupancy_2
+    from: 'off'
+    to: 'on'
+    id: pantry_night_light_occupancy_2
+  - platform: state
+    entity_id: binary_sensor.pantry_night_light_occupancy_3
+    from: 'off'
+    to: 'on'
+    id: pantry_night_light_occupancy_3
+  - platform: state
+    entity_id: binary_sensor.playroom_motion_occupancy
+    from: 'off'
+    to: 'on'
+    id: playroom_motion_occupancy
+  condition: []
+  action:
+  - service: input_datetime.set_datetime
+    data:
+      datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    target:
+      entity_id: "input_datetime.{{ trigger.id }}_last_occupied"
+  mode: queued
 - id: deck_holiday_january_white_0000
   alias: "\U0001F384 Post-Christmas deck light white reset"
   description: Pulse the white deck holiday light VSwitch on January 15
