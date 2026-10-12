@@ -1264,11 +1264,27 @@
     entity_id: input_boolean.kill_switch
     state: 'off'
   action:
-  - service: script.set_downstairs_lights
+  - service: script.set_recessed_light
     metadata: {}
     data:
-      label: kitchen
+      device: light.kitchen_sink_light
       style: bright
+  mode: single
+- id: butlers_pantry_night_on
+  alias: Butler's Pantry night light on
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.night
+    from: 'False'
+    to: 'True'
+  condition: []
+  action:
+  - service: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.butlers_pantry_light
   mode: single
 - id: '1729911930215'
   alias: Kitchen start shutdown when kitchen is dark
