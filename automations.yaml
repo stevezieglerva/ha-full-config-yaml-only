@@ -1270,22 +1270,6 @@
       device: light.kitchen_sink_light
       style: bright
   mode: single
-- id: butlers_pantry_night_on
-  alias: Butler's Pantry night light on
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: sensor.night
-    from: 'False'
-    to: 'True'
-  condition: []
-  action:
-  - service: light.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: light.butlers_pantry_light
-  mode: single
 - id: '1729911930215'
   alias: Kitchen start shutdown when kitchen is dark
   description: Runs when the light in the kitchen drops when the kitchen light turns
@@ -1540,10 +1524,10 @@
       minutes: 0
       seconds: 2
       milliseconds: 0
-  - service: script.set_recessed_light
+  - service: script.set_downstairs_lights
     metadata: {}
     data:
-      device: light.kitchen_sink_light
+      label: downstairs
       style: 'off'
   mode: restart
 - id: '1730557604280'
@@ -2357,13 +2341,16 @@
   mode: single
 - id: butlers_pantry_coat_closet_night_lights
   alias: "🌙 Butler's Pantry and Coat Closet Night Lights"
-  description: Turn both lights on when night begins. The house shutdown and vacation routine turn them off.
+  description: Turn both lights on at sunset when not on vacation.
   trigger:
-  - platform: state
-    entity_id: sensor.night
-    from: 'False'
-    to: 'True'
-  condition: []
+  - platform: sun
+    event: sunset
+  condition:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: input_select.house_mode
+      state: "\U0001F3DD️ Vacation"
   action:
   - service: light.turn_on
     target:
@@ -3170,30 +3157,6 @@
       entity_id: a6a89432b0cd7cedb3c34d66ede569d3
       domain: switch
   mode: single
-- alias: Coat closet dim at late night
-  description: ''
-  trigger:
-  - type: occupied
-    platform: device
-    device_id: 541858278f8e0f3bfab5b64b39701cbe
-    entity_id: 35849acbafd284cc880dae68ccd797e5
-    domain: binary_sensor
-  condition:
-  - condition: device
-    type: is_off
-    device_id: 8b0cd80f68079d986cc411142a084fab
-    entity_id: cf37edf642f257de80cf9248a9069ed0
-    domain: light
-  - condition: state
-    entity_id: sensor.late_night
-    state: 'True'
-  action:
-  - service: script.set_recessed_light
-    data:
-      device: light.coat_closet_hall
-      style: dim
-  mode: single
-  id: ebfe9ea8e0ef49818c494d818278f7e5
 - id: '1736018124375'
   alias: "\U0001F6B6Reset Motion Timer - Working in Office"
   description: ''
