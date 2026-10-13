@@ -1540,10 +1540,10 @@
       minutes: 0
       seconds: 2
       milliseconds: 0
-  - service: script.set_downstairs_lights
+  - service: script.set_recessed_light
     metadata: {}
     data:
-      label: downstairs
+      device: light.kitchen_sink_light
       style: 'off'
   mode: restart
 - id: '1730557604280'
@@ -2318,9 +2318,7 @@
     data: {}
     target:
       entity_id:
-      - light.butlers_pantry_light
       - light.kitchen_sink_light
-      - light.coat_closet_hall
     action: light.turn_on
   - type: turn_on
     device_id: 8ca1474cea6a4122af672bd220ed9ce6
@@ -2356,6 +2354,22 @@
       - light.coat_closet_hall
       - light.kitchen_sink_light
     action: light.turn_off
+  mode: single
+- id: butlers_pantry_coat_closet_night_lights
+  alias: "🌙 Butler's Pantry and Coat Closet Night Lights"
+  description: Turn both lights on when night begins. The house shutdown and vacation routine turn them off.
+  trigger:
+  - platform: state
+    entity_id: sensor.night
+    from: 'False'
+    to: 'True'
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.butlers_pantry_light
+      - light.coat_closet_hall
   mode: single
 - id: '1732742625815'
   alias: ‼️ Alarm triggered
@@ -3178,16 +3192,6 @@
     data:
       device: light.coat_closet_hall
       style: dim
-  - delay:
-      hours: 0
-      minutes: 10
-      seconds: 0
-      milliseconds: 0
-  - service: script.set_recessed_light
-    metadata: {}
-    data:
-      device: light.coat_closet_hall
-      style: 'off'
   mode: single
   id: ebfe9ea8e0ef49818c494d818278f7e5
 - id: '1736018124375'

@@ -109,21 +109,6 @@
       friendly_name: Kitchen Sink Light
       supported_features: 40
       state: 'off'
-    light.butlers_pantry_light:
-      min_color_temp_kelvin: 2000
-      max_color_temp_kelvin: 6493
-      supported_color_modes:
-      - color_temp
-      - xy
-      color_mode:
-      brightness:
-      color_temp_kelvin:
-      hs_color:
-      rgb_color:
-      xy_color:
-      friendly_name: Butlers Pantry Light
-      supported_features: 40
-      state: 'off'
     light.office_lamp_light:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6493
