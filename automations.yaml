@@ -2341,16 +2341,11 @@
   mode: single
 - id: butlers_pantry_coat_closet_night_lights
   alias: "🌙 Butler's Pantry and Coat Closet Night Lights"
-  description: Turn both lights on at sunset when not on vacation.
+  description: Turn both lights on at sunset. The vacation routine turns them off.
   trigger:
   - platform: sun
     event: sunset
-  condition:
-  - condition: not
-    conditions:
-    - condition: state
-      entity_id: input_select.house_mode
-      state: "\U0001F3DD️ Vacation"
+  condition: []
   action:
   - service: light.turn_on
     target:
