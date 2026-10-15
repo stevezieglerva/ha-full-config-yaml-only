@@ -1873,6 +1873,29 @@ input_boolean:
     initial: off
     icon: mdi:paper-roll
 
+  # Current out-of-bed switches; each source mapping is repeated in its automation.
+  vswitch_charlotte_out_of_bed:
+    name: Charlotte Out of Bed
+    initial: off
+  vswitch_owen_out_of_bed:
+    name: Owen Out of Bed
+    initial: off
+  vswitch_william_out_of_bed:
+    name: William Out of Bed
+    initial: off
+  vswitch_master_bedroom_out_of_bed:
+    name: Master Bedroom Out of Bed
+    initial: off
+
+  charlotte_out_of_bed_today:
+    name: Charlotte Out of Bed Today
+  owen_out_of_bed_today:
+    name: Owen Out of Bed Today
+  william_out_of_bed_today:
+    name: William Out of Bed Today
+  master_bedroom_out_of_bed_today:
+    name: Master Bedroom Out of Bed Today
+
   grill_heating:
     name: 🔥 Grill Heating
     initial: off
@@ -2244,6 +2267,22 @@ timer:
     icon: mdi:timer
 
 input_datetime:
+  charlotte_out_of_bed_first_triggered:
+    name: Charlotte Out of Bed First Triggered
+    has_date: false
+    has_time: true
+  owen_out_of_bed_first_triggered:
+    name: Owen Out of Bed First Triggered
+    has_date: false
+    has_time: true
+  william_out_of_bed_first_triggered:
+    name: William Out of Bed First Triggered
+    has_date: false
+    has_time: true
+  master_bedroom_out_of_bed_first_triggered:
+    name: Master Bedroom Out of Bed First Triggered
+    has_date: false
+    has_time: true
   office_most_recent_motion:
     name: Office Most Recent Motion
     has_date: true
