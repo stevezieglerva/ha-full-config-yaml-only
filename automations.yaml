@@ -7121,27 +7121,55 @@
   mode: single
 - id: night_motion_suite_lights
   alias: Master suite night lights
-  description: Controls N3, N4, and Extra night lights from combined motion
+  description: Controls N3, N4, and Extra night lights from suite motion during Late Night
   triggers:
   - platform: state
-    entity_id: binary_sensor.bedroom_night_motion
+    entity_id: binary_sensor.master_bedroom_night_light_w_n3_occupancy
     from: 'off'
     to: 'on'
-    id: motion_detected
+    id: n3_motion
+  - platform: state
+    entity_id: binary_sensor.extra_night_light_occupancy
+    from: 'off'
+    to: 'on'
+    id: extra_motion
+  - platform: state
+    entity_id: binary_sensor.master_bathroom_night_light_w_n4_occupancy
+    from: 'off'
+    to: 'on'
+    id: n4_motion
+  - platform: state
+    entity_id: binary_sensor.master_bathroom_motion_occupancy
+    from: 'off'
+    to: 'on'
+    id: bathroom_motion
   - platform: state
     entity_id: binary_sensor.bedroom_night_motion
     from: 'on'
     to: 'off'
-    for: '00:00:15'
+    for: '00:00:07'
     id: motion_cleared
   conditions: []
   actions:
   - choose:
     - conditions:
       - condition: trigger
-        id: motion_detected
+        id:
+        - n3_motion
+        - extra_motion
+        - n4_motion
+        - bathroom_motion
+      - condition: state
+        entity_id: sensor.late_night
+        state: 'True'
       sequence:
       - if:
+        - condition: trigger
+          id:
+          - n3_motion
+          - extra_motion
+          - n4_motion
+          - bathroom_motion
         - condition: numeric_state
           entity_id: sensor.master_bedroom_night_light_w_n3_illuminance
           below: 25
@@ -7152,6 +7180,11 @@
           data:
             brightness_pct: 25
       - if:
+        - condition: trigger
+          id:
+          - n3_motion
+          - n4_motion
+          - bathroom_motion
         - condition: numeric_state
           entity_id: sensor.master_bathroom_night_light_w_n4_illuminance
           below: 25
@@ -7162,6 +7195,11 @@
           data:
             brightness_pct: 25
       - if:
+        - condition: trigger
+          id:
+          - extra_motion
+          - n4_motion
+          - bathroom_motion
         - condition: numeric_state
           entity_id: sensor.extra_night_light_illuminance
           below: 25
@@ -8073,4 +8111,269 @@
     target:
       entity_id: input_boolean.vswitch_deck_light_red
     data: {}
+  mode: single
+- id: out_of_bed_charlotte_current
+  alias: Charlotte out-of-bed current indicator
+  description: "Charlotte lux source: sensor.charlotte_night_light_illuminance"
+  trigger:
+  - platform: state
+    entity_id: sensor.charlotte_night_light_illuminance
+    id: lux_changed
+  - platform: time
+    at: '06:00:00'
+    id: six_am
+  - platform: time
+    at: '06:00:01'
+    id: six_am_recheck
+  - platform: sun
+    event: sunrise
+    id: sunrise
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: sunrise
+      sequence:
+      - service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.vswitch_charlotte_out_of_bed
+    - conditions:
+      - condition: template
+        value_template: "{{ states('sensor.charlotte_night_light_illuminance') | float(0) > 15 and now().strftime('%H:%M:%S') > '06:00:00' and is_state('sun.sun', 'below_horizon') }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.vswitch_charlotte_out_of_bed
+    default:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.vswitch_charlotte_out_of_bed
+  mode: restart
+- id: out_of_bed_owen_current
+  alias: Owen out-of-bed current indicator
+  description: "Owen lux source: sensor.owen_night_light_illuminance_2"
+  trigger:
+  - platform: state
+    entity_id: sensor.owen_night_light_illuminance_2
+    id: lux_changed
+  - platform: time
+    at: '06:00:00'
+    id: six_am
+  - platform: time
+    at: '06:00:01'
+    id: six_am_recheck
+  - platform: sun
+    event: sunrise
+    id: sunrise
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: sunrise
+      sequence:
+      - service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.vswitch_owen_out_of_bed
+    - conditions:
+      - condition: template
+        value_template: "{{ states('sensor.owen_night_light_illuminance_2') | float(0) > 15 and now().strftime('%H:%M:%S') > '06:00:00' and is_state('sun.sun', 'below_horizon') }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.vswitch_owen_out_of_bed
+    default:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.vswitch_owen_out_of_bed
+  mode: restart
+- id: out_of_bed_william_current
+  alias: William out-of-bed current indicator
+  description: "William lux source: sensor.william_night_light_illuminance"
+  trigger:
+  - platform: state
+    entity_id: sensor.william_night_light_illuminance
+    id: lux_changed
+  - platform: time
+    at: '06:00:00'
+    id: six_am
+  - platform: time
+    at: '06:00:01'
+    id: six_am_recheck
+  - platform: sun
+    event: sunrise
+    id: sunrise
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: sunrise
+      sequence:
+      - service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.vswitch_william_out_of_bed
+    - conditions:
+      - condition: template
+        value_template: "{{ states('sensor.william_night_light_illuminance') | float(0) > 15 and now().strftime('%H:%M:%S') > '06:00:00' and is_state('sun.sun', 'below_horizon') }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.vswitch_william_out_of_bed
+    default:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.vswitch_william_out_of_bed
+  mode: restart
+- id: out_of_bed_master_bedroom_current
+  alias: Master Bedroom out-of-bed current indicator
+  description: "Master Bedroom lux source: sensor.extra_night_light_illuminance"
+  trigger:
+  - platform: state
+    entity_id: sensor.extra_night_light_illuminance
+    id: lux_changed
+  - platform: time
+    at: '06:00:00'
+    id: six_am
+  - platform: time
+    at: '06:00:01'
+    id: six_am_recheck
+  - platform: sun
+    event: sunrise
+    id: sunrise
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: sunrise
+      sequence:
+      - service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.vswitch_master_bedroom_out_of_bed
+    - conditions:
+      - condition: template
+        value_template: "{{ states('sensor.extra_night_light_illuminance') | float(0) > 15 and now().strftime('%H:%M:%S') > '06:00:00' and is_state('sun.sun', 'below_horizon') }}"
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.vswitch_master_bedroom_out_of_bed
+    default:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.vswitch_master_bedroom_out_of_bed
+  mode: restart
+- id: out_of_bed_daily_latches
+  alias: Record first daily out-of-bed time
+  description: Latch each room's first current-indicator transition after 06:00
+  trigger:
+  - platform: state
+    entity_id: input_boolean.vswitch_charlotte_out_of_bed
+    from: 'off'
+    to: 'on'
+    id: charlotte
+  - platform: state
+    entity_id: input_boolean.vswitch_owen_out_of_bed
+    from: 'off'
+    to: 'on'
+    id: owen
+  - platform: state
+    entity_id: input_boolean.vswitch_william_out_of_bed
+    from: 'off'
+    to: 'on'
+    id: william
+  - platform: state
+    entity_id: input_boolean.vswitch_master_bedroom_out_of_bed
+    from: 'off'
+    to: 'on'
+    id: master_bedroom
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: charlotte
+      - condition: state
+        entity_id: input_boolean.charlotte_out_of_bed_today
+        state: 'off'
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.charlotte_out_of_bed_today
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.charlotte_out_of_bed_first_triggered
+        data:
+          time: "{{ now().strftime('%H:%M:%S') }}"
+    - conditions:
+      - condition: trigger
+        id: owen
+      - condition: state
+        entity_id: input_boolean.owen_out_of_bed_today
+        state: 'off'
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.owen_out_of_bed_today
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.owen_out_of_bed_first_triggered
+        data:
+          time: "{{ now().strftime('%H:%M:%S') }}"
+    - conditions:
+      - condition: trigger
+        id: william
+      - condition: state
+        entity_id: input_boolean.william_out_of_bed_today
+        state: 'off'
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.william_out_of_bed_today
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.william_out_of_bed_first_triggered
+        data:
+          time: "{{ now().strftime('%H:%M:%S') }}"
+    - conditions:
+      - condition: trigger
+        id: master_bedroom
+      - condition: state
+        entity_id: input_boolean.master_bedroom_out_of_bed_today
+        state: 'off'
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.master_bedroom_out_of_bed_today
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.master_bedroom_out_of_bed_first_triggered
+        data:
+          time: "{{ now().strftime('%H:%M:%S') }}"
+  mode: queued
+- id: out_of_bed_daily_reset
+  alias: Reset daily out-of-bed indicators
+  description: Reset daily latches and first-trigger times at midnight
+  trigger:
+  - platform: time
+    at: '00:00:00'
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    target:
+      entity_id:
+      - input_boolean.charlotte_out_of_bed_today
+      - input_boolean.owen_out_of_bed_today
+      - input_boolean.william_out_of_bed_today
+      - input_boolean.master_bedroom_out_of_bed_today
+  - service: input_datetime.set_datetime
+    target:
+      entity_id:
+      - input_datetime.charlotte_out_of_bed_first_triggered
+      - input_datetime.owen_out_of_bed_first_triggered
+      - input_datetime.william_out_of_bed_first_triggered
+      - input_datetime.master_bedroom_out_of_bed_first_triggered
+    data:
+      time: '00:00:00'
   mode: single
