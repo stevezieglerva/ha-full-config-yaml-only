@@ -1889,16 +1889,12 @@ input_boolean:
 
   charlotte_out_of_bed_today:
     name: Charlotte Out of Bed Today
-    initial: off
   owen_out_of_bed_today:
     name: Owen Out of Bed Today
-    initial: off
   william_out_of_bed_today:
     name: William Out of Bed Today
-    initial: off
   master_bedroom_out_of_bed_today:
     name: Master Bedroom Out of Bed Today
-    initial: off
 
   grill_heating:
     name: 🔥 Grill Heating

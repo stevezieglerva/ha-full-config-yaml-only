@@ -8128,6 +8128,9 @@
   - platform: sun
     event: sunrise
     id: sunrise
+  - platform: homeassistant
+    event: start
+    id: homeassistant_start
   condition: []
   action:
   - choose:
@@ -8166,6 +8169,9 @@
   - platform: sun
     event: sunrise
     id: sunrise
+  - platform: homeassistant
+    event: start
+    id: homeassistant_start
   condition: []
   action:
   - choose:
@@ -8204,6 +8210,9 @@
   - platform: sun
     event: sunrise
     id: sunrise
+  - platform: homeassistant
+    event: start
+    id: homeassistant_start
   condition: []
   action:
   - choose:
@@ -8242,6 +8251,9 @@
   - platform: sun
     event: sunrise
     id: sunrise
+  - platform: homeassistant
+    event: start
+    id: homeassistant_start
   condition: []
   action:
   - choose:
@@ -8298,14 +8310,14 @@
         entity_id: input_boolean.charlotte_out_of_bed_today
         state: 'off'
       sequence:
-      - service: input_boolean.turn_on
-        target:
-          entity_id: input_boolean.charlotte_out_of_bed_today
       - service: input_datetime.set_datetime
         target:
           entity_id: input_datetime.charlotte_out_of_bed_first_triggered
         data:
           time: "{{ now().strftime('%H:%M:%S') }}"
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.charlotte_out_of_bed_today
     - conditions:
       - condition: trigger
         id: owen
@@ -8313,14 +8325,14 @@
         entity_id: input_boolean.owen_out_of_bed_today
         state: 'off'
       sequence:
-      - service: input_boolean.turn_on
-        target:
-          entity_id: input_boolean.owen_out_of_bed_today
       - service: input_datetime.set_datetime
         target:
           entity_id: input_datetime.owen_out_of_bed_first_triggered
         data:
           time: "{{ now().strftime('%H:%M:%S') }}"
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.owen_out_of_bed_today
     - conditions:
       - condition: trigger
         id: william
@@ -8328,14 +8340,14 @@
         entity_id: input_boolean.william_out_of_bed_today
         state: 'off'
       sequence:
-      - service: input_boolean.turn_on
-        target:
-          entity_id: input_boolean.william_out_of_bed_today
       - service: input_datetime.set_datetime
         target:
           entity_id: input_datetime.william_out_of_bed_first_triggered
         data:
           time: "{{ now().strftime('%H:%M:%S') }}"
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.william_out_of_bed_today
     - conditions:
       - condition: trigger
         id: master_bedroom
@@ -8343,14 +8355,14 @@
         entity_id: input_boolean.master_bedroom_out_of_bed_today
         state: 'off'
       sequence:
-      - service: input_boolean.turn_on
-        target:
-          entity_id: input_boolean.master_bedroom_out_of_bed_today
       - service: input_datetime.set_datetime
         target:
           entity_id: input_datetime.master_bedroom_out_of_bed_first_triggered
         data:
           time: "{{ now().strftime('%H:%M:%S') }}"
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.master_bedroom_out_of_bed_today
   mode: queued
 - id: out_of_bed_daily_reset
   alias: Reset daily out-of-bed indicators
